@@ -102,17 +102,17 @@ Release Branch 금지 변경:
 
 ## GitHub Repository Rules
 
-첫 CI가 실행된 뒤 GitHub의 `main` ruleset에 다음 항목을 설정합니다.
+PR #1의 첫 CI 실행 후 GitHub에 다음 보호 규칙을 활성화했습니다.
 
-- Pull request 필수
-- `Validate Expo app` status check 필수
-- 대화 해결 필수
-- Force push와 branch 삭제 금지
-- Squash merge 사용
+- `main`: Pull request 필수, 승인 0명, squash merge만 허용
+- `main`: 최신 branch 기준 `Validate Expo app` status check 필수
+- `main`: 대화 해결과 linear history 필수
+- `main`: 관리자 포함 force push와 branch 삭제 금지
+- `release/*`: Pull request 필수, 승인 0명, squash merge만 허용
+- `release/*`: 대화 해결, force push와 branch 삭제 금지
 
-`release/*` ruleset에는 직접 push 제한과 force push·삭제 금지를 적용하되, Weekly
-Release Cut workflow가 branch를 생성할 수 있도록 `GITHUB_TOKEN` 쓰기 권한을
-허용합니다.
+Weekly Release Cut workflow가 새 branch를 만들 수 있도록 branch 생성 자체는 막지
+않고 `GITHUB_TOKEN`에는 해당 workflow에서만 `contents: write`를 부여합니다.
 
 ## 현재 적용 범위
 
