@@ -6,6 +6,7 @@
 
 - Issue: <!-- 예: Closes #12 또는 N/A -->
 - Harness Run: <!-- 예: docs/harness/runs/002-example.md 또는 N/A -->
+- Learning Note: <!-- 예: docs/learning/m0-foundation/README.md 또는 N/A -->
 
 ## 변경 유형
 

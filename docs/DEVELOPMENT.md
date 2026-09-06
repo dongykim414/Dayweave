@@ -48,5 +48,8 @@ test script를 만들지 않습니다. UI 변경 PR은 가능한 플랫폼의 �
 않은 의존 작업은 일시적으로 선행 branch를 base로 하는 stacked PR을 허용하며,
 선행 PR merge 직후 `main`으로 rebase 또는 retarget합니다.
 
+기능·아키텍처·도구 선택이 있는 PR은 `docs/learning`의 관련 문서를 추가하거나
+갱신합니다. 무엇을 했는지뿐 아니라 선택 이유, 대안, 비용과 직접 확인 방법을 남깁니다.
+
 상세한 branch 규칙, CI gate와 주간 release cut은
 [`process/development-and-release.md`](process/development-and-release.md)에 있습니다.

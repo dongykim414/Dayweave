@@ -144,5 +144,10 @@ See `docs/process/development-and-release.md` for the active process.
 - State scope, exclusions, assumptions, plan, and changed files before implementation.
 - Distinguish observed evidence from inference.
 - Record commands and results in `docs/harness/runs` using the run-log template.
+- Every non-trivial feature, architecture, tooling, or milestone PR must add or update a
+  note under `docs/learning`. Explain what changed, why it was needed, alternatives,
+  trade-offs, verification steps, and concepts a developer should learn.
+- Keep learning notes focused on reusable understanding. Trivial text corrections and
+  mechanical maintenance do not require a new long-form guide.
 - Promote a lesson into this file, CI, or tests only after it is broadly reusable or a
   repeated failure proves the need.

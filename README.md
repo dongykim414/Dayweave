@@ -72,4 +72,5 @@ pnpm build:web
 - `docs/ARCHITECTURE.md`: 폴더 책임과 의존성 방향
 - `docs/DEVELOPMENT.md`: 로컬 개발과 검증 명령
 - `docs/ROADMAP.md`: 마일스톤과 명시적 보류 범위
+- [`docs/learning/`](docs/learning/README.md): 작업과 의사결정을 설명하는 학습 가이드
 - `AGENTS.md`: AI Agent가 항상 지킬 저장소 규칙
