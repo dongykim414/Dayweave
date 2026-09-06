@@ -13,9 +13,12 @@
 
 - Install: `npm install`
 - Development: `npm run dev`
+- Android: `npm run android`
+- iOS: `npm run ios`
+- Web: `npm run web`
 - Lint: `npm run lint`
 - Typecheck: `npm run typecheck`
-- Build: `npm run build`
+- Web export: `npm run build:web`
 
 ## Working rules
 
@@ -23,7 +26,9 @@
 - 요청 범위에 필요한 파일만 수정합니다.
 - 의존성을 추가하기 전에 필요성과 대안을 설명합니다.
 - TypeScript의 `any` 사용을 피하고 명시적인 타입을 사용합니다.
-- 컴포넌트 전용 스타일에는 CSS Modules를 사용합니다.
+- 화면과 컴포넌트는 React Native 기본 컴포넌트와 `StyleSheet`를 우선 사용합니다.
+- 라우트는 `src/app`의 Expo Router 파일 기반 구조를 따릅니다.
+- Expo SDK 패키지는 `npx expo install`로 호환 버전을 설치합니다.
 - 사용자 요청 없이 외부 서비스 연결이나 외부 쓰기 작업을 수행하지 않습니다.
 
 ## Observation and reporting
@@ -38,5 +43,6 @@
 - 관련 동작이 요청의 인수 조건을 만족합니다.
 - 최소한 `npm run lint`를 실행합니다.
 - TypeScript 코드 변경 시 `npm run typecheck`를 실행합니다.
-- 애플리케이션 동작 또는 설정 변경 시 `npm run build`를 실행합니다.
+- 앱 동작 또는 설정 변경 시 `npm run build:web`을 실행합니다.
+- 네이티브 기기 동작이 관련된 변경은 확인한 플랫폼과 확인하지 못한 플랫폼을 구분해 기록합니다.
 - 실패한 검증을 숨기지 않고 원인과 현재 상태를 기록합니다.

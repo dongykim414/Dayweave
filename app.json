@@ -1,0 +1,19 @@
+{
+  "expo": {
+    "name": "Dayweave",
+    "slug": "dayweave",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "dayweave",
+    "userInterfaceStyle": "automatic",
+    "plugins": ["expo-router"],
+    "web": {
+      "bundler": "metro",
+      "output": "static"
+    },
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    }
+  }
+}

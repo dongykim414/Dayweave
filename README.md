@@ -8,7 +8,9 @@ Dayweave는 일·주·월 단위로 Todo와 일정을 관리하는 다이어리�
 
 ## 현재 단계
 
-- Next.js 기본 프로젝트 구성
+- React Native + Expo SDK 57 기본 프로젝트 구성
+- Expo Router 기반 파일 라우팅 구성
+- Android, iOS, Web 개발 환경 구성
 - Harness v0 및 관찰 프로토콜 구성
 - 다이어리 MVP 구현 전
 
@@ -21,14 +23,25 @@ npm install
 npm run dev
 ```
 
-브라우저에서 [http://localhost:3000](http://localhost:3000)을 엽니다.
+개발 서버에 표시되는 QR 코드를 Expo Go로 스캔하거나 다음 명령으로 플랫폼을
+선택합니다.
+
+```bash
+npm run android
+npm run ios
+npm run web
+```
+
+Windows에서는 Android 기기·에뮬레이터와 Web을 실행할 수 있습니다. iOS 네이티브
+시뮬레이터·로컬 빌드는 macOS가 필요하지만, 실제 iPhone의 Expo Go를 이용한 개발은
+가능합니다.
 
 ## 검증 명령
 
 ```bash
 npm run lint
 npm run typecheck
-npm run build
+npm run build:web
 ```
 
 ## AI 작업 관찰 방법
@@ -56,9 +69,10 @@ docs/harness/runs/                실제 실행 기록
 
 ## 기술 스택
 
-- Next.js App Router
-- React
+- React Native
+- Expo SDK 57
+- Expo Router
 - TypeScript strict mode
-- CSS Modules
+- React Native StyleSheet
 - ESLint
 - npm
