@@ -58,6 +58,7 @@ lint, typecheck와 Expo 실행을 검증한다.
 | `EXPO_OFFLINE=1 pnpm deps:check` | 성공·주의 | 호환 버전 확인, sandbox의 사용자 Expo cache 제한 때문에 offline 사용 |
 | `pnpm build:web` | 성공 | `/today`, `/timeline`, `/avatar`, `/me` 포함 static route 11개 생성 |
 | `pnpm dev -- --offline` | 성공·주의 | Metro가 `http://localhost:8081`에서 대기; DevTools 설치만 sandbox spawn 제한 |
+| GitHub `Validate Expo app` | 성공 | PR #2에서 1분 3초, required workflow 종료 코드 0 |
 | HEX 검색 | 성공 | `src/features/theme/themes/sky.ts` 외 UI HEX 없음 |
 | 범위 밖 의존성 검색 | 성공 | SQLite, Zustand, Query, Supabase, RevenueCat, Reanimated 등 미설치 |
 | Android 실행 | 미실행 | Android SDK, `adb`, emulator와 연결 기기 없음 |
