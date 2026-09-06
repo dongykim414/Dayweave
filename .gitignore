@@ -3,6 +3,7 @@
 # dependencies
 node_modules/
 .npm-cache/
+.pnpm-store/
 
 # testing
 coverage/
@@ -36,6 +37,7 @@ expo-env.d.ts
 .DS_Store
 *.pem
 npm-debug.*
+pnpm-debug.log*
 yarn-debug.*
 yarn-error.*
 

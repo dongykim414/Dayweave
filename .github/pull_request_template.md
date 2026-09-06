@@ -16,10 +16,10 @@
 
 ## 검증
 
-- [ ] `npm run deps:check`
-- [ ] `npm run lint`
-- [ ] `npm run typecheck`
-- [ ] `npm run build:web`
+- [ ] `pnpm deps:check`
+- [ ] `pnpm lint`
+- [ ] `pnpm typecheck`
+- [ ] `pnpm build:web`
 - [ ] 변경과 관련된 추가 테스트 또는 수동 확인
 
 ## UI 증거

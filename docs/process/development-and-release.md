@@ -39,21 +39,23 @@ branch입니다. 여러 작업의 충돌은 PR과 CI에서 먼저 발견하고, 
 Branch 이름:
 
 ```text
-codex/feat/CAL-001-month-view
-codex/fix/CAL-014-invalid-time-range
+codex/feat/DIA-001-today-entry
+codex/fix/DIA-014-entry-date
 codex/chore/DEV-003-ci-workflow
 release/2026-W37
 ```
 
 ## Pull Request Gate
 
-모든 PR은 `main`을 대상으로 하고 다음 검사를 통과해야 합니다.
+일반 PR은 `main`을 대상으로 합니다. 선행 PR이 아직 merge되지 않은 의존 작업은
+일시적으로 해당 branch를 base로 한 stacked PR을 허용하고, 선행 PR merge 직후
+`main`으로 rebase 또는 retarget합니다. 모든 PR은 다음 검사를 통과해야 합니다.
 
-1. `npm ci`
-2. `npm run deps:check`
-3. `npm run lint`
-4. `npm run typecheck`
-5. `npm run build:web`
+1. `pnpm install --frozen-lockfile`
+2. `pnpm deps:check`
+3. `pnpm lint`
+4. `pnpm typecheck`
+5. `pnpm build:web`
 6. 변경 내용과 증거 확인
 7. 리뷰 의견 해결
 
