@@ -39,10 +39,20 @@ Windows에서는 Android 기기·에뮬레이터와 Web을 실행할 수 있습�
 ## 검증 명령
 
 ```bash
+npm run deps:check
 npm run lint
 npm run typecheck
 npm run build:web
 ```
+
+## 개발 및 릴리스 프로세스
+
+- 활성 프로세스: [`docs/process/development-and-release.md`](docs/process/development-and-release.md)
+- 단계적 도입 항목: [`docs/process/deferred-capabilities.md`](docs/process/deferred-capabilities.md)
+
+모든 변경은 short-lived branch와 PR을 거쳐 `main`에 합칩니다. 매주 수요일
+18:00 KST에 `main`에서 `release/YYYY-Www` branch를 자동 생성하고, 해당 branch에는
+안정화 수정만 허용합니다.
 
 ## AI 작업 관찰 방법
 

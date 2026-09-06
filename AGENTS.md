@@ -16,6 +16,7 @@
 - Android: `npm run android`
 - iOS: `npm run ios`
 - Web: `npm run web`
+- Dependency check: `npm run deps:check`
 - Lint: `npm run lint`
 - Typecheck: `npm run typecheck`
 - Web export: `npm run build:web`
@@ -31,6 +32,15 @@
 - Expo SDK 패키지는 `npx expo install`로 호환 버전을 설치합니다.
 - 사용자 요청 없이 외부 서비스 연결이나 외부 쓰기 작업을 수행하지 않습니다.
 
+## Git and pull requests
+
+- `main`에 직접 push하지 않고 short-lived branch에서 PR을 만듭니다.
+- Codex가 만드는 branch는 `codex/feat/*`, `codex/fix/*`, `codex/chore/*` 형식을 우선 사용합니다.
+- 하나의 PR은 독립적으로 검증 가능한 하나의 논리적 변경만 포함합니다.
+- PR에는 변경 목적, 검증 결과, UI 변경 증거, 위험과 되돌리기 방법을 기록합니다.
+- 필수 CI가 통과하고 리뷰 의견이 해결된 뒤 squash merge합니다.
+- `release/*` branch에는 신규 기능을 추가하지 않고 blocker·regression·crash 수정과 release metadata만 반영합니다.
+
 ## Observation and reporting
 
 - 관찰 작업은 `docs/harness/observation-protocol.md`를 따릅니다.
@@ -41,6 +51,7 @@
 ## Definition of done
 
 - 관련 동작이 요청의 인수 조건을 만족합니다.
+- `npm run deps:check`를 실행합니다.
 - 최소한 `npm run lint`를 실행합니다.
 - TypeScript 코드 변경 시 `npm run typecheck`를 실행합니다.
 - 앱 동작 또는 설정 변경 시 `npm run build:web`을 실행합니다.
