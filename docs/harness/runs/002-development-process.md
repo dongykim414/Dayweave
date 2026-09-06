@@ -59,6 +59,7 @@
 | `npm run build:web` | 성공 | Metro 775개 모듈 번들링, 정적 라우트 3개 생성 |
 | Workflow YAML 검사 | 성공 | `yaml` parser가 두 파일의 `on`, `jobs`와 job 이름을 정상 파싱 |
 | `git diff --check` | 성공 | 공백 오류 없음 |
+| PR #1 `Validate Expo app` | 성공 | 깨끗한 Ubuntu 환경에서 전체 PR Gate를 1분 5초에 통과 |
 
 ### 실패 대응
 
@@ -69,8 +70,8 @@
 
 ## 완료 판단
 
-- 완료 근거: 필수 로컬 명령, Web bundle과 두 Workflow의 YAML 구조 검증 성공
-- 실행하지 않은 검증: GitHub Actions 실제 실행은 PR 생성 후 확인
+- 완료 근거: 로컬 검사, Web bundle, Workflow YAML과 PR #1의 전체 CI 검증 성공
+- 실행하지 않은 검증: Android·iOS 실제 기기와 Release Cut의 예약 실행 시점은 아직 도래하지 않음
 - 남은 위험: Repository Rules는 첫 status check가 등록된 뒤 GitHub 설정에서 활성화 필요
 
 ## 하네스 후보
