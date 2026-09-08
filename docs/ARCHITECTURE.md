@@ -129,6 +129,33 @@ Timeline Preview
 - Timeline은 focus될 때 visible month를 다시 조회하므로 전역 cache나 invalidation
   library 없이 수정·삭제 결과를 반영합니다.
 
+## M5 Avatar engine
+
+```text
+AvatarScreen
+  → useAvatar
+    ├─ Catalog → default Ownership → Selection
+    └─ AvatarRepository
+       ├─ Android/iOS: SQLiteAvatarRepository → avatar_config
+       └─ Web: LocalStorageAvatarRepository
+  → AvatarRenderer → Avatar Visual Registry
+```
+
+- `AvatarConfig`에는 `bodyId`, `hairId`, `topId`, `bottomId`, nullable
+  `accessoryId`만 저장합니다. visual color, primitive 또는 미래 asset URI는 저장하지
+  않습니다.
+- Catalog는 앱에 존재하는 item, Ownership은 사용 가능한 ID 집합, Selection은 현재
+  config입니다. M5에서는 모든 기본 Catalog item을 static ownership으로 제공합니다.
+- Renderer는 repository와 ownership을 모르며 registry에서 config를 layer 목록으로
+  해석합니다. 현재 320×320 code-native placeholder는 같은 registry 자리를 미래의
+  static PNG mapping으로 교체할 수 있습니다.
+- Native schema v3는 `singleton_key = 'current'` CHECK와 primary key로 현재 config
+  한 row만 유지합니다. Web은 localStorage의 단일 key로 같은 contract를 구현합니다.
+- 선택은 즉시 preview에 반영되고 write queue가 순서대로 저장합니다. 실패 시 마지막으로
+  성공한 persisted config로 rollback해 빠른 연속 선택에도 DB와 UI가 엇갈리지 않습니다.
+- 저장 ID가 Catalog에서 사라지면 resolver가 해당 slot만 default로 복구하고, 초기 load가
+  복구된 config를 다시 저장합니다.
+
 ## 확장 경계
 
 ### Mood
@@ -143,8 +170,9 @@ Timeline Preview
 
 ### Avatar
 
-Avatar는 `body`, `hair`, `top`, `bottom`, `accessory` part ID로 구성합니다. 한 장의
-합쳐진 캐릭터 이미지로 도메인 모델을 대체하지 않습니다.
+Avatar는 `body`, `hair`, `top`, `bottom`, `accessory` part ID로 구성합니다. Hair
+선택 하나가 registry에서 back/front layer로 분리되며 한 장의 합쳐진 캐릭터 이미지로
+도메인 모델을 대체하지 않습니다.
 
 ### 상품화
 

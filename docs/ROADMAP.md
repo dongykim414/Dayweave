@@ -30,9 +30,11 @@ Entry ID 기반 상세 조회, 전체 내용 보기, Mood·텍스트·사진 수
 Timeline 재조회 흐름을 구현했습니다. 실제 Android에서 DB/file lifecycle과 CASE 1~20을
 검증하면 단계가 완료됩니다.
 
-## M5 Personalization
+## M5 Avatar Engine — 구현 완료, MVP 통합 QA 대기
 
-Theme, Mood Pack, 기본 Avatar 파츠의 선택과 persistence를 구현합니다.
+Catalog·Ownership·Selection, Hair/Top/Bottom/Accessory 선택, 6단계 layered renderer와
+single-row persistence를 구현했습니다. 실제 Android 수동 검증은 MVP 직전 통합 QA에서
+M2~M5 항목과 함께 수행합니다. Theme과 Mood Pack 선택은 후속 작업입니다.
 
 ## M6 Quality
 

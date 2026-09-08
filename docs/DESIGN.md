@@ -67,3 +67,14 @@ M0는 차분한 하늘색 계열의 `Sky`를 유일한 실행 테마로 사용�
   전달되는 label을 사용합니다.
 - 작은 화면에서 상세와 editor 전체에 접근할 수 있도록 하나의 세로 ScrollView와
   `KeyboardAvoidingView`를 사용합니다.
+
+## Avatar
+
+- Preview는 고정 비율 320×320 좌표계의 파츠를 한 화면에 합성합니다.
+- layer 순서는 `hairBack → body → bottom → top → hairFront → accessory`입니다.
+- 카테고리는 가로 scroll pill, owned item은 가로 card로 표시해 작은 화면에서도
+  Preview와 selector를 세로로 탐색할 수 있게 합니다.
+- 선택 card는 `primarySoft` 배경과 `primary` border를 사용하며 UI에 직접 HEX를
+  작성하지 않습니다. 코드 기반 placeholder의 색은 asset 역할을 하는 registry 한 곳에
+  정의합니다.
+- 현재 placeholder는 구조 검증용이며 최종 캐릭터 디자인으로 간주하지 않습니다.

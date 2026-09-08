@@ -7,7 +7,7 @@ Avatar, 클라우드 동기화와 일정·SNS 연결을 단계적으로 추가�
 이 저장소는 제품 개발과 함께 AI 코딩 Agent의 작업을 관찰하고 반복되는 실패를
 문서·검증·자동화로 줄이는 Harness Engineering 실험을 기록합니다.
 
-## 현재 단계: M4 Diary Detail
+## 현재 단계: M5 Avatar Engine
 
 현재 기준 버전은 `v0.1.0` Foundation pre-release입니다. 버전별 변경은
 [`CHANGELOG.md`](CHANGELOG.md), 버전 선택과 릴리스 규칙은
@@ -27,6 +27,9 @@ Avatar, 클라우드 동기화와 일정·SNS 연결을 단계적으로 추가�
 - 안정적인 Entry ID 기반 상세 조회와 전체 내용 표시
 - Mood·한 줄·긴 글·사진 수정, 미저장 변경 확인과 빈 기록 저장 방지
 - 확인 절차가 있는 Diary 삭제와 DB 성공 후 사진 파일 정리
+- Catalog·기본 Ownership·현재 Selection이 분리된 Avatar domain
+- Hair·Top·Bottom·Accessory 파츠 선택과 6단계 layered renderer
+- SQLite v3 single-row Avatar config 및 Web preview persistence
 - 월 범위 1회 조회와 domain·날짜·validation·row mapping 자동 테스트
 - 카메라·다중 사진, 검색·공유와 클라우드 동기화는 아직 구현하지 않음
 

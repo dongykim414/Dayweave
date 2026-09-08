@@ -59,5 +59,23 @@ export async function migrateDatabase(
       `);
       await database.execAsync("PRAGMA user_version = 2");
     });
+    currentVersion = 2;
+  }
+
+  if (currentVersion === 2) {
+    await database.withTransactionAsync(async () => {
+      await database.execAsync(`
+        CREATE TABLE avatar_config (
+          singleton_key TEXT PRIMARY KEY NOT NULL CHECK (singleton_key = 'current'),
+          body_id TEXT NOT NULL,
+          hair_id TEXT NOT NULL,
+          top_id TEXT NOT NULL,
+          bottom_id TEXT NOT NULL,
+          accessory_id TEXT,
+          updated_at TEXT NOT NULL
+        );
+      `);
+      await database.execAsync("PRAGMA user_version = 3");
+    });
   }
 }
