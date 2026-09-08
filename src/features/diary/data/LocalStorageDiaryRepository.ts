@@ -76,6 +76,28 @@ export class LocalStorageDiaryRepository implements DiaryRepository {
     return { entry, photo: photos[entry.id] ?? null };
   }
 
+  async listRecordsByDateRange(
+    startInclusive: DiaryDateKey,
+    endExclusive: DiaryDateKey,
+  ): Promise<DiaryRecord[]> {
+    if (startInclusive >= endExclusive) {
+      throw new Error("Diary date range must have an exclusive end after its start");
+    }
+
+    const entries = parseEntries(this.storage.getItem(WEB_DIARY_STORAGE_KEY));
+    const photos = parsePhotos(
+      this.storage.getItem(WEB_DIARY_PHOTO_STORAGE_KEY),
+    );
+
+    return Object.values(entries)
+      .filter(
+        (entry) =>
+          entry.entryDate >= startInclusive && entry.entryDate < endExclusive,
+      )
+      .sort((left, right) => left.entryDate.localeCompare(right.entryDate))
+      .map((entry) => ({ entry, photo: photos[entry.id] ?? null }));
+  }
+
   async upsert(entry: DiaryEntry): Promise<void> {
     const entries = parseEntries(this.storage.getItem(WEB_DIARY_STORAGE_KEY));
 

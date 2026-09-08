@@ -62,6 +62,11 @@ M1부터 Jest와 `jest-expo`로 순수 domain, 날짜, Mood registry와 DB row m
   emulator에서 DB row와 파일 개수를 함께 확인하는 것입니다.
 - Web preview에서는 M2 사진 선택을 지원하지 않으며 base64나 picker 임시 URI를
   localStorage에 저장하지 않습니다.
+- Timeline 월 조회는 `>= YYYY-MM-01`과 `< 다음 달 YYYY-MM-01` 범위를 사용합니다.
+  Native는 한 번의 `LEFT JOIN`, Web preview는 한 번씩 읽은 entry/photo collection의
+  범위 filter로 같은 repository contract를 구현합니다.
+- 달력·월 경계·윤년·범위 query는 `pnpm test`로 검증합니다. 실제 사진 marker,
+  작은 화면과 앱 재실행은 Android 기기 또는 emulator에서 별도로 확인합니다.
 
 ## PR과 Release
 

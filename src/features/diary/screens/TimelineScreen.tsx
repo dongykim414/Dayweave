@@ -1,26 +1,104 @@
-import { View } from "react-native";
+import { ActivityIndicator, ScrollView, View } from "react-native";
 
+import { CalendarGrid } from "@/features/diary/components/CalendarGrid";
+import { DiaryPreviewCard } from "@/features/diary/components/DiaryPreviewCard";
+import { TimelineHeader } from "@/features/diary/components/TimelineHeader";
+import { useTimeline } from "@/features/diary/hooks/useTimeline";
 import { useTheme } from "@/features/theme";
-import { AppCard, AppScreen, AppText } from "@/shared/components";
+import { AppButton, AppCard, AppScreen, AppText } from "@/shared/components";
 
 export default function TimelineScreen() {
   const { theme } = useTheme();
+  const {
+    calendarCells,
+    error,
+    loading,
+    monthlyRecords,
+    moveMonth,
+    recordsByDate,
+    retry,
+    selectDate,
+    selectedDate,
+    selectedRecord,
+    todayKey,
+    visibleYearMonth,
+  } = useTimeline();
 
   return (
-    <AppScreen contentStyle={{ gap: theme.spacing.xl }}>
-      <View style={{ gap: theme.spacing.sm }}>
-        <AppText variant="title">타임라인</AppText>
-        <AppText color="textSecondary">
-          쌓인 기록을 날짜별로 돌아보는 공간이에요.
-        </AppText>
-      </View>
+    <AppScreen contentStyle={{ paddingVertical: 0 }}>
+      <ScrollView
+        contentContainerStyle={{
+          gap: theme.spacing.lg,
+          paddingBottom: theme.spacing.xl,
+          paddingTop: theme.spacing.xl,
+        }}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={{ gap: theme.spacing.sm }}>
+          <AppText color="primary" variant="label">
+            TIMELINE
+          </AppText>
+          <AppText variant="title">기록 돌아보기</AppText>
+          <AppText color="textSecondary">
+            날짜를 골라 그날의 마음과 이야기를 천천히 다시 만나보세요.
+          </AppText>
+        </View>
 
-      <AppCard style={{ gap: theme.spacing.sm }}>
-        <AppText variant="heading">아직 기록이 없어요</AppText>
-        <AppText color="textSecondary">
-          달력과 기록 목록은 Diary Core 이후 연결됩니다.
-        </AppText>
-      </AppCard>
+        <AppCard style={{ gap: theme.spacing.md, padding: theme.spacing.md }}>
+          <TimelineHeader
+            onNext={() => moveMonth(1)}
+            onPrevious={() => moveMonth(-1)}
+            yearMonth={visibleYearMonth}
+          />
+          <CalendarGrid
+            cells={calendarCells}
+            onSelect={selectDate}
+            recordsByDate={recordsByDate}
+            selectedDate={selectedDate}
+          />
+
+          {loading ? (
+            <View
+              accessibilityLabel="월간 기록을 불러오는 중"
+              style={{
+                alignItems: "center",
+                flexDirection: "row",
+                gap: theme.spacing.sm,
+                justifyContent: "center",
+                minHeight: 24,
+              }}
+            >
+              <ActivityIndicator color={theme.colors.primary} size="small" />
+              <AppText color="textSecondary" variant="caption">
+                기록을 불러오고 있어요.
+              </AppText>
+            </View>
+          ) : monthlyRecords.length === 0 && !error ? (
+            <AppText
+              color="textSecondary"
+              style={{ textAlign: "center" }}
+              variant="caption"
+            >
+              이번 달에는 아직 기록이 없어요.
+            </AppText>
+          ) : null}
+        </AppCard>
+
+        {error ? (
+          <AppCard style={{ gap: theme.spacing.md }}>
+            <AppText accessibilityRole="alert" color="danger">
+              {error}
+            </AppText>
+            <AppButton label="다시 시도" onPress={retry} variant="secondary" />
+          </AppCard>
+        ) : loading ? null : (
+          <DiaryPreviewCard
+            record={selectedRecord}
+            selectedDate={selectedDate}
+            todayDate={todayKey}
+          />
+        )}
+      </ScrollView>
     </AppScreen>
   );
 }

@@ -82,4 +82,35 @@ describe("LocalStorageDiaryRepository", () => {
       photo: null,
     });
   });
+
+  it("lists only records inside an inclusive-exclusive date range", async () => {
+    const storage = new MemoryStorage();
+    const repository = new LocalStorageDiaryRepository(storage);
+    const previousMonth = {
+      ...entry,
+      id: "entry-august",
+      entryDate: "2026-08-31",
+    };
+    const nextMonth = {
+      ...entry,
+      id: "entry-october",
+      entryDate: "2026-10-01",
+    };
+
+    await repository.upsertRecord(previousMonth, null);
+    await repository.upsertRecord(entry, photo);
+    await repository.upsertRecord(nextMonth, null);
+
+    await expect(
+      repository.listRecordsByDateRange("2026-09-01", "2026-10-01"),
+    ).resolves.toEqual([{ entry, photo }]);
+  });
+
+  it("rejects a reversed or empty date range", async () => {
+    const repository = new LocalStorageDiaryRepository(new MemoryStorage());
+
+    await expect(
+      repository.listRecordsByDateRange("2026-09-01", "2026-09-01"),
+    ).rejects.toThrow("exclusive end after its start");
+  });
 });

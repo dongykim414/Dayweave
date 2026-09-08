@@ -16,6 +16,10 @@ Dayweave의 사용자 기능, 구조, 개발 환경에서 의미 있는 변경�
 - Gallery 사진 0~1장 선택, display image 처리와 저장 전 preview
 - `diary_photos` v2 migration과 앱 documents 기반 사진 persistence
 - 사진 교체·제거·저장 실패 시 staging/persistent file cleanup
+- 5주 또는 6주를 지원하는 local-calendar 월간 Timeline
+- 이전·다음 월 이동, 오늘·선택 날짜 상태와 overflow 날짜 탐색
+- 사진 우선·Mood 차선의 기록 marker와 선택 날짜 Diary preview
+- Native SQLite와 Web localStorage의 날짜 범위 Diary 조회
 
 ### Changed
 
@@ -23,6 +27,7 @@ Dayweave의 사용자 기능, 구조, 개발 환경에서 의미 있는 변경�
 - PR CI에 자동 테스트 단계를 추가
 - Expo SDK 57 호환표에 맞춰 `expo`와 `expo-router` patch version 갱신
 - 사진만 있는 DiaryEntry도 허용하도록 저장 validation 확장
+- 월간 Diary와 사진을 N+1 없이 한 번에 읽도록 repository API 확장
 
 ## [0.1.0] - 2026-09-08
 

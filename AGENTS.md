@@ -12,13 +12,13 @@ This file defines the standing rules for AI coding agents in Dayweave.
 - Do not implement a future capability unless the current task explicitly includes it.
 - `docs/PRODUCT.md` is the canonical product-scope document.
 
-## Current Scope: M2 Photo
+## Current Scope: M3 Timeline
 
-M0 Foundation and M1 Diary Core are complete. M2 adds one optional local photo per
-DiaryEntry, gallery permission handling, bounded display-image processing, persistent
-app file storage, SQLite photo metadata, and safe replace/remove cleanup.
+M0 Foundation, M1 Diary Core, and the M2 Photo implementation are complete. M3 adds a
+local-calendar monthly grid, visible-month repository queries, photo or Mood markers,
+date selection, and a read-only Diary preview.
 
-M2 excludes camera capture, multiple photos, timeline/calendar behavior, diary detail/delete, tags, schedules,
+M3 excludes camera capture, multiple photos, diary detail/edit/delete, tags, schedules,
 avatar customization, theme or Mood Pack selection, store/ownership/payments, Supabase,
 authentication, cloud sync, social/sharing, push notifications, and AI analysis.
 
@@ -79,6 +79,17 @@ Import order:
 - Store only semantic Mood IDs: `happy`, `calm`, `neutral`, `sad`, `stressed`.
 - Never use emoji, image names, file paths, or pack-specific IDs as the diary mood value.
 - A future Mood Pack resolves a semantic Mood ID to its visual representation.
+- Timeline markers and previews must reuse the active Mood Pack resolver rather than
+  mapping Mood IDs inside Calendar components.
+
+## Timeline
+
+- Generate calendar grids with device-local calendar dates; do not round-trip dates
+  through UTC.
+- Monthly repository ranges are start-inclusive and end-exclusive.
+- Load the visible month once; Calendar cells must not issue repository queries or file
+  existence checks.
+- Prefer a photo marker, then a Mood visual, then a plain record dot.
 
 ## Avatar
 

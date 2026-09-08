@@ -83,6 +83,28 @@ PhotoPickerField
 - Web preview에는 영구적인 사진 file adapter를 만들지 않습니다. UI는 사진 기능이
   Android/iOS 대상임을 안내하며 기존 텍스트 diary localStorage 동작은 유지합니다.
 
+## M3 Timeline read flow
+
+```text
+TimelineScreen
+  → useTimeline(visibleYearMonth, selectedDate)
+    → DiaryRepository.listRecordsByDateRange(startInclusive, endExclusive)
+      ├─ Android/iOS: diary_entries LEFT JOIN diary_photos (1 query)
+      └─ Web: localStorage entries/photos 1회 read 후 range filter
+  → CalendarGrid + DiaryPreviewCard
+```
+
+- 달력 계산은 UI 밖 pure function이며 device local calendar의 `YYYY-MM-DD`를 사용합니다.
+- 월 범위는 `[해당 월 1일, 다음 달 1일)`입니다. 고정 30/31일 계산 없이 연도·윤년
+  경계를 `Date`의 local calendar 연산으로 처리합니다.
+- 월 이동마다 보이는 한 달만 조회하고, 선택 날짜는 이미 읽은 월 data에서 찾습니다.
+  Calendar cell별 query나 사진 file existence check를 하지 않습니다.
+- Native는 1:0..1 관계에 맞춰 `LEFT JOIN` 한 번으로 Diary와 Photo metadata를 읽어
+  N+1을 방지합니다. `diary_entries.entry_date UNIQUE`와 photo foreign key의 UNIQUE
+  index가 이미 있으므로 중복 index는 추가하지 않습니다.
+- 빠른 월 이동에서는 request sequence가 지난 응답을 무시해 표시 월과 data가 엇갈리지
+  않게 합니다.
+
 ## 확장 경계
 
 ### Mood
