@@ -1,0 +1,51 @@
+name: Weekly Release Cut
+
+on:
+  schedule:
+    # Wednesday 18:00 Asia/Seoul (09:00 UTC)
+    - cron: "0 9 * * 3"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: weekly-release-cut
+  cancel-in-progress: false
+
+jobs:
+  create-release-branch:
+    name: Create weekly release branch
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v7
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Create release branch
+        id: release
+        shell: bash
+        run: |
+          branch_name="release/$(date -u +'%G-W%V')"
+          echo "branch_name=${branch_name}" >> "${GITHUB_OUTPUT}"
+
+          if git ls-remote --exit-code --heads origin "${branch_name}" > /dev/null 2>&1; then
+            echo "created=false" >> "${GITHUB_OUTPUT}"
+            echo "${branch_name} already exists; no branch was created."
+            exit 0
+          fi
+
+          git switch --create "${branch_name}"
+          git push origin "${branch_name}"
+          echo "created=true" >> "${GITHUB_OUTPUT}"
+
+      - name: Write workflow summary
+        shell: bash
+        run: |
+          echo "## Weekly Release Cut" >> "${GITHUB_STEP_SUMMARY}"
+          echo "- Branch: \`${{ steps.release.outputs.branch_name }}\`" >> "${GITHUB_STEP_SUMMARY}"
+          echo "- Created: \`${{ steps.release.outputs.created }}\`" >> "${GITHUB_STEP_SUMMARY}"
