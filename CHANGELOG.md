@@ -5,6 +5,10 @@ Dayweave의 사용자 기능, 구조, 개발 환경에서 의미 있는 변경�
 
 ## [Unreleased]
 
+다음 버전에 포함할 변경을 이 아래에 기록합니다.
+
+## [0.2.0-alpha.1] - 2026-09-09
+
 ### Added
 
 - semantic Mood Pack registry와 Default Mood Pack
@@ -45,5 +49,6 @@ Dayweave의 사용자 기능, 구조, 개발 환경에서 의미 있는 변경�
 - 로그인, 클라우드 동기화, 결제, AI, 일정·SNS·기기 연결과 공유는 아직 제공하지 않음
 - Android 실제 기기와 iOS 네이티브 빌드는 이번 단계에서 검증하지 않음
 
-[Unreleased]: https://github.com/dongykim414/Dayweave/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/dongykim414/Dayweave/compare/v0.2.0-alpha.1...HEAD
+[0.2.0-alpha.1]: https://github.com/dongykim414/Dayweave/compare/v0.1.0...v0.2.0-alpha.1
 [0.1.0]: https://github.com/dongykim414/Dayweave/releases/tag/v0.1.0

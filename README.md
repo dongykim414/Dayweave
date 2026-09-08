@@ -9,10 +9,10 @@ Avatar, 클라우드 동기화와 일정·SNS 연결을 단계적으로 추가�
 
 ## 현재 단계: M1 Diary Core
 
-현재 기준 버전은 `v0.1.0` Foundation pre-release입니다. 버전별 변경은
+현재 릴리스 후보는 `v0.2.0-alpha.1` M1 Diary Core pre-release입니다. 버전별 변경은
 [`CHANGELOG.md`](CHANGELOG.md), 버전 선택과 릴리스 규칙은
 [`docs/VERSIONING.md`](docs/VERSIONING.md), 이번 릴리스의 상세 내용은
-[`docs/releases/v0.1.0.md`](docs/releases/v0.1.0.md)를 참고합니다.
+[`docs/releases/v0.2.0-alpha.1.md`](docs/releases/v0.2.0-alpha.1.md)를 참고합니다.
 
 - React Native + Expo SDK 57 + Expo Router
 - semantic Mood와 Default Mood Pack, 재사용 가능한 MoodSelector
