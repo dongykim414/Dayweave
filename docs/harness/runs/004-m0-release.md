@@ -13,7 +13,10 @@
 - [x] PR #2를 최신 `main` 위로 rebase하고 기존 사용자 변경을 보존한다.
 - [x] GitHub M0 Foundation milestone에 두 PR을 연결한다.
 - [x] `v0.1.0` 변경 기록과 버전 정책을 저장소에 추가한다.
-- [ ] PR #2 CI와 merge 후 tag, GitHub pre-release와 milestone 종료를 확인한다.
+- [x] PR #2의 새 `main` 기준 CI 성공을 확인한다.
+
+PR #2 merge, tag, GitHub pre-release와 milestone 종료는 이 문서가 포함된 commit 이후에
+실행하므로 완료 여부는 GitHub PR, Milestone과 Release metadata를 최종 증거로 삼는다.
 
 ## 관찰 기록
 
@@ -64,7 +67,7 @@
 | `pnpm typecheck` | 성공 | `tsc --noEmit` 종료 코드 0 |
 | `pnpm build:web` | 성공 | 네 개 탭을 포함한 static route 11개 export |
 | Markdown 상대 링크 검사 | 성공 | Markdown 23개에서 존재하지 않는 로컬 대상 없음 |
-| GitHub Actions | 실행 예정 | 원격의 동일 gate 확인 |
+| GitHub Actions `Validate Expo app` | 성공 | PR #2 run `34208232233`, 1분 2초 |
 
 ### 실패 대응
 
@@ -79,9 +82,16 @@
 - 대응: 코드나 dependency를 바꾸지 않고 Expo offline mode로 호환 검사를 재실행했다.
 - 재검증: `EXPO_OFFLINE=1 pnpm deps:check`에서 dependencies가 최신이라고 확인했다.
 
+- 실패: 첫 force-with-lease 시도에서 원격 commit의 전체 SHA 추정값이 실제 값과 달랐다.
+- 직접적인 단서: push 전에 수행한 exact SHA 비교가 불일치를 감지해 명령을 중단했다.
+- 대응: Git remote와 GitHub PR API가 반환한 전체 SHA가 같은지 확인한 후 그 값을 lease로
+  사용했다.
+- 재검증: 원격 branch가 새 commit `4b70a25`로 갱신되고 PR #2 base가 `main`임을 확인했다.
+
 ## 완료 판단
 
-- 완료 근거: quality gate와 원격 release metadata를 모두 확인한 뒤 판단한다.
+- 완료 근거: 저장소 측 release 기록과 로컬·원격 quality gate가 완료됐다. merge 이후
+  metadata는 GitHub의 PR, Milestone, tag와 Release에서 확인한다.
 - 실행하지 않은 검증: Android와 iOS 실제 기기 검증은 코드 변경이 없는 release 기록
   작업이며 M0에서 필요한 장비가 없어 제외한다.
 - 남은 위험: 앱 스토어 배포를 시작할 때 platform build number 정책을 추가해야 한다.
