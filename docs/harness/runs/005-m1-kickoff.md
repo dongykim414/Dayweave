@@ -12,7 +12,7 @@
 - [x] GitHub에 M1부터 M6까지 Roadmap Milestone을 등록한다.
 - [x] M1을 독립적으로 검증할 수 있는 PR slice로 분할한다.
 - [x] `main`에서 첫 M1 branch를 만든다.
-- [ ] 변경을 검증하고 M1 Draft PR을 생성해 Milestone에 연결한다.
+- [x] 변경을 검증하고 M1 Draft PR을 생성해 Milestone에 연결한다.
 
 ## 관찰 기록
 
@@ -67,7 +67,8 @@
 
 ## 완료 판단
 
-- 완료 근거: Draft PR URL, 연결된 M1 Milestone과 검증 결과를 확인한 뒤 판단한다.
+- 완료 근거: branch `codex/feat/m1-diary-domain`과 Draft PR #3이 생성됐고 GitHub의
+  `M1 Diary Core` Milestone에 연결된 것을 확인했다.
 - 실행하지 않은 검증: 제품 코드가 바뀌지 않아 lint, typecheck와 Web export는 생략한다.
 - 남은 위험: 첫 구현 전에 날짜 정책과 하루 기록의 cardinality를 확정해야 한다.
 
