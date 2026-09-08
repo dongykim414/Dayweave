@@ -9,6 +9,11 @@ Avatar, 클라우드 동기화와 일정·SNS 연결을 단계적으로 추가�
 
 ## 현재 단계: M0 Foundation
 
+현재 기준 버전은 `v0.1.0` Foundation pre-release입니다. 버전별 변경은
+[`CHANGELOG.md`](CHANGELOG.md), 버전 선택과 릴리스 규칙은
+[`docs/VERSIONING.md`](docs/VERSIONING.md), 이번 릴리스의 상세 내용은
+[`docs/releases/v0.1.0.md`](docs/releases/v0.1.0.md)를 참고합니다.
+
 - React Native + Expo SDK 57 + Expo Router
 - `오늘`, `타임라인`, `아바타`, `내 정보` 4개 탭 셸
 - Sky Theme와 semantic design token
@@ -42,6 +47,7 @@ Windows에서는 Android 기기·에뮬레이터와 Web을 실행할 수 있습�
 ## 검증
 
 ```bash
+pnpm version:check
 pnpm deps:check
 pnpm lint
 pnpm typecheck
@@ -55,7 +61,7 @@ pnpm build:web
 - 단계적 도입 항목: [`docs/process/deferred-capabilities.md`](docs/process/deferred-capabilities.md)
 
 모든 변경은 short-lived branch와 PR을 거쳐 `main`에 합칩니다. 매주 수요일
-18:00 KST에 `main`에서 `release/YYYY-Www` branch를 만들고 안정화 변경만 받습니다.
+18:00 KST에 `main`에서 `release/YYYY-MM-DD-Www` branch를 만들고 안정화 변경만 받습니다.
 
 ## AI 작업 관찰
 
@@ -72,5 +78,6 @@ pnpm build:web
 - `docs/ARCHITECTURE.md`: 폴더 책임과 의존성 방향
 - `docs/DEVELOPMENT.md`: 로컬 개발과 검증 명령
 - `docs/ROADMAP.md`: 마일스톤과 명시적 보류 범위
+- `docs/VERSIONING.md`: SemVer, changelog, tag와 GitHub Release 규칙
 - [`docs/learning/`](docs/learning/README.md): 작업과 의사결정을 설명하는 학습 가이드
 - `AGENTS.md`: AI Agent가 항상 지킬 저장소 규칙

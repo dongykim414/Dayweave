@@ -20,7 +20,7 @@ Squash merge
         ↓
 main
         ↓ 매주 수요일 18:00 KST
-release/YYYY-Www
+release/YYYY-MM-DD-Www
         ↓
 안정화만 수행
 ```
@@ -42,7 +42,7 @@ Branch 이름:
 codex/feat/DIA-001-today-entry
 codex/fix/DIA-014-entry-date
 codex/chore/DEV-003-ci-workflow
-release/2026-W37
+release/2026-09-09-W37
 ```
 
 ## Pull Request Gate
@@ -76,7 +76,7 @@ Harness Run 문서를 연결합니다. 검증이 모두 끝나면 squash merge�
 
 - Cut: 매주 수요일 18:00 KST
 - Source: 해당 시점의 `main`
-- Branch: ISO week 기반 `release/YYYY-Www`
+- Branch: 날짜와 ISO week 기반 `release/YYYY-MM-DD-Www`
 - 자동화: `.github/workflows/release-cut.yml`
 - 같은 이름의 branch가 이미 있으면 성공으로 종료하고 덮어쓰지 않습니다.
 - 필요하면 GitHub Actions에서 `workflow_dispatch`로 수동 실행합니다.

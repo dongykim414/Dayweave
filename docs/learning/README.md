@@ -14,7 +14,7 @@
 
 ## 현재 자료
 
-- [M0 Foundation 학습 요약](m0-foundation/README.md)
+- [M0 Foundation 학습 요약](setup/m0.md)
 
 ## Harness Run과의 차이
 

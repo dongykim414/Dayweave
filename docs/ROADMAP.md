@@ -1,11 +1,11 @@
 # Dayweave Roadmap
 
-## M0 Foundation — 현재
+## M0 Foundation — v0.1.0 완료
 
 문서, 4탭 셸, ThemeProvider, Sky Theme, 공용 UI, strict typecheck와 CI를 준비합니다.
 완료 기준은 네 탭이 같은 design token으로 실행되고 범위 밖 기능이 없는 것입니다.
 
-## M1 Diary Core
+## M1 Diary Core — 다음
 
 Diary model, 날짜 정책, SQLite migration과 repository, 기본 Mood model을 구현합니다.
 로컬에서 하루 기록을 저장하고 다시 조회하는 것이 완료 기준입니다.

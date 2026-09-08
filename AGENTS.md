@@ -105,6 +105,7 @@ Import order:
 After every meaningful code or configuration change, run the applicable commands:
 
 ```bash
+pnpm version:check
 pnpm deps:check
 pnpm lint
 pnpm typecheck
@@ -117,6 +118,7 @@ video, Expo preview, or an explicit reason why device validation was unavailable
 
 Before completion, also check:
 
+- `package.json` and `app.json` contain the same valid Semantic Version.
 - Four tabs are routable.
 - ThemeProvider wraps the router.
 - Feature UI contains no direct HEX colors.
@@ -132,9 +134,14 @@ Before completion, also check:
   PR base. Rebase or retarget it to `main` immediately after the prerequisite merges.
 - Never push directly to `main` or `release/*`.
 - Every Wednesday at 18:00 KST, `.github/workflows/release-cut.yml` creates
-  `release/YYYY-Www` from `main`.
+  `release/YYYY-MM-DD-Www` from `main`.
 - Release branches accept stabilization fixes only; forward-port or cherry-pick fixes so
   `main` and the active release do not diverge.
+- Use Semantic Versioning and keep `package.json` and `app.json` versions identical.
+- Do not bump a version for every PR. Choose patch, minor, or major from compatibility and
+  the completed release scope documented in `docs/VERSIONING.md`.
+- A version release updates `CHANGELOG.md` and `docs/releases/vX.Y.Z.md`. Create its
+  `vX.Y.Z` tag only from a CI-passing `main` commit.
 
 See `docs/process/development-and-release.md` for the active process.
 

@@ -32,6 +32,7 @@ iOS 시뮬레이터 실행은 지원하지 않으므로 실제 iPhone의 Expo Go
 ## 검증
 
 ```bash
+pnpm version:check
 pnpm deps:check
 pnpm lint
 pnpm typecheck
@@ -53,3 +54,5 @@ test script를 만들지 않습니다. UI 변경 PR은 가능한 플랫폼의 �
 
 상세한 branch 규칙, CI gate와 주간 release cut은
 [`process/development-and-release.md`](process/development-and-release.md)에 있습니다.
+Version을 언제 올리고 changelog, tag와 GitHub Release를 어떻게 연결하는지는
+[`VERSIONING.md`](VERSIONING.md)를 따릅니다.

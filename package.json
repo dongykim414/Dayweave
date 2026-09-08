@@ -10,6 +10,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
+    "version:check": "node scripts/check-version.mjs",
     "deps:check": "expo install --check",
     "lint": "expo lint",
     "typecheck": "tsc --noEmit",
