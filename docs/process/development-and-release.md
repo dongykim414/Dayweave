@@ -20,7 +20,7 @@ Squash merge
         ↓
 main
         ↓ 매주 수요일 18:00 KST
-release/YYYY-Www
+release/YYYY-MM-DD-Www
         ↓
 안정화만 수행
 ```
@@ -39,21 +39,23 @@ branch입니다. 여러 작업의 충돌은 PR과 CI에서 먼저 발견하고, 
 Branch 이름:
 
 ```text
-codex/feat/CAL-001-month-view
-codex/fix/CAL-014-invalid-time-range
+codex/feat/DIA-001-today-entry
+codex/fix/DIA-014-entry-date
 codex/chore/DEV-003-ci-workflow
-release/2026-W37
+release/2026-09-09-W37
 ```
 
 ## Pull Request Gate
 
-모든 PR은 `main`을 대상으로 하고 다음 검사를 통과해야 합니다.
+일반 PR은 `main`을 대상으로 합니다. 선행 PR이 아직 merge되지 않은 의존 작업은
+일시적으로 해당 branch를 base로 한 stacked PR을 허용하고, 선행 PR merge 직후
+`main`으로 rebase 또는 retarget합니다. 모든 PR은 다음 검사를 통과해야 합니다.
 
-1. `npm ci`
-2. `npm run deps:check`
-3. `npm run lint`
-4. `npm run typecheck`
-5. `npm run build:web`
+1. `pnpm install --frozen-lockfile`
+2. `pnpm deps:check`
+3. `pnpm lint`
+4. `pnpm typecheck`
+5. `pnpm build:web`
 6. 변경 내용과 증거 확인
 7. 리뷰 의견 해결
 
@@ -74,7 +76,7 @@ Harness Run 문서를 연결합니다. 검증이 모두 끝나면 squash merge�
 
 - Cut: 매주 수요일 18:00 KST
 - Source: 해당 시점의 `main`
-- Branch: ISO week 기반 `release/YYYY-Www`
+- Branch: 날짜와 ISO week 기반 `release/YYYY-MM-DD-Www`
 - 자동화: `.github/workflows/release-cut.yml`
 - 같은 이름의 branch가 이미 있으면 성공으로 종료하고 덮어쓰지 않습니다.
 - 필요하면 GitHub Actions에서 `workflow_dispatch`로 수동 실행합니다.

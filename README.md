@@ -1,88 +1,83 @@
 # Dayweave
 
-Dayweave는 일·주·월 단위로 Todo와 일정을 관리하는 다이어리에서 시작해,
-외부 캘린더·SNS·기기·AI와 연결되는 개인 일정 허브로 발전시키는 프로젝트입니다.
+Dayweave는 감정과 한 줄, 선택적 사진으로 오늘을 빠르게 남기고 필요할 때 긴 글로
+확장하는 개인 모바일 다이어리입니다. 장기적으로 Theme Pack, Mood Pack, 파츠형
+Avatar, 클라우드 동기화와 일정·SNS 연결을 단계적으로 추가합니다.
 
-이 저장소는 제품 개발뿐 아니라 AI 코딩 Agent의 작업을 관찰하고, 반복되는 실패를
-문서·테스트·자동화로 개선하는 Harness Engineering 실험을 함께 기록합니다.
+이 저장소는 제품 개발과 함께 AI 코딩 Agent의 작업을 관찰하고 반복되는 실패를
+문서·검증·자동화로 줄이는 Harness Engineering 실험을 기록합니다.
 
-## 현재 단계
+## 현재 단계: M0 Foundation
 
-- React Native + Expo SDK 57 기본 프로젝트 구성
-- Expo Router 기반 파일 라우팅 구성
-- Android, iOS, Web 개발 환경 구성
-- Harness v0 및 관찰 프로토콜 구성
-- 다이어리 MVP 구현 전
+현재 기준 버전은 `v0.1.0` Foundation pre-release입니다. 버전별 변경은
+[`CHANGELOG.md`](CHANGELOG.md), 버전 선택과 릴리스 규칙은
+[`docs/VERSIONING.md`](docs/VERSIONING.md), 이번 릴리스의 상세 내용은
+[`docs/releases/v0.1.0.md`](docs/releases/v0.1.0.md)를 참고합니다.
 
-MVP 범위와 제외 범위는 [`docs/product/mvp.md`](docs/product/mvp.md)를 참고합니다.
+- React Native + Expo SDK 57 + Expo Router
+- `오늘`, `타임라인`, `아바타`, `내 정보` 4개 탭 셸
+- Sky Theme와 semantic design token
+- ThemeProvider, theme registry, 공용 UI primitive
+- semantic Mood ID와 파츠형 Avatar 타입 기반
+- 실제 기록 CRUD, 사진 선택, 로컬 DB는 아직 구현하지 않음
+
+제품과 현재 범위는 [`docs/PRODUCT.md`](docs/PRODUCT.md), 기술 경계는
+[`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)를 참고합니다.
 
 ## 시작하기
 
-```bash
-npm install
-npm run dev
-```
-
-개발 서버에 표시되는 QR 코드를 Expo Go로 스캔하거나 다음 명령으로 플랫폼을
-선택합니다.
+Node.js 22와 pnpm 11을 사용합니다.
 
 ```bash
-npm run android
-npm run ios
-npm run web
+pnpm install
+pnpm dev
 ```
 
-Windows에서는 Android 기기·에뮬레이터와 Web을 실행할 수 있습니다. iOS 네이티브
-시뮬레이터·로컬 빌드는 macOS가 필요하지만, 실제 iPhone의 Expo Go를 이용한 개발은
-가능합니다.
-
-## 검증 명령
+개발 서버의 QR 코드를 Expo Go로 스캔하거나 플랫폼 명령을 실행합니다.
 
 ```bash
-npm run deps:check
-npm run lint
-npm run typecheck
-npm run build:web
+pnpm android
+pnpm ios
+pnpm web
 ```
 
-## 개발 및 릴리스 프로세스
+Windows에서는 Android 기기·에뮬레이터와 Web을 실행할 수 있습니다. iOS
+시뮬레이터와 로컬 네이티브 빌드는 macOS가 필요합니다.
 
+## 검증
+
+```bash
+pnpm version:check
+pnpm deps:check
+pnpm lint
+pnpm typecheck
+pnpm build:web
+```
+
+## 개발 및 릴리스
+
+- 작업 방법: [`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md)
 - 활성 프로세스: [`docs/process/development-and-release.md`](docs/process/development-and-release.md)
 - 단계적 도입 항목: [`docs/process/deferred-capabilities.md`](docs/process/deferred-capabilities.md)
 
 모든 변경은 short-lived branch와 PR을 거쳐 `main`에 합칩니다. 매주 수요일
-18:00 KST에 `main`에서 `release/YYYY-Www` branch를 자동 생성하고, 해당 branch에는
-안정화 수정만 허용합니다.
+18:00 KST에 `main`에서 `release/YYYY-MM-DD-Www` branch를 만들고 안정화 변경만 받습니다.
 
-## AI 작업 관찰 방법
+## AI 작업 관찰
 
 1. [`docs/harness/observation-protocol.md`](docs/harness/observation-protocol.md)를 읽습니다.
-2. 실제 작업 프롬프트에서 해당 프로토콜을 따르도록 요청합니다.
-3. 작업 중에는 탐색, 계획, 구현, 검증의 관찰 가능한 사실을 실시간으로 확인합니다.
-4. 작업 후 [`docs/harness/templates/run-log.md`](docs/harness/templates/run-log.md)를 복사해 실행 기록을 남깁니다.
+2. 작업 프롬프트에 범위·완료 조건·금지 사항을 명시합니다.
+3. 탐색, 계획, 구현, 검증에서 관찰 가능한 사실을 확인합니다.
+4. [`docs/harness/templates/run-log.md`](docs/harness/templates/run-log.md) 형식으로 실행 기록을 남깁니다.
 5. 여러 실행에서 반복된 실패만 `AGENTS.md`, 테스트 또는 CI 규칙으로 승격합니다.
 
-첫 프로젝트 설정 기록은
-[`docs/harness/runs/000-project-setup.md`](docs/harness/runs/000-project-setup.md)에 있습니다.
+## 주요 문서
 
-## 문서 구조
-
-```text
-AGENTS.md                         AI가 항상 지킬 프로젝트 규칙
-docs/product/mvp.md               첫 제품 범위와 성공 조건
-docs/harness/README.md            하네스 실험 운영 방법
-docs/harness/observation-protocol.md
-                                  작업 관찰 기준과 요청 프롬프트
-docs/harness/templates/run-log.md 실행 기록 템플릿
-docs/harness/runs/                실제 실행 기록
-```
-
-## 기술 스택
-
-- React Native
-- Expo SDK 57
-- Expo Router
-- TypeScript strict mode
-- React Native StyleSheet
-- ESLint
-- npm
+- `docs/PRODUCT.md`: 제품 원칙과 MVP 범위
+- `docs/DESIGN.md`: 디자인 토큰과 UI 규칙
+- `docs/ARCHITECTURE.md`: 폴더 책임과 의존성 방향
+- `docs/DEVELOPMENT.md`: 로컬 개발과 검증 명령
+- `docs/ROADMAP.md`: 마일스톤과 명시적 보류 범위
+- `docs/VERSIONING.md`: SemVer, changelog, tag와 GitHub Release 규칙
+- [`docs/learning/`](docs/learning/README.md): 작업과 의사결정을 설명하는 학습 가이드
+- `AGENTS.md`: AI Agent가 항상 지킬 저장소 규칙

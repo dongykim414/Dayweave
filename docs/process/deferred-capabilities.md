@@ -6,8 +6,8 @@
 
 | 우선순위 | 보류 항목 | 도입 조건 | 예정 방식 |
 | --- | --- | --- | --- |
-| 1 | Unit·Component Test | 첫 일정 도메인 로직 또는 상태 컴포넌트 구현 | Jest + React Native Testing Library를 PR Gate에 추가 |
-| 2 | PR E2E Smoke | 일정 생성·조회·수정 핵심 흐름 안정화 | Maestro로 Android 우선 Critical Path 실행 |
+| 1 | Unit·Component Test | 첫 다이어리 도메인 로직 또는 상태 컴포넌트 구현 | Jest + React Native Testing Library를 PR Gate에 추가 |
+| 2 | PR E2E Smoke | 기록 생성·조회·수정 핵심 흐름 안정화 | Maestro로 Android 우선 Critical Path 실행 |
 | 3 | 조건부 Native Build | 네이티브 모듈, plugin, `app.json` 또는 EAS 설정 변경 | 변경 경로·fingerprint에 따라 Android/iOS EAS Build |
 | 4 | Main Regression | 여러 기능 간 통합 테스트가 생김 | `main` merge 후 또는 nightly 실행 |
 | 5 | PR Preview | `expo-updates`와 Development Build 구성 | EAS Update 링크·QR을 PR에 자동 첨부 |

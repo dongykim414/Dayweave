@@ -1,59 +1,160 @@
-# Dayweave Agent Instructions
+# AGENTS.md
 
-이 파일은 Dayweave의 Harness v0입니다. 관찰 결과 반복되는 문제가 확인될 때만
-규칙을 하나씩 추가하고, 변경 이유를 실행 기록에 남깁니다.
+This file defines the standing rules for AI coding agents in Dayweave.
 
-## Project context
+## Product
 
-- Dayweave는 Todo와 일정을 일·주·월 단위로 관리하는 다이어리에서 시작합니다.
-- 외부 서비스, 기기, 선택 공유, AI 기능은 MVP 이후 단계적으로 추가합니다.
-- 현재 제품 범위는 `docs/product/mvp.md`를 기준으로 합니다.
+- Dayweave is a personal mobile diary.
+- The core flow is mood + one line + optional photo in 10–30 seconds.
+- Long-form writing is optional and expands from the quick flow.
+- The long-term product may add themes, mood packs, avatar parts, cloud sync,
+  calendar/SNS/device connections, selective sharing, and AI assistance.
+- Do not implement a future capability unless the current task explicitly includes it.
+- `docs/PRODUCT.md` is the canonical product-scope document.
 
-## Commands
+## Current Scope: M0 Foundation
 
-- Install: `npm install`
-- Development: `npm run dev`
-- Android: `npm run android`
-- iOS: `npm run ios`
-- Web: `npm run web`
-- Dependency check: `npm run deps:check`
-- Lint: `npm run lint`
-- Typecheck: `npm run typecheck`
-- Web export: `npm run build:web`
+M0 includes Expo Router tabs, ThemeProvider, Sky Theme, shared UI primitives,
+semantic Mood IDs, Avatar part types, documentation, lint, typecheck, and Web export.
 
-## Working rules
+M0 excludes SQLite, diary CRUD, photo picking/upload, MoodSelector/assets, avatar
+customization, Supabase, login, Zustand, TanStack Query, RevenueCat, store/payment,
+AI, calendar/social integration, sharing, and push notifications.
 
-- 수정 전에 관련 파일과 기존 패턴을 확인합니다.
-- 요청 범위에 필요한 파일만 수정합니다.
-- 의존성을 추가하기 전에 필요성과 대안을 설명합니다.
-- TypeScript의 `any` 사용을 피하고 명시적인 타입을 사용합니다.
-- 화면과 컴포넌트는 React Native 기본 컴포넌트와 `StyleSheet`를 우선 사용합니다.
-- 라우트는 `src/app`의 Expo Router 파일 기반 구조를 따릅니다.
-- Expo SDK 패키지는 `npx expo install`로 호환 버전을 설치합니다.
-- 사용자 요청 없이 외부 서비스 연결이나 외부 쓰기 작업을 수행하지 않습니다.
+## Stack and Commands
 
-## Git and pull requests
+- React Native + Expo SDK 57
+- Expo Router
+- TypeScript strict mode
+- pnpm 11; do not introduce another lockfile
 
-- `main`에 직접 push하지 않고 short-lived branch에서 PR을 만듭니다.
-- Codex가 만드는 branch는 `codex/feat/*`, `codex/fix/*`, `codex/chore/*` 형식을 우선 사용합니다.
-- 하나의 PR은 독립적으로 검증 가능한 하나의 논리적 변경만 포함합니다.
-- PR에는 변경 목적, 검증 결과, UI 변경 증거, 위험과 되돌리기 방법을 기록합니다.
-- 필수 CI가 통과하고 리뷰 의견이 해결된 뒤 squash merge합니다.
-- `release/*` branch에는 신규 기능을 추가하지 않고 blocker·regression·crash 수정과 release metadata만 반영합니다.
+```bash
+pnpm install
+pnpm dev
+pnpm android
+pnpm ios
+pnpm web
+pnpm deps:check
+pnpm lint
+pnpm typecheck
+pnpm build:web
+```
 
-## Observation and reporting
+Use Expo-compatible package versions. Keep dependency upgrades separate from feature
+changes when possible.
 
-- 관찰 작업은 `docs/harness/observation-protocol.md`를 따릅니다.
-- 내부 사고과정을 노출하지 않고, 확인한 파일·발견한 사실·실행한 명령·결과·결정만 보고합니다.
-- 구현 전에 탐색 결과와 변경 계획을 짧게 보고합니다.
-- 완료 시 변경 파일, 검증 결과, 실행하지 못한 검증과 남은 위험을 보고합니다.
+## Architecture
 
-## Definition of done
+- `app/` contains Expo Router route files and navigation composition only.
+- Feature screens, models, and business rules belong in `src/features/<feature>`.
+- Reusable feature-agnostic UI belongs in `src/shared/components`.
+- `shared` must not import a feature module.
+- Keep feature-to-feature dependencies explicit and minimal.
+- UI must not access SQLite, Supabase, payments, or another infrastructure SDK directly.
+- When persistence is introduced, define repository interfaces at the feature/domain
+  boundary and implement them in infrastructure code.
+- Do not create empty placeholder files merely to preserve a planned directory tree.
 
-- 관련 동작이 요청의 인수 조건을 만족합니다.
-- `npm run deps:check`를 실행합니다.
-- 최소한 `npm run lint`를 실행합니다.
-- TypeScript 코드 변경 시 `npm run typecheck`를 실행합니다.
-- 앱 동작 또는 설정 변경 시 `npm run build:web`을 실행합니다.
-- 네이티브 기기 동작이 관련된 변경은 확인한 플랫폼과 확인하지 못한 플랫폼을 구분해 기록합니다.
-- 실패한 검증을 숨기지 않고 원인과 현재 상태를 기록합니다.
+Import order:
+
+1. External modules
+2. Internal modules through `@/*`
+3. Type-only imports using `import type`
+
+## UI and Theme
+
+- Use React Native primitives and functional components.
+- Use `AppText`, `AppButton`, `AppCard`, `AppScreen`, and `AppIconButton` before
+  duplicating their responsibilities.
+- Do not hardcode product colors in routes, feature screens, or shared components.
+- Product colors are semantic tokens defined by a theme.
+- M0 registers only Sky. Future `warm-paper`, `night`, and `mint` themes must plug into
+  the registry without changing feature-screen colors.
+- Keep touch targets accessible; icon-only controls require an accessibility label.
+- Do not add a UI library without an explicit task-level decision.
+
+## Mood
+
+- Store only semantic Mood IDs: `happy`, `calm`, `neutral`, `sad`, `stressed`.
+- Never use emoji, image names, file paths, or pack-specific IDs as the diary mood value.
+- A future Mood Pack resolves a semantic Mood ID to its visual representation.
+
+## Avatar
+
+- Represent Avatar configuration with part IDs for `body`, `hair`, `top`, `bottom`,
+  and optional `accessory`.
+- Do not replace the domain structure with one flattened character image.
+- Asset registries, rendering, ownership, and customization are later milestones.
+
+## Commerce Readiness
+
+- Keep Catalog, Ownership, and Selection as separate concepts when they are introduced.
+- Purchasing an item must not automatically select it.
+- Store and payment code is not part of M0 or the diary core.
+
+## TypeScript and Error Handling
+
+- Keep strict mode enabled.
+- Do not use `any`, `@ts-ignore`, blanket assertions, or ESLint-disable comments to bypass
+  design or type problems.
+- Use guard clauses for invalid states and `try/catch` around recoverable async boundaries.
+- Do not log diary text, photos, or other private content.
+
+## Quality Gate
+
+After every meaningful code or configuration change, run the applicable commands:
+
+```bash
+pnpm version:check
+pnpm deps:check
+pnpm lint
+pnpm typecheck
+pnpm build:web
+```
+
+Tests become mandatory when testable domain behavior is introduced. Do not add a fake
+passing test script before the test runner exists. For UI work, record a screenshot,
+video, Expo preview, or an explicit reason why device validation was unavailable.
+
+Before completion, also check:
+
+- `package.json` and `app.json` contain the same valid Semantic Version.
+- Four tabs are routable.
+- ThemeProvider wraps the router.
+- Feature UI contains no direct HEX colors.
+- No out-of-scope dependency or feature was added.
+- Product or architecture changes are reflected in `docs/`.
+
+## Git and Release Workflow
+
+- One PR should contain one independently reviewable logical change.
+- Use short-lived branches prefixed with `codex/` for agent work.
+- Normal PRs target `main` and use squash merge.
+- A dependent change may temporarily use its unmerged prerequisite branch as a stacked
+  PR base. Rebase or retarget it to `main` immediately after the prerequisite merges.
+- Never push directly to `main` or `release/*`.
+- Every Wednesday at 18:00 KST, `.github/workflows/release-cut.yml` creates
+  `release/YYYY-MM-DD-Www` from `main`.
+- Release branches accept stabilization fixes only; forward-port or cherry-pick fixes so
+  `main` and the active release do not diverge.
+- Use Semantic Versioning and keep `package.json` and `app.json` versions identical.
+- Do not bump a version for every PR. Choose patch, minor, or major from compatibility and
+  the completed release scope documented in `docs/VERSIONING.md`.
+- A version release updates `CHANGELOG.md` and `docs/releases/vX.Y.Z.md`. Create its
+  `vX.Y.Z` tag only from a CI-passing `main` commit.
+
+See `docs/process/development-and-release.md` for the active process.
+
+## Harness Observation
+
+- Read `docs/harness/observation-protocol.md` before an observed run.
+- State scope, exclusions, assumptions, plan, and changed files before implementation.
+- Distinguish observed evidence from inference.
+- Record commands and results in `docs/harness/runs` using the run-log template.
+- Every non-trivial feature, architecture, tooling, or milestone PR must add or update a
+  note under `docs/learning`. Explain what changed, why it was needed, alternatives,
+  trade-offs, verification steps, and concepts a developer should learn.
+- Keep learning notes focused on reusable understanding. Trivial text corrections and
+  mechanical maintenance do not require a new long-form guide.
+- Promote a lesson into this file, CI, or tests only after it is broadly reusable or a
+  repeated failure proves the need.

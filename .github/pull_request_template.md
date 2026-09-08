@@ -6,6 +6,7 @@
 
 - Issue: <!-- 예: Closes #12 또는 N/A -->
 - Harness Run: <!-- 예: docs/harness/runs/002-example.md 또는 N/A -->
+- Learning Note: <!-- 예: docs/learning/setup/m0.md 또는 N/A -->
 
 ## 변경 유형
 
@@ -16,10 +17,10 @@
 
 ## 검증
 
-- [ ] `npm run deps:check`
-- [ ] `npm run lint`
-- [ ] `npm run typecheck`
-- [ ] `npm run build:web`
+- [ ] `pnpm deps:check`
+- [ ] `pnpm lint`
+- [ ] `pnpm typecheck`
+- [ ] `pnpm build:web`
 - [ ] 변경과 관련된 추가 테스트 또는 수동 확인
 
 ## UI 증거
@@ -34,5 +35,7 @@
 ## 릴리스 영향
 
 - 대상 Release: <!-- 예: 2026-W37 또는 미정 -->
+- Version 영향: <!-- 없음 / patch / minor / major -->
+- [ ] Version을 올린 경우 `package.json`, `app.json`, `CHANGELOG.md`, release note를 함께 갱신함
 - 네이티브 빌드 필요 여부:
 - 데이터·설정 마이그레이션 여부:
