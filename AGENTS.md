@@ -12,13 +12,13 @@ This file defines the standing rules for AI coding agents in Dayweave.
 - Do not implement a future capability unless the current task explicitly includes it.
 - `docs/PRODUCT.md` is the canonical product-scope document.
 
-## Current Scope: M1 Diary Core
+## Current Scope: M2 Photo
 
-M0 Foundation is complete in `v0.1.0`. M1 implements semantic Mood and the default
-Mood Pack, the Today quick/long diary form, local-date rules, SQLite migration and
-repository persistence, loading/save/error feedback, and executable domain tests.
+M0 Foundation and M1 Diary Core are complete. M2 adds one optional local photo per
+DiaryEntry, gallery permission handling, bounded display-image processing, persistent
+app file storage, SQLite photo metadata, and safe replace/remove cleanup.
 
-M1 excludes photos, timeline/calendar behavior, diary detail/delete, tags, schedules,
+M2 excludes camera capture, multiple photos, timeline/calendar behavior, diary detail/delete, tags, schedules,
 avatar customization, theme or Mood Pack selection, store/ownership/payments, Supabase,
 authentication, cloud sync, social/sharing, push notifications, and AI analysis.
 

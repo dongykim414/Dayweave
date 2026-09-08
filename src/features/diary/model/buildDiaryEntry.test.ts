@@ -12,6 +12,19 @@ const existingEntry: DiaryEntry = {
 };
 
 describe("buildDiaryEntry", () => {
+  it("builds a photo-only entry when photo presence is explicit", () => {
+    expect(
+      buildDiaryEntry({
+        createId: () => "entry-photo",
+        draft: { moodId: null, shortText: "", content: "" },
+        entryDate: "2026-09-09",
+        existingEntry: null,
+        hasPhoto: true,
+        now: new Date("2026-09-09T01:00:00.000Z"),
+      }),
+    ).toMatchObject({ id: "entry-photo", entryDate: "2026-09-09" });
+  });
+
   it("creates a new entry with a stable id and UTC timestamps", () => {
     const entry = buildDiaryEntry({
       createId: () => "new-id",

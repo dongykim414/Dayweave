@@ -6,7 +6,17 @@
     "orientation": "portrait",
     "scheme": "dayweave",
     "userInterfaceStyle": "automatic",
-    "plugins": ["expo-router"],
+    "plugins": [
+      "expo-router",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Dayweave에서 일기 사진을 선택하려면 사진 접근 권한이 필요합니다.",
+          "cameraPermission": false,
+          "microphonePermission": false
+        }
+      ]
+    ],
     "web": {
       "bundler": "metro",
       "output": "static"

@@ -1,6 +1,7 @@
 import { ActivityIndicator, ScrollView, View } from "react-native";
 
 import { LongDiaryInput } from "@/features/diary/components/LongDiaryInput";
+import { PhotoPickerField } from "@/features/diary/components/PhotoPickerField";
 import { QuickDiaryInput } from "@/features/diary/components/QuickDiaryInput";
 import { useTodayDiary } from "@/features/diary/hooks/useTodayDiary";
 import { MoodSelector } from "@/features/mood/components/MoodSelector";
@@ -15,8 +16,13 @@ export default function TodayScreen() {
     feedback,
     isExpanded,
     loading,
+    photoAvailable,
+    photoUri,
+    removePhoto,
     save,
     saving,
+    selectPhoto,
+    selectingPhoto,
     toggleExpanded,
     updateContent,
     updateMood,
@@ -67,6 +73,14 @@ export default function TodayScreen() {
             <AppText variant="heading">오늘의 감정</AppText>
             <MoodSelector onChange={updateMood} value={draft.moodId} />
           </View>
+
+          <PhotoPickerField
+            available={photoAvailable}
+            busy={selectingPhoto || saving}
+            onRemove={removePhoto}
+            onSelect={() => void selectPhoto()}
+            uri={photoUri}
+          />
 
           <QuickDiaryInput
             onChange={updateShortText}

@@ -14,7 +14,7 @@ export async function migrateDatabase(
   const versionRow = await database.getFirstAsync<UserVersionRow>(
     "PRAGMA user_version",
   );
-  const currentVersion = versionRow?.user_version ?? 0;
+  let currentVersion = versionRow?.user_version ?? 0;
 
   if (currentVersion > DIARY_DATABASE_VERSION) {
     throw new Error(
@@ -37,7 +37,27 @@ export async function migrateDatabase(
           updated_at TEXT NOT NULL
         );
       `);
-      await database.execAsync(`PRAGMA user_version = ${DIARY_DATABASE_VERSION}`);
+      await database.execAsync("PRAGMA user_version = 1");
+    });
+    currentVersion = 1;
+  }
+
+  if (currentVersion === 1) {
+    await database.withTransactionAsync(async () => {
+      await database.execAsync(`
+        CREATE TABLE diary_photos (
+          id TEXT PRIMARY KEY NOT NULL,
+          diary_entry_id TEXT NOT NULL UNIQUE,
+          local_uri TEXT NOT NULL,
+          width INTEGER NOT NULL,
+          height INTEGER NOT NULL,
+          created_at TEXT NOT NULL,
+          FOREIGN KEY (diary_entry_id)
+            REFERENCES diary_entries(id)
+            ON DELETE CASCADE
+        );
+      `);
+      await database.execAsync("PRAGMA user_version = 2");
     });
   }
 }

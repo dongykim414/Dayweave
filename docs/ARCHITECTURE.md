@@ -36,7 +36,7 @@ app routes → feature screens → feature hook → repository interface
 - UI가 향후 SQLite, Supabase, RevenueCat 구현을 직접 호출하지 않습니다.
 - 인프라가 추가되면 feature가 정의한 repository interface를 구현합니다.
 
-## M1 Diary Persistence
+## M1–M2 Diary Persistence
 
 `ThemeProvider → DatabaseProvider → DiaryRepositoryRuntimeProvider → Router` 순서로 앱을
 구성합니다. platform extension 파일이 같은 interface를 각 환경에 맞게 연결합니다.
@@ -45,7 +45,7 @@ app routes → feature screens → feature hook → repository interface
 TodayScreen
   → useTodayDiary
     → DiaryRepository
-      ├─ Android/iOS: SQLiteDiaryRepository → diary_entries
+      ├─ Android/iOS: SQLiteDiaryRepository → diary_entries + diary_photos
       └─ Web: LocalStorageDiaryRepository → browser localStorage
 ```
 
@@ -57,8 +57,31 @@ TodayScreen
 - Domain은 camelCase만 사용하고 SQLite row의 snake_case는 mapper에서 변환합니다.
 - `entry_date`는 device local calendar의 `YYYY-MM-DD`이고 unique constraint를 가집니다.
 - `created_at`, `updated_at`은 UTC ISO timestamp입니다.
-- migration은 `PRAGMA user_version`을 기준으로 순서대로 적용하며 현재 version은 1입니다.
+- migration은 `PRAGMA user_version`을 기준으로 순서대로 적용하며 현재 version은 2입니다.
 - UI component에는 SQL이나 DB column 이름이 노출되지 않습니다.
+
+### M2 Photo lifecycle
+
+```text
+PhotoPickerField
+  → diaryPhotoService.native
+    → Gallery permission / ImagePicker
+    → ImageManipulator (긴 변 최대 1600px, JPEG 0.8)
+    → cache staging preview
+  → useTodayDiary save
+    → documents/diary/photos/<photo-id>.jpg 준비
+    → DiaryEntry + DiaryPhoto SQLite transaction
+    → 성공 후 staging 및 이전 persistent file 정리
+    → 실패 시 새 persistent file 보상 삭제
+```
+
+- `DiaryPhoto`는 `DiaryEntry`와 분리하며 binary 대신 URI, 크기와 생성 시각만 저장합니다.
+- `diary_photos.diary_entry_id`는 UNIQUE foreign key이고 `ON DELETE CASCADE`를 사용해
+  DiaryEntry당 0~1장을 보장합니다. `PRAGMA foreign_keys = ON`은 DB 초기화마다 적용합니다.
+- 별도 thumbnail을 만들지 않고 display-friendly image 하나를 M3에서도 작은 render
+  size로 재사용합니다. 파일 duplication보다 현재 MVP 규모의 단순성을 우선한 결정입니다.
+- Web preview에는 영구적인 사진 file adapter를 만들지 않습니다. UI는 사진 기능이
+  Android/iOS 대상임을 안내하며 기존 텍스트 diary localStorage 동작은 유지합니다.
 
 ## 확장 경계
 

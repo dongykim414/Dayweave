@@ -14,6 +14,7 @@ interface BuildDiaryEntryInput {
   draft: DiaryDraft;
   entryDate: string;
   existingEntry: DiaryEntry | null;
+  hasPhoto?: boolean;
   now: Date;
 }
 
@@ -29,9 +30,10 @@ export function buildDiaryEntry({
   draft,
   entryDate,
   existingEntry,
+  hasPhoto = false,
   now,
 }: BuildDiaryEntryInput): DiaryEntry {
-  const validationError = validateDiaryDraft(draft);
+  const validationError = validateDiaryDraft(draft, hasPhoto);
 
   if (validationError) {
     throw new DiaryValidationError(validationError);
