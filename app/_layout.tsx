@@ -1,6 +1,7 @@
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 
+import { DatabaseProvider } from "@/database/DatabaseProvider";
 import { ThemeProvider, useTheme } from "@/features/theme";
 
 function RootNavigator() {
@@ -22,7 +23,9 @@ function RootNavigator() {
 export default function RootLayout() {
   return (
     <ThemeProvider>
-      <RootNavigator />
+      <DatabaseProvider>
+        <RootNavigator />
+      </DatabaseProvider>
     </ThemeProvider>
   );
 }

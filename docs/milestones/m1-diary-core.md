@@ -15,41 +15,37 @@ M2가 의존할 데이터 계약과 저장 경계를 검증하는 단계입니�
 - 하루 기록을 저장한 뒤 앱을 다시 읽어도 동일한 내용을 조회할 수 있다.
 - domain과 persistence의 핵심 성공·실패 동작이 자동 테스트로 보호된다.
 
-## PR 분할
+## 구현 계층
 
-### Slice 1 — Diary domain과 날짜 정책
+### Diary domain과 날짜 정책
 
 - Diary entry model과 validation
 - local date key 생성·검사
 - repository interface
 - test runner와 domain unit test
 
-제외: SQLite package, migration, 화면 저장 동작
-
-### Slice 2 — SQLite persistence
+### SQLite persistence
 
 - Expo 호환 SQLite dependency
 - schema와 migration
 - repository implementation
 - migration 및 repository integration test
 
-제외: Today 입력 UX와 사진
-
-### Slice 3 — 저장·조회 연결
+### Today 저장·조회 연결
 
 - 앱 시작 시 persistence 준비
 - 최소 입력을 repository에 저장하고 현재 날짜 기록 조회
 - loading, empty, recoverable error 상태
 - Web과 가능한 실제 기기 검증
 
-제외: M2의 MoodSelector, 사진과 긴 글 확장 UX
+제외: 사진, Timeline과 삭제
 
-## 왜 하나의 큰 PR로 만들지 않는가
+## 이번 PR의 범위 결정
 
-Domain 규칙, database 변경과 UI 연결은 실패 원인과 검증 방법이 다릅니다. 한 PR에
-모두 넣으면 schema 문제와 화면 문제를 동시에 리뷰해야 하고 되돌리기도 어려워집니다.
-세 slice를 같은 `M1 Diary Core` GitHub Milestone에 연결하면 목표는 하나로 유지하면서
-각 PR은 독립적으로 검증할 수 있습니다.
+최초 kickoff에서는 세 PR로 분리할 계획이었지만, 후속 작업 요청이 M1의 최종 사용자
+흐름과 Mood·SQLite·Today를 하나의 완료 조건으로 명시했습니다. 따라서 PR #3은 이
+세 계층을 하나의 local-first vertical slice로 통합합니다. 파일 책임과 자동 테스트는
+분리해 큰 화면 component나 SQL이 노출되는 구조를 피합니다.
 
 ## 버전 계획
 

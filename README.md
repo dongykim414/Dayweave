@@ -7,7 +7,7 @@ Avatar, 클라우드 동기화와 일정·SNS 연결을 단계적으로 추가�
 이 저장소는 제품 개발과 함께 AI 코딩 Agent의 작업을 관찰하고 반복되는 실패를
 문서·검증·자동화로 줄이는 Harness Engineering 실험을 기록합니다.
 
-## 현재 단계: M0 Foundation
+## 현재 단계: M1 Diary Core
 
 현재 기준 버전은 `v0.1.0` Foundation pre-release입니다. 버전별 변경은
 [`CHANGELOG.md`](CHANGELOG.md), 버전 선택과 릴리스 규칙은
@@ -15,11 +15,12 @@ Avatar, 클라우드 동기화와 일정·SNS 연결을 단계적으로 추가�
 [`docs/releases/v0.1.0.md`](docs/releases/v0.1.0.md)를 참고합니다.
 
 - React Native + Expo SDK 57 + Expo Router
-- `오늘`, `타임라인`, `아바타`, `내 정보` 4개 탭 셸
-- Sky Theme와 semantic design token
-- ThemeProvider, theme registry, 공용 UI primitive
-- semantic Mood ID와 파츠형 Avatar 타입 기반
-- 실제 기록 CRUD, 사진 선택, 로컬 DB는 아직 구현하지 않음
+- semantic Mood와 Default Mood Pack, 재사용 가능한 MoodSelector
+- 오늘의 감정·한 줄·선택적 긴 글 작성
+- local date 기반 하루 한 기록 create/update
+- SQLite `user_version` migration과 local-first persistence
+- domain·날짜·validation·row mapping 자동 테스트
+- 사진, 타임라인 CRUD와 클라우드 동기화는 아직 구현하지 않음
 
 제품과 현재 범위는 [`docs/PRODUCT.md`](docs/PRODUCT.md), 기술 경계는
 [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)를 참고합니다.
@@ -50,6 +51,7 @@ Windows에서는 Android 기기·에뮬레이터와 Web을 실행할 수 있습�
 pnpm version:check
 pnpm deps:check
 pnpm lint
+pnpm test
 pnpm typecheck
 pnpm build:web
 ```

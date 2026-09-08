@@ -12,15 +12,15 @@ This file defines the standing rules for AI coding agents in Dayweave.
 - Do not implement a future capability unless the current task explicitly includes it.
 - `docs/PRODUCT.md` is the canonical product-scope document.
 
-## Current Scope: M1 Diary Domain Slice
+## Current Scope: M1 Diary Core
 
-M0 Foundation is complete in `v0.1.0`. The first M1 slice defines the Diary domain
-model, local-date policy, repository contract, validation behavior, and executable tests.
+M0 Foundation is complete in `v0.1.0`. M1 implements semantic Mood and the default
+Mood Pack, the Today quick/long diary form, local-date rules, SQLite migration and
+repository persistence, loading/save/error feedback, and executable domain tests.
 
-This slice excludes SQLite implementation and migration, screen form behavior, photo
-picking/upload, MoodSelector/assets, avatar customization, Supabase, login, payments,
-AI, calendar/social integration, sharing, and push notifications. Those capabilities
-belong to later M1 slices or later milestones documented in `docs/ROADMAP.md`.
+M1 excludes photos, timeline/calendar behavior, diary detail/delete, tags, schedules,
+avatar customization, theme or Mood Pack selection, store/ownership/payments, Supabase,
+authentication, cloud sync, social/sharing, push notifications, and AI analysis.
 
 ## Stack and Commands
 
@@ -109,6 +109,7 @@ After every meaningful code or configuration change, run the applicable commands
 pnpm version:check
 pnpm deps:check
 pnpm lint
+pnpm test
 pnpm typecheck
 pnpm build:web
 ```

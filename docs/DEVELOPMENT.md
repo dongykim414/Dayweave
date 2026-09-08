@@ -35,13 +35,28 @@ iOS 시뮬레이터 실행은 지원하지 않으므로 실제 iPhone의 Expo Go
 pnpm version:check
 pnpm deps:check
 pnpm lint
+pnpm test
 pnpm typecheck
 pnpm build:web
 ```
 
-테스트 도구는 도메인 로직이 생기는 M1에 추가합니다. 그 전에는 의미 없는 통과용
-test script를 만들지 않습니다. UI 변경 PR은 가능한 플랫폼의 스크린샷 또는 실행
-증거를 첨부합니다.
+M1부터 Jest와 `jest-expo`로 순수 domain, 날짜, Mood registry와 DB row mapping을
+테스트합니다. Native SQLite integration은 실제 Android/iOS 기기나 emulator에서
+검증하며 대량의 native mock으로 통과를 흉내 내지 않습니다. UI 변경 PR은 가능한
+플랫폼의 스크린샷 또는 실행 증거를 첨부합니다.
+
+## SQLite 개발
+
+- DB 이름: `dayweave.db`
+- 현재 schema version: `PRAGMA user_version = 1`
+- Expo CLI에서 `Shift + M` 후 expo-sqlite inspector를 선택하면 연결된 앱 DB를
+  확인할 수 있습니다.
+- Web export를 위해 `metro.config.js`가 SQLite WASM을 asset으로 처리합니다.
+- Web hosting에서 SQLite를 실제 실행하려면 COOP/COEP 응답 header가 필요합니다.
+  M1 persistence 합격 기준은 Android/iOS local database입니다.
+- SDK 57의 현재 Web 개발 서버에서는 Expo Router static rendering이 SQLite worker
+  chunk를 찾지 못하는 현상이 관찰됐습니다. Static export는 성공하지만 Web runtime은
+  M1 지원 대상으로 판정하지 않으며 native 검증과 혼동하지 않습니다.
 
 ## PR과 Release
 

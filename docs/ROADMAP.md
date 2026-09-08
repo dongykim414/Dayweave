@@ -5,16 +5,16 @@
 문서, 4탭 셸, ThemeProvider, Sky Theme, 공용 UI, strict typecheck와 CI를 준비합니다.
 완료 기준은 네 탭이 같은 design token으로 실행되고 범위 밖 기능이 없는 것입니다.
 
-## M1 Diary Core — 현재
+## M1 Diary Core — 구현 완료, PR 검증 중
 
-Diary model, 날짜 정책, SQLite migration과 repository, 기본 Mood model을 구현합니다.
-로컬에서 하루 기록을 저장하고 다시 조회하는 것이 완료 기준입니다.
-세부 범위와 PR 분할은 [`milestones/m1-diary-core.md`](milestones/m1-diary-core.md)를
-따릅니다.
+Semantic Mood와 Default Pack, Today의 감정·한 줄·긴 글 form, 날짜 정책, SQLite
+migration과 repository를 구현합니다. 로컬에서 하루 기록을 저장하고 다시 조회하는
+것이 완료 기준입니다. 상세 내용은
+[`milestones/m1-diary-core.md`](milestones/m1-diary-core.md)를 따릅니다.
 
-## M2 Today
+## M2 Photo and Today Polish
 
-MoodSelector, 한 줄, 선택적 사진, 긴 글 확장과 저장 UX를 구현합니다.
+선택적 사진의 lifecycle·성능과 Today 입력 경험의 실제 기기 polish를 구현합니다.
 
 ## M3 Timeline
 
