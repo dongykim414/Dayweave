@@ -12,13 +12,13 @@ This file defines the standing rules for AI coding agents in Dayweave.
 - Do not implement a future capability unless the current task explicitly includes it.
 - `docs/PRODUCT.md` is the canonical product-scope document.
 
-## Current Scope: M3 Timeline
+## Current Scope: M4 Diary Detail
 
-M0 Foundation, M1 Diary Core, and the M2 Photo implementation are complete. M3 adds a
-local-calendar monthly grid, visible-month repository queries, photo or Mood markers,
-date selection, and a read-only Diary preview.
+M0 Foundation through M3 Timeline are complete. M4 adds stable-ID Diary detail routes,
+full read views, editing through the existing Diary rules, safe photo replacement and
+removal, confirmed deletion, and Timeline refresh on return.
 
-M3 excludes camera capture, multiple photos, diary detail/edit/delete, tags, schedules,
+M4 excludes camera capture, multiple photos, tags, schedules, search, sharing,
 avatar customization, theme or Mood Pack selection, store/ownership/payments, Supabase,
 authentication, cloud sync, social/sharing, push notifications, and AI analysis.
 
@@ -90,6 +90,16 @@ Import order:
 - Load the visible month once; Calendar cells must not issue repository queries or file
   existence checks.
 - Prefer a photo marker, then a Mood visual, then a plain record dot.
+
+## Diary Detail Lifecycle
+
+- Detail routes use the stable DiaryEntry ID; route files do not query storage.
+- Updates preserve `id`, `entryDate`, and `createdAt`, and refresh `updatedAt`.
+- Diary and Photo metadata are committed before replaced or removed files are deleted.
+- Deletion captures Photo metadata, deletes the Diary through the repository, and only
+  then removes the file. A file cleanup failure must not resurrect or crash a completed
+  DB deletion.
+- Unsaved prepared photos must be discarded on cancel or confirmed back navigation.
 
 ## Avatar
 

@@ -24,15 +24,21 @@ inspection을 통과하면 단계가 완료됩니다.
 구현했습니다. 실제 Android에서 사진 marker·재실행·작은 화면·빠른 월 이동을 확인하면
 단계가 완료됩니다. 상세·수정·삭제는 M3 범위가 아니며 후속 단계로 남깁니다.
 
-## M4 Personalization
+## M4 Diary Detail — 구현 완료, 실제 기기 검증 필요
+
+Entry ID 기반 상세 조회, 전체 내용 보기, Mood·텍스트·사진 수정, 확인 후 삭제와
+Timeline 재조회 흐름을 구현했습니다. 실제 Android에서 DB/file lifecycle과 CASE 1~20을
+검증하면 단계가 완료됩니다.
+
+## M5 Personalization
 
 Theme, Mood Pack, 기본 Avatar 파츠의 선택과 persistence를 구현합니다.
 
-## M5 Quality
+## M6 Quality
 
 단위·컴포넌트·핵심 E2E, 오류 처리, 접근성, 사진 성능과 실제 기기 QA를 강화합니다.
 
-## M6 이후
+## M7 이후
 
 Supabase 기반 백업·동기화, Catalog/Ownership/Selection, RevenueCat 결제, 일정·SNS·기기
 연동, 선택 일정 공유, AI 보조 기능을 각각 독립적인 검증 단위로 진행합니다.

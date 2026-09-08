@@ -54,4 +54,16 @@ M0는 차분한 하늘색 계열의 `Sky`를 유일한 실행 테마로 사용�
 - Timeline 사진은 M2 display image를 작은 render size와 `cover`로 재사용합니다.
   Timeline만을 위한 중복 image pipeline은 만들지 않습니다.
 - 선택 날짜 preview는 날짜, Mood label, 선택적 사진, 한 줄과 최대 3줄 본문을 보여
-  주며 M3에서는 수정·삭제로 이동하지 않습니다.
+  주며 상세 보기 버튼으로 stable-ID route를 엽니다.
+
+## Diary Detail
+
+- View mode는 날짜, 선택적 사진, Mood, 한 줄과 전체 본문을 여백이 넓은 한 흐름으로
+  표시합니다. 없는 영역을 빈 placeholder로 유지하지 않습니다.
+- Edit mode는 Today와 같은 Mood·사진·한 줄·긴 글 field를 사용하며 저장과 취소를
+  명확히 분리합니다.
+- 삭제는 primary CTA와 분리된 `danger` outline button으로 화면 하단에 둡니다.
+- 삭제와 미저장 이탈은 Native `Alert` 확인을 거치며 screen reader에도 동작의 의미가
+  전달되는 label을 사용합니다.
+- 작은 화면에서 상세와 editor 전체에 접근할 수 있도록 하나의 세로 ScrollView와
+  `KeyboardAvoidingView`를 사용합니다.

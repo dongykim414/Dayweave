@@ -113,4 +113,28 @@ describe("LocalStorageDiaryRepository", () => {
       repository.listRecordsByDateRange("2026-09-01", "2026-09-01"),
     ).rejects.toThrow("exclusive end after its start");
   });
+
+  it("gets a record by stable entry id", async () => {
+    const repository = new LocalStorageDiaryRepository(new MemoryStorage());
+    await repository.upsertRecord(entry, photo);
+
+    await expect(repository.getRecordById(entry.id)).resolves.toEqual({
+      entry,
+      photo,
+    });
+    await expect(repository.getRecordById("missing-entry")).resolves.toBeNull();
+  });
+
+  it("deletes an entry and its photo metadata by id", async () => {
+    const repository = new LocalStorageDiaryRepository(new MemoryStorage());
+    await repository.upsertRecord(entry, photo);
+
+    await expect(repository.deleteById(entry.id)).resolves.toEqual({
+      entry,
+      photo,
+    });
+    await expect(repository.getRecordById(entry.id)).resolves.toBeNull();
+    await expect(repository.getRecordByDate(entry.entryDate)).resolves.toBeNull();
+    await expect(repository.deleteById(entry.id)).resolves.toBeNull();
+  });
 });

@@ -1,6 +1,7 @@
 import type {
   DiaryDateKey,
   DiaryEntry,
+  DiaryEntryId,
 } from "@/features/diary/model/diary.types";
 import type {
   DiaryPhoto,
@@ -76,6 +77,21 @@ export class LocalStorageDiaryRepository implements DiaryRepository {
     return { entry, photo: photos[entry.id] ?? null };
   }
 
+  async getRecordById(id: DiaryEntryId): Promise<DiaryRecord | null> {
+    const entries = parseEntries(this.storage.getItem(WEB_DIARY_STORAGE_KEY));
+    const entry = Object.values(entries).find((candidate) => candidate.id === id);
+
+    if (!entry) {
+      return null;
+    }
+
+    const photos = parsePhotos(
+      this.storage.getItem(WEB_DIARY_PHOTO_STORAGE_KEY),
+    );
+
+    return { entry, photo: photos[id] ?? null };
+  }
+
   async listRecordsByDateRange(
     startInclusive: DiaryDateKey,
     endExclusive: DiaryDateKey,
@@ -123,5 +139,26 @@ export class LocalStorageDiaryRepository implements DiaryRepository {
     }
 
     this.storage.setItem(WEB_DIARY_PHOTO_STORAGE_KEY, JSON.stringify(photos));
+  }
+
+  async deleteById(id: DiaryEntryId): Promise<DiaryRecord | null> {
+    const entries = parseEntries(this.storage.getItem(WEB_DIARY_STORAGE_KEY));
+    const entry = Object.values(entries).find((candidate) => candidate.id === id);
+
+    if (!entry) {
+      return null;
+    }
+
+    const photos = parsePhotos(
+      this.storage.getItem(WEB_DIARY_PHOTO_STORAGE_KEY),
+    );
+    const record = { entry, photo: photos[id] ?? null };
+
+    delete entries[entry.entryDate];
+    delete photos[id];
+    this.storage.setItem(WEB_DIARY_STORAGE_KEY, JSON.stringify(entries));
+    this.storage.setItem(WEB_DIARY_PHOTO_STORAGE_KEY, JSON.stringify(photos));
+
+    return record;
   }
 }

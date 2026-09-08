@@ -105,6 +105,30 @@ TimelineScreen
 - 빠른 월 이동에서는 request sequence가 지난 응답을 무시해 표시 월과 data가 엇갈리지
   않게 합니다.
 
+## M4 Diary Detail lifecycle
+
+```text
+Timeline Preview
+  → /diary/[entryId]
+    → DiaryDetailScreen
+      → useDiaryDetail
+        → DiaryRepository.getRecordById
+        → saveDiaryRecord → repository.upsertRecord
+        → deleteDiaryRecord → repository.deleteById
+```
+
+- Route는 param 전달만 하고 SQL과 file API는 feature screen 밖에 둡니다.
+- Native ID 조회는 Diary와 Photo를 한 번의 `LEFT JOIN`으로 읽습니다.
+- 수정은 M1 `buildDiaryEntry`와 validation을 재사용해 ID·날짜·생성 시각을 보존합니다.
+- `diaryRecordLifecycle`은 Today와 Detail의 `새 파일 준비 → DB transaction → 이전 파일
+  cleanup` 순서를 하나로 통일합니다. DB 실패 시 새 파일을 보상 삭제하고 기존 파일은
+  유지합니다.
+- 삭제는 transaction에서 record를 읽고 Diary row를 삭제합니다. `foreign_keys = ON`과
+  `ON DELETE CASCADE`가 Photo metadata를 정리하며, 반환된 URI의 실제 파일은 DB 성공
+  뒤에 삭제합니다. 파일 cleanup 실패는 기록하고 orphan cleanup은 후속 과제로 둡니다.
+- Timeline은 focus될 때 visible month를 다시 조회하므로 전역 cache나 invalidation
+  library 없이 수정·삭제 결과를 반영합니다.
+
 ## 확장 경계
 
 ### Mood

@@ -21,7 +21,7 @@ export function QuickDiaryInput({ onChange, value }: QuickDiaryInputProps) {
         </AppText>
       </View>
       <TextInput
-        accessibilityLabel="오늘의 한 줄 기록"
+        accessibilityLabel="한 줄 기록"
         maxLength={MAX_SHORT_TEXT_LENGTH}
         onChangeText={onChange}
         placeholder="오늘을 한 문장으로 남겨보세요."

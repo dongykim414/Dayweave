@@ -6,9 +6,10 @@ import type { DiaryDateKey } from "@/features/diary/model/diary.types";
 import { MoodVisual } from "@/features/mood/components/MoodVisual";
 import { resolveMood } from "@/features/mood/moodPackRegistry";
 import { useTheme } from "@/features/theme";
-import { AppCard, AppText } from "@/shared/components";
+import { AppButton, AppCard, AppText } from "@/shared/components";
 
 interface DiaryPreviewCardProps {
+  onOpen?: (id: string) => void;
   record: DiaryRecord | null;
   selectedDate: DiaryDateKey;
   todayDate: DiaryDateKey;
@@ -20,6 +21,7 @@ function formatSelectedDate(date: DiaryDateKey): string {
 }
 
 export function DiaryPreviewCard({
+  onOpen,
   record,
   selectedDate,
   todayDate,
@@ -96,6 +98,14 @@ export function DiaryPreviewCard({
         <AppText color="textSecondary" numberOfLines={3}>
           {record.entry.content}
         </AppText>
+      ) : null}
+
+      {onOpen ? (
+        <AppButton
+          label="상세 보기"
+          onPress={() => onOpen(record.entry.id)}
+          variant="secondary"
+        />
       ) : null}
     </AppCard>
   );

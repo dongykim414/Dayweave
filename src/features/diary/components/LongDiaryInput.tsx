@@ -42,7 +42,7 @@ export function LongDiaryInput({
 
       {expanded ? (
         <TextInput
-          accessibilityLabel="오늘의 자세한 기록"
+          accessibilityLabel="자세한 기록"
           multiline
           onChangeText={onChange}
           placeholder="오늘의 이야기를 조금 더 남겨보세요..."

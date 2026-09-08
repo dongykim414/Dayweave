@@ -67,6 +67,14 @@ M1부터 Jest와 `jest-expo`로 순수 domain, 날짜, Mood registry와 DB row m
   범위 filter로 같은 repository contract를 구현합니다.
 - 달력·월 경계·윤년·범위 query는 `pnpm test`로 검증합니다. 실제 사진 marker,
   작은 화면과 앱 재실행은 Android 기기 또는 emulator에서 별도로 확인합니다.
+- Detail은 `/diary/<entry-id>` route를 사용합니다. ID 조회·수정·삭제는 repository를
+  통해 실행하며 screen에서 SQL이나 file system을 직접 호출하지 않습니다.
+- Photo 교체·제거는 Today와 Detail이 같은 `diaryRecordLifecycle`을 사용합니다. 실제
+  Android에서는 수정 전후 DB row 수와 `documents/diary/photos` 파일 수를 함께
+  확인해야 합니다.
+- 삭제 검증은 Diary row와 cascade된 Photo row가 사라진 뒤 사진 파일도 정리되는지
+  확인합니다. DB 성공 후 파일 cleanup 실패는 orphan 파일을 남길 수 있으며 현재는
+  오류 기록만 하고 background cleanup은 구현하지 않습니다.
 
 ## PR과 Release
 

@@ -4,27 +4,23 @@ import * as Crypto from "expo-crypto";
 import { useDiaryRepository } from "@/database/DiaryRepositoryContext";
 import { buildDiaryEntry } from "@/features/diary/model/buildDiaryEntry";
 import { toLocalDateKey } from "@/features/diary/model/diaryDate";
-import type {
-  DiaryPhoto,
-  DiaryPhotoDraft,
-  PreparedDiaryPhoto,
-} from "@/features/diary/model/diaryPhoto.types";
+import type { DiaryPhoto, DiaryPhotoDraft } from "@/features/diary/model/diaryPhoto.types";
 import type {
   DiaryDraft,
   DiaryEntry,
 } from "@/features/diary/model/diary.types";
-import { shouldDeletePreviousPhoto } from "@/features/diary/model/photoLifecycle";
 import {
   normalizeDiaryDraft,
   validateDiaryDraft,
 } from "@/features/diary/model/diaryValidation";
 import {
-  deletePersistedDiaryPhoto,
-  discardPreparedDiaryPhoto,
   isDiaryPhotoFileAvailable,
-  persistPreparedDiaryPhoto,
   selectDiaryPhoto,
 } from "@/features/diary/services/diaryPhotoService";
+import {
+  discardDiaryPhotoDraft,
+  saveDiaryRecord,
+} from "@/features/diary/services/diaryRecordLifecycle";
 import type { MoodId } from "@/features/mood/mood.types";
 
 const EMPTY_DRAFT: DiaryDraft = {
@@ -43,24 +39,6 @@ function getUserErrorMessage(action: "load" | "photo" | "save"): string {
   }
 
   return "오늘의 기록을 저장하지 못했어요. 잠시 후 다시 시도해 주세요.";
-}
-
-async function safelyDiscardPreparedPhoto(
-  photo: PreparedDiaryPhoto,
-): Promise<void> {
-  try {
-    await discardPreparedDiaryPhoto(photo);
-  } catch (caughtError) {
-    console.error("[DiaryPhoto] Failed to remove a staged photo", caughtError);
-  }
-}
-
-async function safelyDeletePersistedPhoto(photo: DiaryPhoto): Promise<void> {
-  try {
-    await deletePersistedDiaryPhoto(photo);
-  } catch (caughtError) {
-    console.error("[DiaryPhoto] Failed to remove a persisted photo", caughtError);
-  }
 }
 
 export function useTodayDiary() {
@@ -141,7 +119,7 @@ export function useTodayDiary() {
       mountedRef.current = false;
       const currentPhoto = photoDraftRef.current;
       if (currentPhoto?.kind === "prepared" && !savingRef.current) {
-        void safelyDiscardPreparedPhoto(currentPhoto.photo);
+        void discardDiaryPhotoDraft(currentPhoto);
       }
     };
   }, [entryDate, repository]);
@@ -151,7 +129,7 @@ export function useTodayDiary() {
     setFeedback(null);
   };
 
-  const updateMood = (moodId: MoodId) => {
+  const updateMood = (moodId: MoodId | null) => {
     setDraft((current) => ({ ...current, moodId }));
     clearMessages();
   };
@@ -183,7 +161,7 @@ export function useTodayDiary() {
 
       if (!mountedRef.current) {
         if (result.status === "selected") {
-          await safelyDiscardPreparedPhoto(result.photo);
+          await discardDiaryPhotoDraft({ kind: "prepared", photo: result.photo });
         }
         return;
       }
@@ -204,7 +182,7 @@ export function useTodayDiary() {
 
       const currentPhoto = photoDraftRef.current;
       if (currentPhoto?.kind === "prepared") {
-        await safelyDiscardPreparedPhoto(currentPhoto.photo);
+        await discardDiaryPhotoDraft(currentPhoto);
       }
 
       updatePhotoDraft({ kind: "prepared", photo: result.photo });
@@ -224,7 +202,7 @@ export function useTodayDiary() {
   const removePhoto = (): void => {
     const currentPhoto = photoDraftRef.current;
     if (currentPhoto?.kind === "prepared") {
-      void safelyDiscardPreparedPhoto(currentPhoto.photo);
+      void discardDiaryPhotoDraft(currentPhoto);
     }
     updatePhotoDraft(null);
     setPhotoAvailable(true);
@@ -249,8 +227,6 @@ export function useTodayDiary() {
     setSaving(true);
     clearMessages();
 
-    let newPersistedPhoto: DiaryPhoto | null = null;
-
     try {
       const nextEntry = buildDiaryEntry({
         createId: Crypto.randomUUID,
@@ -261,26 +237,12 @@ export function useTodayDiary() {
         now: new Date(),
       });
 
-      const nextPhoto =
-        currentPhotoDraft?.kind === "prepared"
-          ? await persistPreparedDiaryPhoto(currentPhotoDraft.photo, nextEntry.id)
-          : (currentPhotoDraft?.photo ?? null);
-
-      if (currentPhotoDraft?.kind === "prepared") {
-        newPersistedPhoto = nextPhoto;
-      }
-
-      await repository.upsertRecord(nextEntry, nextPhoto);
-
-      if (currentPhotoDraft?.kind === "prepared") {
-        await safelyDiscardPreparedPhoto(currentPhotoDraft.photo);
-      }
-      if (
-        persistedPhoto &&
-        shouldDeletePreviousPhoto(persistedPhoto, nextPhoto)
-      ) {
-        await safelyDeletePersistedPhoto(persistedPhoto);
-      }
+      const nextPhoto = await saveDiaryRecord({
+        entry: nextEntry,
+        photoDraft: currentPhotoDraft,
+        previousPhoto: persistedPhoto,
+        repository,
+      });
 
       setEntry(nextEntry);
       setPersistedPhoto(nextPhoto);
@@ -292,11 +254,7 @@ export function useTodayDiary() {
       setFeedback("오늘의 기록을 남겼어요.");
     } catch (caughtError) {
       console.error("[Diary] Failed to save today's entry", caughtError);
-      if (newPersistedPhoto) {
-        await safelyDeletePersistedPhoto(newPersistedPhoto);
-      }
       if (currentPhotoDraft?.kind === "prepared") {
-        await safelyDiscardPreparedPhoto(currentPhotoDraft.photo);
         updatePhotoDraft(
           persistedPhoto ? { kind: "persisted", photo: persistedPhoto } : null,
         );
