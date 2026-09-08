@@ -12,14 +12,15 @@ This file defines the standing rules for AI coding agents in Dayweave.
 - Do not implement a future capability unless the current task explicitly includes it.
 - `docs/PRODUCT.md` is the canonical product-scope document.
 
-## Current Scope: M0 Foundation
+## Current Scope: M1 Diary Core
 
-M0 includes Expo Router tabs, ThemeProvider, Sky Theme, shared UI primitives,
-semantic Mood IDs, Avatar part types, documentation, lint, typecheck, and Web export.
+M0 Foundation is complete in `v0.1.0`. M1 implements semantic Mood and the default
+Mood Pack, the Today quick/long diary form, local-date rules, SQLite migration and
+repository persistence, loading/save/error feedback, and executable domain tests.
 
-M0 excludes SQLite, diary CRUD, photo picking/upload, MoodSelector/assets, avatar
-customization, Supabase, login, Zustand, TanStack Query, RevenueCat, store/payment,
-AI, calendar/social integration, sharing, and push notifications.
+M1 excludes photos, timeline/calendar behavior, diary detail/delete, tags, schedules,
+avatar customization, theme or Mood Pack selection, store/ownership/payments, Supabase,
+authentication, cloud sync, social/sharing, push notifications, and AI analysis.
 
 ## Stack and Commands
 
@@ -108,6 +109,7 @@ After every meaningful code or configuration change, run the applicable commands
 pnpm version:check
 pnpm deps:check
 pnpm lint
+pnpm test
 pnpm typecheck
 pnpm build:web
 ```

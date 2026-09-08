@@ -35,13 +35,28 @@ iOS 시뮬레이터 실행은 지원하지 않으므로 실제 iPhone의 Expo Go
 pnpm version:check
 pnpm deps:check
 pnpm lint
+pnpm test
 pnpm typecheck
 pnpm build:web
 ```
 
-테스트 도구는 도메인 로직이 생기는 M1에 추가합니다. 그 전에는 의미 없는 통과용
-test script를 만들지 않습니다. UI 변경 PR은 가능한 플랫폼의 스크린샷 또는 실행
-증거를 첨부합니다.
+M1부터 Jest와 `jest-expo`로 순수 domain, 날짜, Mood registry와 DB row mapping을
+테스트합니다. Native SQLite integration은 실제 Android/iOS 기기나 emulator에서
+검증하며 대량의 native mock으로 통과를 흉내 내지 않습니다. UI 변경 PR은 가능한
+플랫폼의 스크린샷 또는 실행 증거를 첨부합니다.
+
+## 저장소와 플랫폼별 개발
+
+- Android/iOS DB 이름: `dayweave.db`
+- Android/iOS schema version: `PRAGMA user_version = 1`
+- Expo CLI에서 `Shift + M` 후 expo-sqlite inspector를 선택하면 연결된 앱 DB를
+  확인할 수 있습니다.
+- Web은 `LocalStorageDiaryRepository`를 사용합니다. 이는 브라우저 미리보기용
+  persistence이며 Web Browser 데이터를 지우면 함께 삭제됩니다.
+- `LocalStorageDiaryRepository`의 `TODO(web-storage)` 주석은 Web이 정식 제품 대상이
+  될 때 IndexedDB 또는 sync storage로 교체할 위치입니다.
+- `pnpm web`은 static rendering 설정을 유지한 상태로 Web UI를 확인합니다. Android/iOS
+  persistence 합격 기준은 실제 SQLite database입니다.
 
 ## PR과 Release
 

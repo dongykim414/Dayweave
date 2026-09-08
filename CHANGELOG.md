@@ -5,7 +5,20 @@ Dayweave의 사용자 기능, 구조, 개발 환경에서 의미 있는 변경�
 
 ## [Unreleased]
 
-다음 버전에 포함할 변경을 이 아래에 먼저 기록합니다.
+### Added
+
+- semantic Mood Pack registry와 Default Mood Pack
+- 감정, 50자 한 줄과 선택적 긴 글을 작성하는 Today 화면
+- local calendar date 기반 DiaryEntry domain과 validation
+- SQLiteProvider, `PRAGMA user_version` migration과 DiaryRepository persistence
+- 공식 Expo Crypto UUID와 Jest 기반 domain 테스트
+- Web preview용 `localStorage` DiaryRepository와 platform-specific provider
+
+### Changed
+
+- M1의 하루 한 기록 규칙을 `UNIQUE(entry_date)`와 upsert로 보호
+- PR CI에 자동 테스트 단계를 추가
+- Expo SDK 57 호환표에 맞춰 `expo`와 `expo-router` patch version 갱신
 
 ## [0.1.0] - 2026-09-08
 
