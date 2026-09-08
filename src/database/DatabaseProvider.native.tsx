@@ -1,7 +1,7 @@
 import type { PropsWithChildren } from "react";
 import { Suspense } from "react";
 import { SQLiteProvider } from "expo-sqlite";
-import { ActivityIndicator, Platform, View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 
 import { DIARY_DATABASE_NAME } from "@/database/database.constants";
 import { migrateDatabase } from "@/database/migrateDatabase";
@@ -28,10 +28,6 @@ function DatabaseLoadingFallback() {
 }
 
 export function DatabaseProvider({ children }: PropsWithChildren) {
-  if (Platform.OS === "web") {
-    return <>{children}</>;
-  }
-
   return (
     <Suspense fallback={<DatabaseLoadingFallback />}>
       <SQLiteProvider

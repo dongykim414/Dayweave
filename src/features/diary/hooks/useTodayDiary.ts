@@ -1,8 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as Crypto from "expo-crypto";
-import { useSQLiteContext } from "expo-sqlite";
 
-import { SQLiteDiaryRepository } from "@/features/diary/data/SQLiteDiaryRepository";
+import { useDiaryRepository } from "@/database/DiaryRepositoryContext";
 import { buildDiaryEntry } from "@/features/diary/model/buildDiaryEntry";
 import { toLocalDateKey } from "@/features/diary/model/diaryDate";
 import type {
@@ -28,11 +27,7 @@ function getUserErrorMessage(action: "load" | "save"): string {
 }
 
 export function useTodayDiary() {
-  const database = useSQLiteContext();
-  const repository = useMemo(
-    () => new SQLiteDiaryRepository(database),
-    [database],
-  );
+  const repository = useDiaryRepository();
   const [entryDate] = useState(() => toLocalDateKey(new Date()));
   const [entry, setEntry] = useState<DiaryEntry | null>(null);
   const [draft, setDraft] = useState<DiaryDraft>(EMPTY_DRAFT);

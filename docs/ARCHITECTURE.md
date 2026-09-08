@@ -6,7 +6,7 @@
 app/                         Expo Router route와 navigation 조립
   (tabs)/                    오늘·타임라인·아바타·내 정보
 src/
-  database/                  SQLite lifecycle과 migration
+  database/                  플랫폼별 저장소 lifecycle과 repository 주입
   features/                  제품 도메인별 화면·모델·런타임
     diary/
     mood/
@@ -25,9 +25,9 @@ docs/                        제품과 기술 의사결정
 ```text
 app routes → feature screens → feature hook → repository interface
                   ↓                              ↑
-              shared UI                 SQLite implementation
+              shared UI          platform-specific implementation
                   ↓                              ↑
-             theme runtime             DatabaseProvider/migration
+             theme runtime       DatabaseProvider/repository provider
 ```
 
 - `app/`은 화면 조립과 navigation만 담당합니다.
@@ -38,18 +38,22 @@ app routes → feature screens → feature hook → repository interface
 
 ## M1 Diary Persistence
 
-`ThemeProvider → DatabaseProvider → Router` 순서로 앱을 구성합니다. DatabaseProvider는
-Expo SDK 57의 `SQLiteProvider`를 사용하며 `onInit` migration이 끝나기 전에는 route를
-render하지 않습니다.
+`ThemeProvider → DatabaseProvider → DiaryRepositoryRuntimeProvider → Router` 순서로 앱을
+구성합니다. platform extension 파일이 같은 interface를 각 환경에 맞게 연결합니다.
 
 ```text
 TodayScreen
   → useTodayDiary
     → DiaryRepository
-      → SQLiteDiaryRepository
-        → diary_entries
+      ├─ Android/iOS: SQLiteDiaryRepository → diary_entries
+      └─ Web: LocalStorageDiaryRepository → browser localStorage
 ```
 
+- Android/iOS의 DatabaseProvider는 Expo SDK 57 `SQLiteProvider`를 사용하며 `onInit`
+  migration이 끝나기 전에는 route를 render하지 않습니다.
+- Web은 `expo-sqlite`를 import하지 않아 static rendering과 Web bundling을 유지합니다.
+- Web `localStorage` adapter는 M1 preview 전용이며 코드의 `TODO(web-storage)` 주석을
+  기준으로 IndexedDB 또는 synced storage로 교체합니다.
 - Domain은 camelCase만 사용하고 SQLite row의 snake_case는 mapper에서 변환합니다.
 - `entry_date`는 device local calendar의 `YYYY-MM-DD`이고 unique constraint를 가집니다.
 - `created_at`, `updated_at`은 UTC ISO timestamp입니다.

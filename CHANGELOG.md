@@ -12,6 +12,7 @@ Dayweave의 사용자 기능, 구조, 개발 환경에서 의미 있는 변경�
 - local calendar date 기반 DiaryEntry domain과 validation
 - SQLiteProvider, `PRAGMA user_version` migration과 DiaryRepository persistence
 - 공식 Expo Crypto UUID와 Jest 기반 domain 테스트
+- Web preview용 `localStorage` DiaryRepository와 platform-specific provider
 
 ### Changed
 

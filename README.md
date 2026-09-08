@@ -19,6 +19,7 @@ Avatar, 클라우드 동기화와 일정·SNS 연결을 단계적으로 추가�
 - 오늘의 감정·한 줄·선택적 긴 글 작성
 - local date 기반 하루 한 기록 create/update
 - SQLite `user_version` migration과 local-first persistence
+- Web preview용 localStorage repository와 platform-specific storage provider
 - domain·날짜·validation·row mapping 자동 테스트
 - 사진, 타임라인 CRUD와 클라우드 동기화는 아직 구현하지 않음
 
