@@ -95,7 +95,7 @@
 
 - 완료 근거: domain test, lint, typecheck, Web export와 peer 검사는 성공했다.
 - 실행하지 않은 검증: 실제 기기에서 DB 파일 persistence와 row count 확인.
-- 남은 위험: native acceptance Case 1, 2, 4, 6과 Web runtime 호환성 작업이 남았다.
+- 남은 위험: native acceptance Case 1~6과 Web runtime 호환성 작업이 남았다.
   M2 최종 착수 전 native acceptance를 우선 확인한다.
 
 ## 하네스 후보
