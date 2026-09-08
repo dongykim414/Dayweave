@@ -15,6 +15,7 @@
 ## 현재 자료
 
 - [M0 Foundation 학습 요약](setup/m0.md)
+- [M1 Diary Core 시작 가이드](m1-diary-core/README.md)
 
 ## Harness Run과의 차이
 

@@ -12,14 +12,15 @@ This file defines the standing rules for AI coding agents in Dayweave.
 - Do not implement a future capability unless the current task explicitly includes it.
 - `docs/PRODUCT.md` is the canonical product-scope document.
 
-## Current Scope: M0 Foundation
+## Current Scope: M1 Diary Domain Slice
 
-M0 includes Expo Router tabs, ThemeProvider, Sky Theme, shared UI primitives,
-semantic Mood IDs, Avatar part types, documentation, lint, typecheck, and Web export.
+M0 Foundation is complete in `v0.1.0`. The first M1 slice defines the Diary domain
+model, local-date policy, repository contract, validation behavior, and executable tests.
 
-M0 excludes SQLite, diary CRUD, photo picking/upload, MoodSelector/assets, avatar
-customization, Supabase, login, Zustand, TanStack Query, RevenueCat, store/payment,
-AI, calendar/social integration, sharing, and push notifications.
+This slice excludes SQLite implementation and migration, screen form behavior, photo
+picking/upload, MoodSelector/assets, avatar customization, Supabase, login, payments,
+AI, calendar/social integration, sharing, and push notifications. Those capabilities
+belong to later M1 slices or later milestones documented in `docs/ROADMAP.md`.
 
 ## Stack and Commands
 
