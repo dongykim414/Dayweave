@@ -23,6 +23,10 @@ Dayweave의 사용자 기능, 구조, 개발 환경에서 의미 있는 변경�
 - Entry ID 기반 Diary 상세 route와 전체 Mood·사진·텍스트 보기
 - 기존 Diary form 규칙을 재사용하는 수정 mode와 미저장 변경 확인
 - 확인 절차, FK cascade와 DB 성공 후 사진 cleanup을 사용하는 Diary 삭제
+- Catalog/Ownership/Selection이 분리된 파츠 조합형 Avatar engine
+- Hair·Top·Bottom·Accessory 선택, None accessory와 즉시 preview
+- 잘못된 저장 ID의 slot별 fallback과 앱 재실행 selection 복원
+- SQLite v3 `avatar_config` single-row persistence와 Web localStorage adapter
 
 ### Changed
 
@@ -32,6 +36,7 @@ Dayweave의 사용자 기능, 구조, 개발 환경에서 의미 있는 변경�
 - 사진만 있는 DiaryEntry도 허용하도록 저장 validation 확장
 - 월간 Diary와 사진을 N+1 없이 한 번에 읽도록 repository API 확장
 - Today와 Detail이 같은 Diary form 및 Photo commit lifecycle을 사용하도록 공통화
+- Avatar placeholder를 layered customization 화면으로 교체
 
 ## [0.1.0] - 2026-09-08
 

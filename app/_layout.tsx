@@ -2,6 +2,7 @@ import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 
 import { DatabaseProvider } from "@/database/DatabaseProvider";
+import { AvatarRepositoryRuntimeProvider } from "@/database/AvatarRepositoryRuntimeProvider";
 import { DiaryRepositoryRuntimeProvider } from "@/database/DiaryRepositoryRuntimeProvider";
 import { ThemeProvider, useTheme } from "@/features/theme";
 
@@ -26,7 +27,9 @@ export default function RootLayout() {
     <ThemeProvider>
       <DatabaseProvider>
         <DiaryRepositoryRuntimeProvider>
-          <RootNavigator />
+          <AvatarRepositoryRuntimeProvider>
+            <RootNavigator />
+          </AvatarRepositoryRuntimeProvider>
         </DiaryRepositoryRuntimeProvider>
       </DatabaseProvider>
     </ThemeProvider>

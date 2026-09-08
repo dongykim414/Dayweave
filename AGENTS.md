@@ -12,14 +12,14 @@ This file defines the standing rules for AI coding agents in Dayweave.
 - Do not implement a future capability unless the current task explicitly includes it.
 - `docs/PRODUCT.md` is the canonical product-scope document.
 
-## Current Scope: M4 Diary Detail
+## Current Scope: M5 Avatar Engine
 
-M0 Foundation through M3 Timeline are complete. M4 adds stable-ID Diary detail routes,
-full read views, editing through the existing Diary rules, safe photo replacement and
-removal, confirmed deletion, and Timeline refresh on return.
+M0 Foundation through M4 Diary Detail are complete. M5 adds a part-based Avatar engine,
+Catalog/Ownership/Selection boundaries, layered placeholder rendering, owned-item
+selection, and single-row local persistence.
 
-M4 excludes camera capture, multiple photos, tags, schedules, search, sharing,
-avatar customization, theme or Mood Pack selection, store/ownership/payments, Supabase,
+M5 excludes camera capture, multiple photos, tags, schedules, search, sharing,
+Theme or Mood Pack selection, store/payments, Supabase,
 authentication, cloud sync, social/sharing, push notifications, and AI analysis.
 
 ## Stack and Commands
@@ -106,7 +106,13 @@ Import order:
 - Represent Avatar configuration with part IDs for `body`, `hair`, `top`, `bottom`,
   and optional `accessory`.
 - Do not replace the domain structure with one flattened character image.
-- Asset registries, rendering, ownership, and customization are later milestones.
+- Keep Catalog, Ownership, and current Selection as separate values.
+- Render in the documented `hairBack → body → bottom → top → hairFront → accessory`
+  order. Renderer components must not query repositories or check ownership.
+- Persist semantic item IDs only, never raw asset paths or rendered images.
+- Invalid or removed IDs fall back per slot to the default Avatar config.
+- New visual assets use one shared canvas and static registry entries; do not use
+  dynamic `require()` paths or item-specific offsets in screen code.
 
 ## Commerce Readiness
 

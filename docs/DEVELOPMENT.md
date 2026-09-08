@@ -48,7 +48,7 @@ M1부터 Jest와 `jest-expo`로 순수 domain, 날짜, Mood registry와 DB row m
 ## 저장소와 플랫폼별 개발
 
 - Android/iOS DB 이름: `dayweave.db`
-- Android/iOS schema version: `PRAGMA user_version = 2`
+- Android/iOS schema version: `PRAGMA user_version = 3`
 - Expo CLI에서 `Shift + M` 후 expo-sqlite inspector를 선택하면 연결된 앱 DB를
   확인할 수 있습니다.
 - Web은 `LocalStorageDiaryRepository`를 사용합니다. 이는 브라우저 미리보기용
@@ -75,6 +75,12 @@ M1부터 Jest와 `jest-expo`로 순수 domain, 날짜, Mood registry와 DB row m
 - 삭제 검증은 Diary row와 cascade된 Photo row가 사라진 뒤 사진 파일도 정리되는지
   확인합니다. DB 성공 후 파일 cleanup 실패는 orphan 파일을 남길 수 있으며 현재는
   오류 기록만 하고 background cleanup은 구현하지 않습니다.
+- Avatar selection은 `avatar_config`의 `singleton_key = 'current'` 한 row로 저장합니다.
+  Web preview는 `dayweave:avatar-config:v1` localStorage key를 사용합니다.
+- 새 Avatar item은 domain ID, Catalog definition과 visual registry만 추가합니다.
+  screen이나 renderer에 item ID 조건문을 추가하지 않습니다.
+- Placeholder/최종 asset 제작 규칙과 layer order는 `AVATAR_ASSET_GUIDE.md`를 따릅니다.
+- 실제 Android DB row·재실행·layer 육안 검증은 요청에 따라 MVP 통합 QA 때 수행합니다.
 
 ## PR과 Release
 

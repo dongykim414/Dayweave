@@ -25,7 +25,7 @@ MVP가 완성되면 사용자는 오늘의 감정, 한 줄, 선택적 사진을 
 긴 글을 추가하며, 타임라인에서 날짜별 기록을 확인하고 수정·삭제할 수 있습니다.
 기본 Sky Theme, 기본 Mood Pack과 파츠형 Avatar 구조가 동작해야 합니다.
 
-## 현재 구현 범위: M4 Diary Detail
+## 현재 구현 범위: M5 Avatar Engine
 
 - Expo Router 기반 4탭 셸
 - Sky Theme, ThemeProvider, theme registry
@@ -40,12 +40,15 @@ MVP가 완성되면 사용자는 오늘의 감정, 한 줄, 선택적 사진을 
 - Timeline Preview에서 Entry ID 기반 상세 화면 이동
 - 전체 Diary 조회, Mood·텍스트·사진 수정과 확인 후 삭제
 - 수정·삭제 후 Timeline focus reload
+- semantic Avatar item ID와 Catalog·Ownership·Selection 분리
+- 기본 보유 Hair·Top·Bottom·Accessory 선택과 None accessory
+- 6단계 파츠 renderer와 local selection persistence
 - domain test, lint, typecheck와 Expo Web export
 
-## M4에서 하지 않는 것
+## M5에서 하지 않는 것
 
-카메라 촬영·다중 사진·cloud upload, 날짜 변경, 검색·필터·통계·공유, 실제 Avatar 커스터마이징, Theme 또는
-Mood Pack 선택, Supabase, 로그인, Zustand, TanStack Query, RevenueCat, 상점·결제,
+카메라 촬영·다중 사진·cloud upload, 날짜 변경, 검색·필터·통계·공유, 완성 Avatar art·animation, Theme 또는
+Mood Pack 선택, Supabase, 로그인, Zustand, TanStack Query, RevenueCat, 상점·구매·결제,
 AI, 일정·SNS 연동, 공유와 푸시 알림은 구현하지 않습니다.
 
 ## 장기 확장
