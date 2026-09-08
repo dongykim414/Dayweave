@@ -22,13 +22,13 @@ export function PhotoPickerField({
 
   return (
     <View style={{ gap: theme.spacing.sm }}>
-      <AppText variant="heading">오늘의 사진</AppText>
+      <AppText variant="heading">사진</AppText>
 
       {uri ? (
         <AppCard style={{ gap: theme.spacing.md, padding: theme.spacing.md }}>
           {available ? (
             <Image
-              accessibilityLabel="선택한 오늘의 사진 미리보기"
+              accessibilityLabel="선택한 일기 사진 미리보기"
               resizeMode="cover"
               source={{ uri }}
               style={{

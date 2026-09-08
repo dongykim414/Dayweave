@@ -1,4 +1,5 @@
 import { ActivityIndicator, ScrollView, View } from "react-native";
+import { useRouter } from "expo-router";
 
 import { CalendarGrid } from "@/features/diary/components/CalendarGrid";
 import { DiaryPreviewCard } from "@/features/diary/components/DiaryPreviewCard";
@@ -8,6 +9,7 @@ import { useTheme } from "@/features/theme";
 import { AppButton, AppCard, AppScreen, AppText } from "@/shared/components";
 
 export default function TimelineScreen() {
+  const router = useRouter();
   const { theme } = useTheme();
   const {
     calendarCells,
@@ -93,6 +95,9 @@ export default function TimelineScreen() {
           </AppCard>
         ) : loading ? null : (
           <DiaryPreviewCard
+            onOpen={(id) =>
+              router.push({ pathname: "/diary/[id]", params: { id } })
+            }
             record={selectedRecord}
             selectedDate={selectedDate}
             todayDate={todayKey}

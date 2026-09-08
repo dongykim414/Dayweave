@@ -8,7 +8,7 @@ import { useTheme } from "@/features/theme";
 import { AppText } from "@/shared/components";
 
 interface MoodSelectorProps {
-  onChange: (moodId: MoodId) => void;
+  onChange: (moodId: MoodId | null) => void;
   value: MoodId | null;
 }
 
@@ -17,7 +17,7 @@ export function MoodSelector({ onChange, value }: MoodSelectorProps) {
 
   return (
     <View
-      accessibilityLabel="오늘의 감정 선택"
+      accessibilityLabel="감정 선택"
       style={[styles.grid, { gap: theme.spacing.sm }]}
     >
       {MOOD_IDS.map((moodId) => {
@@ -30,7 +30,7 @@ export function MoodSelector({ onChange, value }: MoodSelectorProps) {
             accessibilityLabel={`${mood.label}${selected ? ", 선택됨" : ""}`}
             accessibilityRole="button"
             accessibilityState={{ selected }}
-            onPress={() => onChange(moodId)}
+            onPress={() => onChange(selected ? null : moodId)}
             style={({ pressed }) => [
               styles.option,
               {

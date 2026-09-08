@@ -7,7 +7,7 @@ Avatar, 클라우드 동기화와 일정·SNS 연결을 단계적으로 추가�
 이 저장소는 제품 개발과 함께 AI 코딩 Agent의 작업을 관찰하고 반복되는 실패를
 문서·검증·자동화로 줄이는 Harness Engineering 실험을 기록합니다.
 
-## 현재 단계: M3 Timeline
+## 현재 단계: M4 Diary Detail
 
 현재 기준 버전은 `v0.1.0` Foundation pre-release입니다. 버전별 변경은
 [`CHANGELOG.md`](CHANGELOG.md), 버전 선택과 릴리스 규칙은
@@ -24,8 +24,11 @@ Avatar, 클라우드 동기화와 일정·SNS 연결을 단계적으로 추가�
 - Web preview용 localStorage repository와 platform-specific storage provider
 - 현재 월 달력, 이전·다음 월 이동과 오늘·선택 날짜 표시
 - 기록 날짜의 사진 또는 Mood marker와 선택 날짜 Diary preview
+- 안정적인 Entry ID 기반 상세 조회와 전체 내용 표시
+- Mood·한 줄·긴 글·사진 수정, 미저장 변경 확인과 빈 기록 저장 방지
+- 확인 절차가 있는 Diary 삭제와 DB 성공 후 사진 파일 정리
 - 월 범위 1회 조회와 domain·날짜·validation·row mapping 자동 테스트
-- 카메라·다중 사진, 타임라인 CRUD와 클라우드 동기화는 아직 구현하지 않음
+- 카메라·다중 사진, 검색·공유와 클라우드 동기화는 아직 구현하지 않음
 
 제품과 현재 범위는 [`docs/PRODUCT.md`](docs/PRODUCT.md), 기술 경계는
 [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)를 참고합니다.

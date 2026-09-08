@@ -5,7 +5,7 @@ import { useTheme } from "@/features/theme";
 import type { ThemeColors } from "@/features/theme";
 import { AppText } from "@/shared/components/AppText";
 
-type AppButtonVariant = "primary" | "secondary" | "ghost";
+type AppButtonVariant = "primary" | "secondary" | "ghost" | "danger";
 
 interface AppButtonProps {
   disabled?: boolean;
@@ -45,6 +45,11 @@ export function AppButton({
       backgroundColor: theme.colors.surfaceSoft,
       borderColor: theme.colors.surfaceSoft,
       labelColor: "primary",
+    },
+    danger: {
+      backgroundColor: theme.colors.surface,
+      borderColor: theme.colors.danger,
+      labelColor: "danger",
     },
   };
   const palette = palettes[variant];

@@ -18,6 +18,7 @@
 - [M1 Diary Core 구현 리포트](setup/m1.md)
 - [M2 Photo 구현 리포트](setup/m2.md)
 - [M3 Timeline 구현 리포트](setup/m3.md)
+- [M4 Diary Detail 구현 리포트](setup/m4.md)
 
 ## Harness Run과의 차이
 

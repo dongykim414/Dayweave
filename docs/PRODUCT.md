@@ -25,7 +25,7 @@ MVP가 완성되면 사용자는 오늘의 감정, 한 줄, 선택적 사진을 
 긴 글을 추가하며, 타임라인에서 날짜별 기록을 확인하고 수정·삭제할 수 있습니다.
 기본 Sky Theme, 기본 Mood Pack과 파츠형 Avatar 구조가 동작해야 합니다.
 
-## 현재 구현 범위: M3 Timeline
+## 현재 구현 범위: M4 Diary Detail
 
 - Expo Router 기반 4탭 셸
 - Sky Theme, ThemeProvider, theme registry
@@ -37,11 +37,14 @@ MVP가 완성되면 사용자는 오늘의 감정, 한 줄, 선택적 사진을 
 - Gallery에서 선택한 사진 0~1장, display image 처리와 앱 전용 local persistence
 - local-calendar 월간 달력과 이전·다음 월 탐색
 - 기록 날짜의 Photo 또는 Mood marker와 선택 날짜 read-only preview
+- Timeline Preview에서 Entry ID 기반 상세 화면 이동
+- 전체 Diary 조회, Mood·텍스트·사진 수정과 확인 후 삭제
+- 수정·삭제 후 Timeline focus reload
 - domain test, lint, typecheck와 Expo Web export
 
-## M3에서 하지 않는 것
+## M4에서 하지 않는 것
 
-카메라 촬영·다중 사진·cloud upload, Diary 상세·수정·삭제, 검색·필터·통계, 실제 Avatar 커스터마이징, Theme 또는
+카메라 촬영·다중 사진·cloud upload, 날짜 변경, 검색·필터·통계·공유, 실제 Avatar 커스터마이징, Theme 또는
 Mood Pack 선택, Supabase, 로그인, Zustand, TanStack Query, RevenueCat, 상점·결제,
 AI, 일정·SNS 연동, 공유와 푸시 알림은 구현하지 않습니다.
 

@@ -11,6 +11,7 @@ import {
 import type {
   DiaryDateKey,
   DiaryEntry,
+  DiaryEntryId,
 } from "@/features/diary/model/diary.types";
 import type {
   DiaryPhoto,
@@ -108,6 +109,33 @@ export class SQLiteDiaryRepository implements DiaryRepository {
     }
 
     return toDiaryRecord(row);
+  }
+
+  async getRecordById(id: DiaryEntryId): Promise<DiaryRecord | null> {
+    const row = await this.database.getFirstAsync<DiaryRecordRow>(
+      `SELECT
+        entries.id,
+        entries.entry_date,
+        entries.mood_id,
+        entries.short_text,
+        entries.content,
+        entries.created_at,
+        entries.updated_at,
+        photos.id AS photo_id,
+        photos.diary_entry_id AS photo_diary_entry_id,
+        photos.local_uri AS photo_local_uri,
+        photos.width AS photo_width,
+        photos.height AS photo_height,
+        photos.created_at AS photo_created_at
+      FROM diary_entries AS entries
+      LEFT JOIN diary_photos AS photos
+        ON photos.diary_entry_id = entries.id
+      WHERE entries.id = ?
+      LIMIT 1`,
+      id,
+    );
+
+    return row ? toDiaryRecord(row) : null;
   }
 
   async listRecordsByDateRange(
@@ -210,5 +238,22 @@ export class SQLiteDiaryRepository implements DiaryRepository {
         photo.createdAt,
       );
     });
+  }
+
+  async deleteById(id: DiaryEntryId): Promise<DiaryRecord | null> {
+    let deletedRecord: DiaryRecord | null = null;
+
+    await this.database.withTransactionAsync(async () => {
+      deletedRecord = await this.getRecordById(id);
+
+      if (deletedRecord) {
+        await this.database.runAsync(
+          "DELETE FROM diary_entries WHERE id = ?",
+          id,
+        );
+      }
+    });
+
+    return deletedRecord;
   }
 }
