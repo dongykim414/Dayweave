@@ -13,12 +13,16 @@ Dayweave의 사용자 기능, 구조, 개발 환경에서 의미 있는 변경�
 - SQLiteProvider, `PRAGMA user_version` migration과 DiaryRepository persistence
 - 공식 Expo Crypto UUID와 Jest 기반 domain 테스트
 - Web preview용 `localStorage` DiaryRepository와 platform-specific provider
+- Gallery 사진 0~1장 선택, display image 처리와 저장 전 preview
+- `diary_photos` v2 migration과 앱 documents 기반 사진 persistence
+- 사진 교체·제거·저장 실패 시 staging/persistent file cleanup
 
 ### Changed
 
 - M1의 하루 한 기록 규칙을 `UNIQUE(entry_date)`와 upsert로 보호
 - PR CI에 자동 테스트 단계를 추가
 - Expo SDK 57 호환표에 맞춰 `expo`와 `expo-router` patch version 갱신
+- 사진만 있는 DiaryEntry도 허용하도록 저장 validation 확장
 
 ## [0.1.0] - 2026-09-08
 

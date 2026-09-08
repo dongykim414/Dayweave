@@ -2,6 +2,10 @@ import type {
   DiaryDateKey,
   DiaryEntry,
 } from "@/features/diary/model/diary.types";
+import type {
+  DiaryPhoto,
+  DiaryRecord,
+} from "@/features/diary/model/diaryPhoto.types";
 import type { DiaryRepository } from "@/features/diary/repository/DiaryRepository";
 
 interface StorageLike {
@@ -10,6 +14,7 @@ interface StorageLike {
 }
 
 const WEB_DIARY_STORAGE_KEY = "dayweave:diary-entries:v1";
+const WEB_DIARY_PHOTO_STORAGE_KEY = "dayweave:diary-photos:v1";
 
 function getBrowserStorage(): StorageLike {
   if (typeof window === "undefined") {
@@ -31,6 +36,18 @@ function parseEntries(rawEntries: string | null): Record<string, DiaryEntry> {
   }
 }
 
+function parsePhotos(rawPhotos: string | null): Record<string, DiaryPhoto> {
+  if (!rawPhotos) {
+    return {};
+  }
+
+  try {
+    return JSON.parse(rawPhotos) as Record<string, DiaryPhoto>;
+  } catch {
+    throw new Error("Web diary photo storage contains invalid data");
+  }
+}
+
 /**
  * TODO(web-storage): This is a browser-only preview adapter for M1.
  * Replace it with IndexedDB or synced storage when Web becomes a product target.
@@ -45,6 +62,20 @@ export class LocalStorageDiaryRepository implements DiaryRepository {
     return entries[entryDate] ?? null;
   }
 
+  async getRecordByDate(entryDate: DiaryDateKey): Promise<DiaryRecord | null> {
+    const entry = await this.getByDate(entryDate);
+
+    if (!entry) {
+      return null;
+    }
+
+    const photos = parsePhotos(
+      this.storage.getItem(WEB_DIARY_PHOTO_STORAGE_KEY),
+    );
+
+    return { entry, photo: photos[entry.id] ?? null };
+  }
+
   async upsert(entry: DiaryEntry): Promise<void> {
     const entries = parseEntries(this.storage.getItem(WEB_DIARY_STORAGE_KEY));
 
@@ -52,5 +83,23 @@ export class LocalStorageDiaryRepository implements DiaryRepository {
       WEB_DIARY_STORAGE_KEY,
       JSON.stringify({ ...entries, [entry.entryDate]: entry }),
     );
+  }
+
+  async upsertRecord(
+    entry: DiaryEntry,
+    photo: DiaryPhoto | null,
+  ): Promise<void> {
+    await this.upsert(entry);
+    const photos = parsePhotos(
+      this.storage.getItem(WEB_DIARY_PHOTO_STORAGE_KEY),
+    );
+
+    if (photo) {
+      photos[entry.id] = photo;
+    } else {
+      delete photos[entry.id];
+    }
+
+    this.storage.setItem(WEB_DIARY_PHOTO_STORAGE_KEY, JSON.stringify(photos));
   }
 }

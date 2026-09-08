@@ -17,8 +17,15 @@ describe("diary validation", () => {
 
     expect(hasDiaryContent(draft)).toBe(false);
     expect(validateDiaryDraft(draft)).toBe(
-      "오늘의 기분이나 기록을 하나 남겨주세요.",
+      "오늘의 기분이나 기록, 사진을 하나 남겨주세요.",
     );
+  });
+
+  it("allows a photo without mood or text", () => {
+    const draft = { moodId: null, shortText: "", content: "" };
+
+    expect(hasDiaryContent(draft, true)).toBe(true);
+    expect(validateDiaryDraft(draft, true)).toBeNull();
   });
 
   it("trims text before persistence", () => {

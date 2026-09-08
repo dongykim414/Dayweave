@@ -25,7 +25,7 @@ MVP가 완성되면 사용자는 오늘의 감정, 한 줄, 선택적 사진을 
 긴 글을 추가하며, 타임라인에서 날짜별 기록을 확인하고 수정·삭제할 수 있습니다.
 기본 Sky Theme, 기본 Mood Pack과 파츠형 Avatar 구조가 동작해야 합니다.
 
-## 현재 구현 범위: M1 Diary Core
+## 현재 구현 범위: M2 Photo
 
 - Expo Router 기반 4탭 셸
 - Sky Theme, ThemeProvider, theme registry
@@ -34,11 +34,12 @@ MVP가 완성되면 사용자는 오늘의 감정, 한 줄, 선택적 사진을 
 - 감정, 50자 한 줄과 선택적 긴 글로 구성된 Today 작성 흐름
 - local calendar date 기준 하루 한 DiaryEntry
 - SQLite migration, repository와 앱 재실행 후 local persistence
+- Gallery에서 선택한 사진 0~1장, display image 처리와 앱 전용 local persistence
 - domain test, lint, typecheck와 Expo Web export
 
-## M1에서 하지 않는 것
+## M2에서 하지 않는 것
 
-사진 선택·업로드, Timeline·Calendar·상세·삭제, 실제 Avatar 커스터마이징, Theme 또는
+카메라 촬영·다중 사진·cloud upload, Timeline·Calendar·상세·삭제, 실제 Avatar 커스터마이징, Theme 또는
 Mood Pack 선택, Supabase, 로그인, Zustand, TanStack Query, RevenueCat, 상점·결제,
 AI, 일정·SNS 연동, 공유와 푸시 알림은 구현하지 않습니다.
 

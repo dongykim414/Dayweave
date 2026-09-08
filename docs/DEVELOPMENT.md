@@ -48,7 +48,7 @@ M1부터 Jest와 `jest-expo`로 순수 domain, 날짜, Mood registry와 DB row m
 ## 저장소와 플랫폼별 개발
 
 - Android/iOS DB 이름: `dayweave.db`
-- Android/iOS schema version: `PRAGMA user_version = 1`
+- Android/iOS schema version: `PRAGMA user_version = 2`
 - Expo CLI에서 `Shift + M` 후 expo-sqlite inspector를 선택하면 연결된 앱 DB를
   확인할 수 있습니다.
 - Web은 `LocalStorageDiaryRepository`를 사용합니다. 이는 브라우저 미리보기용
@@ -57,6 +57,11 @@ M1부터 Jest와 `jest-expo`로 순수 domain, 날짜, Mood registry와 DB row m
   될 때 IndexedDB 또는 sync storage로 교체할 위치입니다.
 - `pnpm web`은 static rendering 설정을 유지한 상태로 Web UI를 확인합니다. Android/iOS
   persistence 합격 기준은 실제 SQLite database입니다.
+- Native 사진은 cache staging 후 `document/diary/photos/<UUID>.jpg`로 저장합니다.
+  사진 선택·재실행 복원·교체·제거의 최종 합격 기준은 실제 Android 기기 또는
+  emulator에서 DB row와 파일 개수를 함께 확인하는 것입니다.
+- Web preview에서는 M2 사진 선택을 지원하지 않으며 base64나 picker 임시 URI를
+  localStorage에 저장하지 않습니다.
 
 ## PR과 Release
 
