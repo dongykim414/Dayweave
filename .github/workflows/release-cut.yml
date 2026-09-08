@@ -30,7 +30,7 @@ jobs:
         id: release
         shell: bash
         run: |
-          branch_name="release/$(date -u +'%G-W%V')"
+          branch_name="release/$(date -u +'%Y-%m-%d-W%V')"
           echo "branch_name=${branch_name}" >> "${GITHUB_OUTPUT}"
 
           if git ls-remote --exit-code --heads origin "${branch_name}" > /dev/null 2>&1; then
