@@ -18,9 +18,11 @@ migration과 repository를 구현합니다. 로컬에서 하루 기록을 저장
 저장과 교체·제거 lifecycle을 구현합니다. 실제 Android에서 재실행 복원과 DB/file
 inspection을 통과하면 단계가 완료됩니다.
 
-## M3 Timeline
+## M3 Timeline — 구현 완료, 실제 기기 검증 필요
 
-월간 조회, 달력, 날짜별 기록 카드, 상세·수정·삭제 흐름을 구현합니다.
+월간 범위 조회, 5/6주 달력, 날짜별 Photo/Mood marker와 read-only preview를
+구현했습니다. 실제 Android에서 사진 marker·재실행·작은 화면·빠른 월 이동을 확인하면
+단계가 완료됩니다. 상세·수정·삭제는 M3 범위가 아니며 후속 단계로 남깁니다.
 
 ## M4 Personalization
 

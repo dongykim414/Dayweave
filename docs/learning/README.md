@@ -17,6 +17,7 @@
 - [M0 Foundation 학습 요약](setup/m0.md)
 - [M1 Diary Core 구현 리포트](setup/m1.md)
 - [M2 Photo 구현 리포트](setup/m2.md)
+- [M3 Timeline 구현 리포트](setup/m3.md)
 
 ## Harness Run과의 차이
 

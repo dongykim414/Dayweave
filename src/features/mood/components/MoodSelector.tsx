@@ -1,5 +1,6 @@
-import { Image, Pressable, StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 
+import { MoodVisual } from "@/features/mood/components/MoodVisual";
 import { MOOD_IDS } from "@/features/mood/mood.types";
 import type { MoodId } from "@/features/mood/mood.types";
 import { resolveMood } from "@/features/mood/moodPackRegistry";
@@ -46,16 +47,7 @@ export function MoodSelector({ onChange, value }: MoodSelectorProps) {
               },
             ]}
           >
-            {mood.visual.type === "text" ? (
-              <AppText style={styles.visualText}>{mood.visual.value}</AppText>
-            ) : (
-              <Image
-                accessibilityIgnoresInvertColors
-                accessible={false}
-                source={mood.visual.source}
-                style={styles.visualImage}
-              />
-            )}
+            <MoodVisual moodId={moodId} size={28} />
             <AppText
               color={selected ? "primary" : "textPrimary"}
               variant="caption"
@@ -81,13 +73,5 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: "center",
     minWidth: 96,
-  },
-  visualImage: {
-    height: 28,
-    width: 28,
-  },
-  visualText: {
-    fontSize: 24,
-    lineHeight: 32,
   },
 });

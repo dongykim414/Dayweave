@@ -7,7 +7,7 @@ Avatar, 클라우드 동기화와 일정·SNS 연결을 단계적으로 추가�
 이 저장소는 제품 개발과 함께 AI 코딩 Agent의 작업을 관찰하고 반복되는 실패를
 문서·검증·자동화로 줄이는 Harness Engineering 실험을 기록합니다.
 
-## 현재 단계: M2 Photo
+## 현재 단계: M3 Timeline
 
 현재 기준 버전은 `v0.1.0` Foundation pre-release입니다. 버전별 변경은
 [`CHANGELOG.md`](CHANGELOG.md), 버전 선택과 릴리스 규칙은
@@ -22,7 +22,9 @@ Avatar, 클라우드 동기화와 일정·SNS 연결을 단계적으로 추가�
 - Gallery 사진 한 장 선택, resize/compress와 앱 전용 documents 저장
 - Diary와 사진 metadata의 transaction 및 교체·제거 file lifecycle
 - Web preview용 localStorage repository와 platform-specific storage provider
-- domain·날짜·validation·row mapping 자동 테스트
+- 현재 월 달력, 이전·다음 월 이동과 오늘·선택 날짜 표시
+- 기록 날짜의 사진 또는 Mood marker와 선택 날짜 Diary preview
+- 월 범위 1회 조회와 domain·날짜·validation·row mapping 자동 테스트
 - 카메라·다중 사진, 타임라인 CRUD와 클라우드 동기화는 아직 구현하지 않음
 
 제품과 현재 범위는 [`docs/PRODUCT.md`](docs/PRODUCT.md), 기술 경계는

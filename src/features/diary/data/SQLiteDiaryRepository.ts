@@ -18,6 +18,45 @@ import type {
 } from "@/features/diary/model/diaryPhoto.types";
 import type { DiaryRepository } from "@/features/diary/repository/DiaryRepository";
 
+interface DiaryRecordRow extends DiaryEntryRow {
+  photo_id: string | null;
+  photo_diary_entry_id: string | null;
+  photo_local_uri: string | null;
+  photo_width: number | null;
+  photo_height: number | null;
+  photo_created_at: string | null;
+}
+
+function toDiaryRecord(row: DiaryRecordRow): DiaryRecord {
+  let photoRow: DiaryPhotoRow | null = null;
+
+  if (row.photo_id) {
+    if (
+      !row.photo_diary_entry_id ||
+      !row.photo_local_uri ||
+      row.photo_width === null ||
+      row.photo_height === null ||
+      !row.photo_created_at
+    ) {
+      throw new Error("Diary photo row contains incomplete metadata");
+    }
+
+    photoRow = {
+      id: row.photo_id,
+      diary_entry_id: row.photo_diary_entry_id,
+      local_uri: row.photo_local_uri,
+      width: row.photo_width,
+      height: row.photo_height,
+      created_at: row.photo_created_at,
+    };
+  }
+
+  return {
+    entry: toDiaryEntry(row),
+    photo: photoRow ? toDiaryPhoto(photoRow) : null,
+  };
+}
+
 export class SQLiteDiaryRepository implements DiaryRepository {
   constructor(private readonly database: SQLiteDatabase) {}
 
@@ -41,15 +80,6 @@ export class SQLiteDiaryRepository implements DiaryRepository {
   }
 
   async getRecordByDate(entryDate: DiaryDateKey): Promise<DiaryRecord | null> {
-    interface DiaryRecordRow extends DiaryEntryRow {
-      photo_id: string | null;
-      photo_diary_entry_id: string | null;
-      photo_local_uri: string | null;
-      photo_width: number | null;
-      photo_height: number | null;
-      photo_created_at: string | null;
-    }
-
     const row = await this.database.getFirstAsync<DiaryRecordRow>(
       `SELECT
         entries.id,
@@ -77,33 +107,43 @@ export class SQLiteDiaryRepository implements DiaryRepository {
       return null;
     }
 
-    let photoRow: DiaryPhotoRow | null = null;
+    return toDiaryRecord(row);
+  }
 
-    if (row.photo_id) {
-      if (
-        !row.photo_diary_entry_id ||
-        !row.photo_local_uri ||
-        row.photo_width === null ||
-        row.photo_height === null ||
-        !row.photo_created_at
-      ) {
-        throw new Error("Diary photo row contains incomplete metadata");
-      }
-
-      photoRow = {
-        id: row.photo_id,
-        diary_entry_id: row.photo_diary_entry_id,
-        local_uri: row.photo_local_uri,
-        width: row.photo_width,
-        height: row.photo_height,
-        created_at: row.photo_created_at,
-      };
+  async listRecordsByDateRange(
+    startInclusive: DiaryDateKey,
+    endExclusive: DiaryDateKey,
+  ): Promise<DiaryRecord[]> {
+    if (startInclusive >= endExclusive) {
+      throw new Error("Diary date range must have an exclusive end after its start");
     }
 
-    return {
-      entry: toDiaryEntry(row),
-      photo: photoRow ? toDiaryPhoto(photoRow) : null,
-    };
+    const rows = await this.database.getAllAsync<DiaryRecordRow>(
+      `SELECT
+        entries.id,
+        entries.entry_date,
+        entries.mood_id,
+        entries.short_text,
+        entries.content,
+        entries.created_at,
+        entries.updated_at,
+        photos.id AS photo_id,
+        photos.diary_entry_id AS photo_diary_entry_id,
+        photos.local_uri AS photo_local_uri,
+        photos.width AS photo_width,
+        photos.height AS photo_height,
+        photos.created_at AS photo_created_at
+      FROM diary_entries AS entries
+      LEFT JOIN diary_photos AS photos
+        ON photos.diary_entry_id = entries.id
+      WHERE entries.entry_date >= ?
+        AND entries.entry_date < ?
+      ORDER BY entries.entry_date ASC`,
+      startInclusive,
+      endExclusive,
+    );
+
+    return rows.map(toDiaryRecord);
   }
 
   async upsert(entry: DiaryEntry): Promise<void> {

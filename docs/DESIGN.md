@@ -43,3 +43,15 @@ M0는 차분한 하늘색 계열의 `Sky`를 유일한 실행 테마로 사용�
 - 제거는 저장 전 form 상태만 바꾸며, 기존 파일 삭제는 저장 성공 뒤에 확정합니다.
 - 원본 비율은 처리 단계에서 유지하고 화면에서는 `cover`로 일관된 preview 영역을
   제공합니다. 누락 파일은 crash 대신 `surfaceSoft` 안내 영역으로 표시합니다.
+
+## Timeline Calendar
+
+- 달력은 일요일부터 토요일까지 7열이고, 현재 월에 따라 5주 또는 6주를 표시합니다.
+- 선택 날짜는 `primary`, 오늘은 `primarySoft`, 다른 달 overflow 날짜는
+  `textSecondary`를 사용해 기존 semantic token만으로 구분합니다.
+- 한 셀의 기록 표시는 `사진 thumbnail → Mood visual → record dot` 순서로 하나만
+  노출합니다. 사진과 감정과 점을 동시에 보여 주지 않아 작은 화면의 밀도를 낮춥니다.
+- Timeline 사진은 M2 display image를 작은 render size와 `cover`로 재사용합니다.
+  Timeline만을 위한 중복 image pipeline은 만들지 않습니다.
+- 선택 날짜 preview는 날짜, Mood label, 선택적 사진, 한 줄과 최대 3줄 본문을 보여
+  주며 M3에서는 수정·삭제로 이동하지 않습니다.
