@@ -27,6 +27,9 @@ Dayweave의 사용자 기능, 구조, 개발 환경에서 의미 있는 변경�
 - Hair·Top·Bottom·Accessory 선택, None accessory와 즉시 preview
 - 잘못된 저장 ID의 slot별 fallback과 앱 재실행 selection 복원
 - SQLite v3 `avatar_config` single-row persistence와 Web localStorage adapter
+- Sky·Warm Paper·Night Theme Catalog와 Default·Cat Mood Pack Catalog
+- SQLite v4 `personalization_settings` single-row persistence와 Web adapter
+- 현재 Theme·Mood Pack·Avatar를 확인하고 선택하는 Me 화면
 
 ### Changed
 
@@ -37,6 +40,7 @@ Dayweave의 사용자 기능, 구조, 개발 환경에서 의미 있는 변경�
 - 월간 Diary와 사진을 N+1 없이 한 번에 읽도록 repository API 확장
 - Today와 Detail이 같은 Diary form 및 Photo commit lifecycle을 사용하도록 공통화
 - Avatar placeholder를 layered customization 화면으로 교체
+- persisted personalization bootstrap 뒤 Theme과 Mood Pack을 전역 적용하도록 provider 순서 변경
 
 ## [0.1.0] - 2026-09-08
 

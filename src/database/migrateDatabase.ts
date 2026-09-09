@@ -77,5 +77,20 @@ export async function migrateDatabase(
       `);
       await database.execAsync("PRAGMA user_version = 3");
     });
+    currentVersion = 3;
+  }
+
+  if (currentVersion === 3) {
+    await database.withTransactionAsync(async () => {
+      await database.execAsync(`
+        CREATE TABLE personalization_settings (
+          singleton_key TEXT PRIMARY KEY NOT NULL CHECK (singleton_key = 'current'),
+          selected_theme_id TEXT NOT NULL,
+          selected_mood_pack_id TEXT NOT NULL,
+          updated_at TEXT NOT NULL
+        );
+      `);
+      await database.execAsync("PRAGMA user_version = 4");
+    });
   }
 }

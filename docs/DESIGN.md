@@ -78,3 +78,12 @@ M0는 차분한 하늘색 계열의 `Sky`를 유일한 실행 테마로 사용�
   작성하지 않습니다. 코드 기반 placeholder의 색은 asset 역할을 하는 registry 한 곳에
   정의합니다.
 - 현재 placeholder는 구조 검증용이며 최종 캐릭터 디자인으로 간주하지 않습니다.
+
+## Personalization
+
+- Me 화면은 현재 Theme·Mood Pack 요약, 작은 Avatar preview, Theme과 Mood Pack 선택
+  순서로 구성합니다.
+- Theme preview는 각 ThemeDefinition의 background·surface·primary token을 사용합니다.
+- Mood Pack preview는 semantic Mood ID를 후보 pack의 registry로 resolve합니다.
+- 선택 카드는 active Theme의 `primarySoft`와 `primary`를 사용하며 작은 화면에서는
+  가로 scroll로 모든 보유 항목에 접근합니다.

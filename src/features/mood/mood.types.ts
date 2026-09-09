@@ -10,7 +10,7 @@ export const MOOD_IDS = [
 
 export type MoodId = (typeof MOOD_IDS)[number];
 
-export type MoodPackId = "default";
+export type MoodPackId = "default" | "cat";
 
 export type MoodVisual =
   | { type: "text"; value: string }
@@ -25,7 +25,7 @@ export interface MoodDefinition {
 export interface MoodPackDefinition {
   id: MoodPackId;
   name: string;
-  moods: Readonly<Record<MoodId, MoodDefinition>>;
+  moods: Readonly<Partial<Record<MoodId, MoodDefinition>>>;
 }
 
 export function isMoodId(value: string): value is MoodId {

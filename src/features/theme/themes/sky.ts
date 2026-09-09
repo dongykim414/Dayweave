@@ -3,6 +3,7 @@ import type { ThemeDefinition } from "@/features/theme/theme.types";
 export const skyTheme: ThemeDefinition = {
   id: "sky",
   name: "Sky",
+  statusBarStyle: "dark",
   colors: {
     background: "#F5F8FC",
     surface: "#FFFFFF",

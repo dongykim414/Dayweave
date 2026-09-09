@@ -20,6 +20,7 @@
 - [M3 Timeline 구현 리포트](setup/m3.md)
 - [M4 Diary Detail 구현 리포트](setup/m4.md)
 - [M5 Avatar Engine 구현 리포트](setup/m5.md)
+- [M6 Personalization 구현 리포트](setup/m6.md)
 
 ## Harness Run과의 차이
 

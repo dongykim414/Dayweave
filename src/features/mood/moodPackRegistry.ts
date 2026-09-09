@@ -5,6 +5,7 @@ import type {
   MoodPackId,
 } from "@/features/mood/mood.types";
 import { defaultMoodPack } from "@/features/mood/packs/defaultMoodPack";
+import { catMoodPack } from "@/features/mood/packs/catMoodPack";
 
 export const ACTIVE_MOOD_PACK_ID: MoodPackId = "default";
 
@@ -12,15 +13,20 @@ export const moodPackRegistry: Readonly<
   Record<MoodPackId, MoodPackDefinition>
 > = {
   default: defaultMoodPack,
+  cat: catMoodPack,
 };
 
-export function resolveMoodPack(moodPackId: MoodPackId): MoodPackDefinition {
-  return moodPackRegistry[moodPackId];
+export function resolveMoodPack(
+  moodPackId: string | null | undefined,
+): MoodPackDefinition {
+  return Object.values(moodPackRegistry).find((pack) => pack.id === moodPackId) ?? defaultMoodPack;
 }
 
 export function resolveMood(
   moodId: MoodId,
-  moodPackId: MoodPackId = ACTIVE_MOOD_PACK_ID,
+  moodPackId: string | null | undefined = ACTIVE_MOOD_PACK_ID,
 ): MoodDefinition {
-  return resolveMoodPack(moodPackId).moods[moodId];
+  const fallback = defaultMoodPack.moods[moodId];
+  if (!fallback) throw new Error(`Default Mood Pack is missing ${moodId}`);
+  return resolveMoodPack(moodPackId).moods[moodId] ?? fallback;
 }

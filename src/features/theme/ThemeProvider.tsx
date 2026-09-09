@@ -18,8 +18,11 @@ interface ThemeContextValue {
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
-export function ThemeProvider({ children }: PropsWithChildren) {
-  const themeId = DEFAULT_THEME_ID;
+interface ThemeProviderProps extends PropsWithChildren {
+  themeId?: ThemeId;
+}
+
+export function ThemeProvider({ children, themeId = DEFAULT_THEME_ID }: ThemeProviderProps) {
   const value = useMemo(
     () => ({ theme: resolveTheme(themeId), themeId }),
     [themeId],

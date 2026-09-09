@@ -4,6 +4,14 @@ export {
   resolveTheme,
   themeRegistry,
 } from "@/features/theme/themeRegistry";
+export {
+  DEFAULT_OWNED_THEME_IDS,
+  getOwnedThemes,
+  resolveThemeId,
+  selectOwnedTheme,
+  THEME_CATALOG,
+} from "@/features/theme/themeCatalog";
+export type { ThemeCatalogItem } from "@/features/theme/themeCatalog";
 export type {
   ThemeColors,
   ThemeDefinition,

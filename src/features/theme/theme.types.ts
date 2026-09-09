@@ -47,6 +47,7 @@ export interface ThemeTypography {
 export interface ThemeDefinition {
   id: ThemeId;
   name: string;
+  statusBarStyle: "dark" | "light";
   colors: ThemeColors;
   spacing: ThemeSpacing;
   radius: ThemeRadius;

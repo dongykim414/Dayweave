@@ -4,7 +4,7 @@ import type { CalendarCell } from "@/features/diary/model/calendar.types";
 import type { DiaryRecord } from "@/features/diary/model/diaryPhoto.types";
 import type { DiaryDateKey } from "@/features/diary/model/diary.types";
 import { MoodVisual } from "@/features/mood/components/MoodVisual";
-import { resolveMood } from "@/features/mood/moodPackRegistry";
+import { useMoodPack } from "@/features/mood/MoodPackProvider";
 import { useTheme } from "@/features/theme";
 import { AppText } from "@/shared/components";
 
@@ -21,13 +21,14 @@ function getAccessibilityLabel(
   cell: CalendarCell,
   record: DiaryRecord | undefined,
   selected: boolean,
+  moodLabel?: string,
 ): string {
   const [year, month, day] = cell.date.split("-");
   const parts = [`${Number(year)}년 ${Number(month)}월 ${Number(day)}일`];
 
   if (cell.isToday) parts.push("오늘");
   if (selected) parts.push("선택됨");
-  if (record?.entry.moodId) parts.push(resolveMood(record.entry.moodId).label);
+  if (moodLabel) parts.push(moodLabel);
   if (record) parts.push("기록 있음");
   if (record?.photo) parts.push("사진 있음");
 
@@ -41,6 +42,7 @@ export function CalendarGrid({
   selectedDate,
 }: CalendarGridProps) {
   const { theme } = useTheme();
+  const { resolveMood } = useMoodPack();
 
   return (
     <View>
@@ -59,6 +61,7 @@ export function CalendarGrid({
           const record = recordsByDate.get(cell.date);
           const selected = selectedDate === cell.date;
           const moodId = record?.entry.moodId;
+          const moodLabel = moodId ? resolveMood(moodId).label : undefined;
 
           return (
             <View key={cell.date} style={styles.cellWrapper}>
@@ -67,6 +70,7 @@ export function CalendarGrid({
                   cell,
                   record,
                   selected,
+                  moodLabel,
                 )}
                 accessibilityRole="button"
                 accessibilityState={{ selected }}
