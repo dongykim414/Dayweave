@@ -1,6 +1,5 @@
 import { Tabs } from "expo-router";
 import { Text } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useTheme } from "@/features/theme";
 
@@ -22,7 +21,6 @@ const TAB_NAMES = ["today", "timeline", "avatar", "me"] as const;
 
 export default function TabsLayout() {
   const { theme } = useTheme();
-  const insets = useSafeAreaInsets();
 
   return (
     <Tabs
@@ -34,14 +32,13 @@ export default function TabsLayout() {
         tabBarLabelStyle: {
           fontSize: 11,
           fontWeight: theme.typography.label.fontWeight,
-          lineHeight: 16,
           marginTop: 2,
         },
         tabBarStyle: {
           backgroundColor: theme.colors.navBackground,
           borderTopColor: theme.colors.border,
-          height: 58 + insets.bottom,
-          paddingBottom: Math.max(insets.bottom, 8),
+          height: theme.layout.tabBarHeight,
+          paddingBottom: theme.spacing.sm,
           paddingTop: 8,
           shadowColor: theme.colors.shadow,
           shadowOffset: { height: -3, width: 0 },

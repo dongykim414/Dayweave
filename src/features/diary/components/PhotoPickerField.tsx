@@ -1,7 +1,7 @@
 import { Image, Pressable, View } from "react-native";
 
 import { useTheme } from "@/features/theme";
-import { AppButton, AppText, SectionHeader } from "@/shared/components";
+import { AppButton, AppCard, AppText, SectionHeader } from "@/shared/components";
 
 interface PhotoPickerFieldProps {
   available: boolean;
@@ -25,28 +25,27 @@ export function PhotoPickerField({
       <SectionHeader title="사진 추가하기" />
 
       {uri ? (
-        <View style={{ gap: theme.spacing.sm }}>
+        <AppCard style={{ gap: theme.spacing.md, padding: theme.spacing.md }}>
           {available ? (
             <Image
               accessibilityLabel="선택한 일기 사진 미리보기"
               resizeMode="cover"
               source={{ uri }}
               style={{
+                aspectRatio: 4 / 3,
                 borderRadius: theme.radius.md,
-                height: 96,
-                width: 96,
+                width: "100%",
               }}
             />
           ) : (
             <View
               style={{
                 alignItems: "center",
-                height: 96,
+                aspectRatio: 4 / 3,
                 backgroundColor: theme.colors.surfaceSoft,
                 borderRadius: theme.radius.md,
                 justifyContent: "center",
-                padding: theme.spacing.sm,
-                width: 96,
+                padding: theme.spacing.lg,
               }}
             >
               <AppText color="textSecondary">
@@ -56,7 +55,7 @@ export function PhotoPickerField({
           )}
 
           <View style={{ flexDirection: "row", gap: theme.spacing.sm }}>
-            <View>
+            <View style={{ flex: 1 }}>
               <AppButton
                 disabled={busy}
                 label={busy ? "사진 준비 중..." : "사진 교체"}
@@ -65,7 +64,7 @@ export function PhotoPickerField({
                 variant="secondary"
               />
             </View>
-            <View>
+            <View style={{ flex: 1 }}>
               <AppButton
                 disabled={busy}
                 label="사진 제거"
@@ -75,7 +74,7 @@ export function PhotoPickerField({
               />
             </View>
           </View>
-        </View>
+        </AppCard>
       ) : (
         <Pressable
           accessibilityLabel={busy ? "사진 준비 중" : "사진 추가하기"}
