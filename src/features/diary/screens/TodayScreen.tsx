@@ -48,14 +48,13 @@ export default function TodayScreen() {
     <AppScreen contentStyle={{ paddingVertical: 0 }}>
       <ScrollView
         contentContainerStyle={{
-          gap: theme.layout.sectionGap,
           paddingBottom: theme.layout.tabBarHeight + theme.spacing.lg,
-          paddingTop: theme.layout.screenTop,
+          paddingTop: theme.spacing.sm,
         }}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
-        <View style={[styles.hero, { minHeight: 190 }]}>
+        <View style={[styles.hero, { minHeight: 206 }]}>
           <View style={[styles.heroCopy, { gap: theme.spacing.xs }]}>
             <AppText color="textSecondary" variant="label">
               좋은 하루예요! ☀️
@@ -113,7 +112,14 @@ export default function TodayScreen() {
 
 const styles = StyleSheet.create({
   formCard: {
-    marginTop: -18,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
+    marginHorizontal: -20,
+    marginTop: -12,
+    paddingHorizontal: 20,
+    paddingTop: 26,
   },
   hero: {
     justifyContent: "center",
@@ -121,14 +127,14 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   heroCopy: {
-    maxWidth: "62%",
+    maxWidth: "64%",
     zIndex: 1,
   },
   heroImage: {
-    bottom: -8,
-    height: 184,
+    bottom: -4,
+    height: 198,
     position: "absolute",
-    right: -32,
-    width: 190,
+    right: -38,
+    width: 204,
   },
 });
