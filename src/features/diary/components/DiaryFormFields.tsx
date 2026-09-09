@@ -7,7 +7,7 @@ import type { DiaryDraft } from "@/features/diary/model/diary.types";
 import { MoodSelector } from "@/features/mood/components/MoodSelector";
 import type { MoodId } from "@/features/mood/mood.types";
 import { useTheme } from "@/features/theme";
-import { AppText } from "@/shared/components";
+import { SectionHeader } from "@/shared/components";
 
 interface DiaryFormFieldsProps {
   draft: DiaryDraft;
@@ -41,7 +41,7 @@ export function DiaryFormFields({
   return (
     <>
       <View style={{ gap: theme.spacing.sm }}>
-        <AppText variant="heading">감정</AppText>
+        <SectionHeader title="오늘의 기분" />
         <MoodSelector onChange={onChangeMood} value={draft.moodId} />
       </View>
 

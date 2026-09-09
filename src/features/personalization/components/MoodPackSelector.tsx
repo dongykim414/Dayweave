@@ -27,14 +27,18 @@ export function MoodPackSelector({ items, onSelect, value }: MoodPackSelectorPro
             accessibilityState={{ selected }}
             onPress={() => onSelect(item.id)}
             style={({ pressed }) => ({
-              backgroundColor: selected ? theme.colors.primarySoft : theme.colors.surface,
+              backgroundColor: selected ? theme.colors.primarySoft : theme.colors.surfaceElevated,
               borderColor: selected ? theme.colors.primary : theme.colors.border,
               borderRadius: theme.radius.md,
-              borderWidth: 1,
+              borderWidth: selected ? 2 : 0,
               gap: theme.spacing.sm,
               opacity: pressed ? 0.75 : 1,
               padding: theme.spacing.md,
-              width: 192,
+              shadowColor: theme.colors.shadow,
+              shadowOffset: { height: 3, width: 0 },
+              shadowOpacity: selected ? 0 : theme.shadow.opacity,
+              shadowRadius: theme.shadow.radius,
+              width: 176,
             })}
           >
             <View style={{ flexDirection: "row", gap: theme.spacing.xs }}>

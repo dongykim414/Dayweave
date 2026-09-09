@@ -6,7 +6,7 @@ import type { DiaryDateKey } from "@/features/diary/model/diary.types";
 import { MoodVisual } from "@/features/mood/components/MoodVisual";
 import { useMoodPack } from "@/features/mood/MoodPackProvider";
 import { useTheme } from "@/features/theme";
-import { AppButton, AppCard, AppText } from "@/shared/components";
+import { AppButton, AppCard, AppChip, AppText } from "@/shared/components";
 
 interface DiaryPreviewCardProps {
   onOpen?: (id: string) => void;
@@ -32,12 +32,12 @@ export function DiaryPreviewCard({
 
   if (!record) {
     return (
-      <AppCard style={{ gap: theme.spacing.sm }}>
-        <AppText variant="heading">{formatSelectedDate(selectedDate)}</AppText>
-        <AppText color="textSecondary">
+      <AppCard style={{ alignItems: "center", gap: theme.spacing.sm, paddingVertical: theme.spacing.xl }} variant="soft">
+        <AppText variant="heading">아직 기록이 없어요</AppText>
+        <AppText color="textSecondary" style={{ textAlign: "center" }}>
           {selectedDate === todayDate
             ? "오늘의 기록을 남겨보세요."
-            : "이날은 아직 기록이 없어요."}
+            : `${formatSelectedDate(selectedDate)}의 마음을 기다리고 있어요.`}
         </AppText>
       </AppCard>
     );
@@ -49,22 +49,15 @@ export function DiaryPreviewCard({
 
   return (
     <AppCard style={{ gap: theme.spacing.md }}>
-      <AppText color="textSecondary" variant="caption">
-        {formatSelectedDate(selectedDate)}
-      </AppText>
-
-      {mood && record.entry.moodId ? (
-        <View
-          style={{
-            alignItems: "center",
-            flexDirection: "row",
-            gap: theme.spacing.sm,
-          }}
-        >
-          <MoodVisual moodId={record.entry.moodId} size={28} />
-          <AppText variant="label">{mood.label}</AppText>
-        </View>
-      ) : null}
+      <View style={{ alignItems: "center", flexDirection: "row", flexWrap: "wrap", gap: theme.spacing.sm }}>
+        <AppText variant="label">{formatSelectedDate(selectedDate)}</AppText>
+        {mood && record.entry.moodId ? (
+          <AppChip
+            label={mood.label}
+            leading={<MoodVisual moodId={record.entry.moodId} size={18} />}
+          />
+        ) : null}
+      </View>
 
       {record.photo && record.photo.localUri !== failedPhotoUri ? (
         <Image
@@ -105,6 +98,7 @@ export function DiaryPreviewCard({
         <AppButton
           label="상세 보기"
           onPress={() => onOpen(record.entry.id)}
+          size="compact"
           variant="secondary"
         />
       ) : null}

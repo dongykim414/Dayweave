@@ -10,6 +10,7 @@ interface AppIconButtonProps {
   icon: ReactNode;
   onPress: () => void;
   style?: StyleProp<ViewStyle>;
+  variant?: "plain" | "soft";
 }
 
 export function AppIconButton({
@@ -18,6 +19,7 @@ export function AppIconButton({
   icon,
   onPress,
   style,
+  variant = "plain",
 }: AppIconButtonProps) {
   const { theme } = useTheme();
 
@@ -30,8 +32,9 @@ export function AppIconButton({
       style={({ pressed }) => [
         styles.base,
         {
-          backgroundColor: theme.colors.surface,
-          borderColor: theme.colors.border,
+          backgroundColor:
+            variant === "soft" ? theme.colors.surfaceSoft : "transparent",
+          borderColor: "transparent",
           borderRadius: theme.radius.full,
           opacity: disabled ? 0.45 : pressed ? 0.78 : 1,
         },
@@ -46,7 +49,7 @@ export function AppIconButton({
 const styles = StyleSheet.create({
   base: {
     alignItems: "center",
-    borderWidth: 1,
+    borderWidth: 0,
     height: 44,
     justifyContent: "center",
     width: 44,

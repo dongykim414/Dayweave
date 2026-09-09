@@ -1,8 +1,8 @@
-import { Pressable, ScrollView } from "react-native";
+import { ScrollView } from "react-native";
 
 import type { AvatarSelectableCategory } from "@/features/avatar/avatar.types";
 import { useTheme } from "@/features/theme";
-import { AppText } from "@/shared/components";
+import { AppChip } from "@/shared/components";
 
 const CATEGORIES: readonly {
   id: AvatarSelectableCategory;
@@ -31,28 +31,13 @@ export function AvatarCategoryTabs({ onChange, value }: AvatarCategoryTabsProps)
       {CATEGORIES.map((category) => {
         const selected = value === category.id;
         return (
-          <Pressable
+          <AppChip
+            accessibilityLabel={`${category.label}${selected ? ", 선택됨" : ""}`}
             key={category.id}
-            accessibilityRole="tab"
-            accessibilityState={{ selected }}
+            label={category.label}
             onPress={() => onChange(category.id)}
-            style={({ pressed }) => ({
-              backgroundColor: selected
-                ? theme.colors.primarySoft
-                : theme.colors.surface,
-              borderColor: selected ? theme.colors.primary : theme.colors.border,
-              borderRadius: theme.radius.full,
-              borderWidth: 1,
-              minHeight: 44,
-              opacity: pressed ? 0.75 : 1,
-              paddingHorizontal: theme.spacing.lg,
-              paddingVertical: theme.spacing.sm,
-            })}
-          >
-            <AppText color={selected ? "primary" : "textPrimary"} variant="label">
-              {category.label}
-            </AppText>
-          </Pressable>
+            selected={selected}
+          />
         );
       })}
     </ScrollView>

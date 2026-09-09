@@ -28,16 +28,20 @@ export function ThemeSelector({ items, onSelect, value }: ThemeSelectorProps) {
               backgroundColor: selected ? theme.colors.primarySoft : theme.colors.surface,
               borderColor: selected ? theme.colors.primary : theme.colors.border,
               borderRadius: theme.radius.md,
-              borderWidth: 1,
+              borderWidth: selected ? 2 : 0,
               gap: theme.spacing.sm,
               opacity: pressed ? 0.75 : 1,
-              padding: theme.spacing.md,
-              width: 168,
+              padding: theme.spacing.sm,
+              shadowColor: theme.colors.shadow,
+              shadowOffset: { height: 3, width: 0 },
+              shadowOpacity: selected ? 0 : theme.shadow.opacity,
+              shadowRadius: theme.shadow.radius,
+              width: 112,
             })}
           >
-            <View style={{ backgroundColor: preview.colors.background, borderColor: preview.colors.border, borderRadius: theme.radius.sm, borderWidth: 1, gap: 6, padding: 10 }}>
-              <View style={{ backgroundColor: preview.colors.surface, borderRadius: 6, height: 24 }} />
-              <View style={{ backgroundColor: preview.colors.primary, borderRadius: 6, height: 10, width: "58%" }} />
+            <View style={{ backgroundColor: preview.colors.background, borderColor: preview.colors.border, borderRadius: theme.radius.sm, borderWidth: 1, gap: 6, height: 82, justifyContent: "flex-end", padding: 10 }}>
+              <View style={{ backgroundColor: preview.colors.surface, borderRadius: theme.radius.sm, height: 28 }} />
+              <View style={{ backgroundColor: preview.colors.primary, borderRadius: theme.radius.full, height: 8, width: "58%" }} />
             </View>
             <AppText color={selected ? "primary" : "textPrimary"} variant="label">
               {selected ? `✓ ${item.displayName}` : item.displayName}

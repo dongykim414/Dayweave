@@ -12,12 +12,12 @@ This file defines the standing rules for AI coding agents in Dayweave.
 - Do not implement a future capability unless the current task explicitly includes it.
 - `docs/PRODUCT.md` is the canonical product-scope document.
 
-## Current Scope: M6 Personalization
+## Current Scope: Design Unification after M6
 
-M0 Foundation through M5 Avatar are complete. M6 adds a Me screen, Theme and Mood Pack
-Catalog/Ownership/Selection, immediate global application, and single-row persistence.
+M0 through M6 are implemented. The active change unifies existing screens around the
+visual language in `docs/reference/01-master-screens.png` without changing product logic.
 
-M6 excludes camera capture, multiple photos, tags, schedules, search, sharing,
+This design pass excludes camera capture, multiple photos, tags, schedules, search, sharing,
 store/payments, Supabase,
 authentication, cloud sync, social/sharing, push notifications, and AI analysis.
 
@@ -74,6 +74,9 @@ Import order:
   active providers and never read persisted IDs independently.
 - Keep touch targets accessible; icon-only controls require an accessibility label.
 - Do not add a UI library without an explicit task-level decision.
+- Treat `docs/reference/01-master-screens.png` as the visual source of truth. Reuse Theme
+  tokens and shared primitives before adding screen-local presentation values.
+- Prefer open screen layouts, soft elevated cards, pill actions and compact section rhythm.
 
 ## Mood
 

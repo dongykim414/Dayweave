@@ -1,7 +1,7 @@
-import { Image, View } from "react-native";
+import { Image, Pressable, View } from "react-native";
 
 import { useTheme } from "@/features/theme";
-import { AppButton, AppCard, AppText } from "@/shared/components";
+import { AppButton, AppCard, AppText, SectionHeader } from "@/shared/components";
 
 interface PhotoPickerFieldProps {
   available: boolean;
@@ -22,7 +22,7 @@ export function PhotoPickerField({
 
   return (
     <View style={{ gap: theme.spacing.sm }}>
-      <AppText variant="heading">사진</AppText>
+      <SectionHeader title="사진 추가하기" />
 
       {uri ? (
         <AppCard style={{ gap: theme.spacing.md, padding: theme.spacing.md }}>
@@ -60,6 +60,7 @@ export function PhotoPickerField({
                 disabled={busy}
                 label={busy ? "사진 준비 중..." : "사진 교체"}
                 onPress={onSelect}
+                size="compact"
                 variant="secondary"
               />
             </View>
@@ -68,18 +69,34 @@ export function PhotoPickerField({
                 disabled={busy}
                 label="사진 제거"
                 onPress={onRemove}
+                size="compact"
                 variant="ghost"
               />
             </View>
           </View>
         </AppCard>
       ) : (
-        <AppButton
+        <Pressable
+          accessibilityLabel={busy ? "사진 준비 중" : "사진 추가하기"}
+          accessibilityRole="button"
           disabled={busy}
-          label={busy ? "사진 준비 중..." : "+ 사진 추가하기"}
           onPress={onSelect}
-          variant="secondary"
-        />
+          style={({ pressed }) => ({
+            alignItems: "center",
+            alignSelf: "flex-start",
+            backgroundColor: theme.colors.surfaceSoft,
+            borderColor: theme.colors.primarySoft,
+            borderRadius: theme.radius.md,
+            borderStyle: "dashed",
+            borderWidth: 1,
+            height: 84,
+            justifyContent: "center",
+            opacity: busy ? 0.45 : pressed ? 0.72 : 1,
+            width: 84,
+          })}
+        >
+          <AppText color="primary" variant="title">＋</AppText>
+        </Pressable>
       )}
     </View>
   );

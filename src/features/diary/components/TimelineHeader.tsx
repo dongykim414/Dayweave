@@ -28,7 +28,7 @@ export function TimelineHeader({
         icon={<AppText variant="heading">‹</AppText>}
         onPress={onPrevious}
       />
-      <AppText accessibilityRole="header" variant="heading">
+      <AppText accessibilityRole="header" variant="title">
         {formatYearMonth(yearMonth)}
       </AppText>
       <AppIconButton

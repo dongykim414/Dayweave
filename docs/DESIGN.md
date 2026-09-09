@@ -2,20 +2,34 @@
 
 ## 기본 방향
 
-M0는 차분한 하늘색 계열의 `Sky`를 유일한 실행 테마로 사용합니다. 화면과 공용
-컴포넌트는 HEX 값을 직접 알지 않고 semantic token만 참조합니다.
+시각 기준은 [`reference/01-master-screens.png`](reference/01-master-screens.png)입니다.
+화면과 공용 컴포넌트는 HEX 값을 직접 알지 않고 semantic token만 참조합니다.
+Reference를 그대로 복제하기보다 밝고 부드러운 canvas, compact hierarchy, 낮은
+elevation과 둥근 interaction이라는 공통 언어를 유지합니다.
 
 ## Token
 
-- Colors: `background`, `surface`, `surfaceSoft`, `textPrimary`, `textSecondary`,
-  `primary`, `primarySoft`, `border`, `danger`
+- Colors: canvas/surface/elevated/muted, primary/onPrimary, 3단계 text, input/chip/nav,
+  border/danger/shadow semantic token
 - Spacing: `xs`, `sm`, `md`, `lg`, `xl`
-- Radius: `sm`, `md`, `lg`, `full`
-- Typography: `title`, `heading`, `body`, `label`, `caption`
+- Layout: screen horizontal/top, section gap, card padding, tab bar height
+- Radius: `sm`, `md`, `lg`, `xl`, `full`
+- Typography: `display`, `title`, `heading`, `body`, `label`, `caption`, `meta`
+- Shadow: 낮은 card elevation 한 단계
 
-색상 값은 `src/features/theme/themes/sky.ts` 한 곳에서만 정의합니다. 향후
-`warm-paper`, `night`, `mint`가 추가되어도 화면 구조와 접근 가능한 hit area는
-바뀌지 않아야 합니다.
+색상 값은 각 Theme definition에서만 정의합니다. Sky, Warm Paper, Night가 바뀌어도
+화면 구조와 접근 가능한 hit area는 바뀌지 않아야 합니다.
+
+## Component treatment
+
+- Card: 기본은 border 없는 elevated white surface, 보조 그룹은 soft, 경계가 필요한
+  경우에만 outline을 사용합니다.
+- Button: primary는 54px pill CTA, 보조 동작은 44px compact pill을 사용합니다.
+- Input: 밝은 input surface, 1px input border, 14px radius를 공통 적용합니다.
+- Chip: 34px 이상 높이의 pill이며 mood와 metadata에 icon+label을 함께 제공합니다.
+- SectionHeader: 18px heading과 선택적 짧은 설명/우측 action을 사용합니다.
+- Bottom navigation: 68px white/elevated bar, icon+11px label, active primary와 inactive
+  muted color를 사용합니다.
 
 ## Shared UI
 

@@ -33,6 +33,8 @@ Dayweave의 사용자 기능, 구조, 개발 환경에서 의미 있는 변경�
 
 ### Changed
 
+- 전체 화면을 master reference 기반의 밝은 canvas, soft card, pill action과 compact
+  typography로 통일하고 공용 Input·Chip·SectionHeader를 추가
 - M1의 하루 한 기록 규칙을 `UNIQUE(entry_date)`와 upsert로 보호
 - PR CI에 자동 테스트 단계를 추가
 - Expo SDK 57 호환표에 맞춰 `expo`와 `expo-router` patch version 갱신

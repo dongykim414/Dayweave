@@ -48,24 +48,24 @@ export default function TodayScreen() {
     <AppScreen contentStyle={{ paddingVertical: 0 }}>
       <ScrollView
         contentContainerStyle={{
-          gap: theme.spacing.xl,
-          paddingBottom: theme.spacing.xl,
-          paddingTop: theme.spacing.xl,
+          gap: theme.layout.sectionGap,
+          paddingBottom: theme.layout.tabBarHeight + theme.spacing.lg,
+          paddingTop: theme.layout.screenTop,
         }}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
-        <View style={{ gap: theme.spacing.sm }}>
-          <AppText color="primary" variant="label">
-            TODAY
+        <View style={{ gap: theme.spacing.xs }}>
+          <AppText color="textSecondary" variant="label">
+            좋은 하루예요! ☀️
           </AppText>
-          <AppText variant="title">오늘은 어땠나요?</AppText>
+          <AppText variant="display">오늘은 어땠나요?</AppText>
           <AppText color="textSecondary">
-            기분과 한 줄만으로도 오늘을 가볍게 남길 수 있어요.
+            오늘의 마음을 기록해보세요.{"\n"}작은 기록이, 특별한 하루를 만들어요.
           </AppText>
         </View>
 
-        <AppCard style={{ gap: theme.spacing.lg }}>
+        <AppCard style={{ gap: theme.layout.sectionGap }}>
           <DiaryFormFields
             draft={draft}
             expanded={isExpanded}
