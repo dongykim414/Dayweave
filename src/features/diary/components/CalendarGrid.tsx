@@ -78,24 +78,31 @@ export function CalendarGrid({
                 style={({ pressed }) => [
                   styles.dayCell,
                   {
-                    backgroundColor: selected
-                      ? theme.colors.primarySoft
-                      : theme.colors.surface,
-                    borderColor:
-                      cell.isToday || selected
-                        ? theme.colors.primary
-                        : theme.colors.border,
-                    borderRadius: theme.radius.sm,
                     opacity: pressed ? 0.7 : cell.isCurrentMonth ? 1 : 0.42,
                   },
                 ]}
               >
-                <AppText
-                  color={selected ? "primary" : "textPrimary"}
-                  variant="caption"
+                <View
+                  style={{
+                    alignItems: "center",
+                    backgroundColor: selected
+                      ? theme.colors.primary
+                      : cell.isToday
+                        ? theme.colors.primarySoft
+                        : "transparent",
+                    borderRadius: theme.radius.full,
+                    height: 30,
+                    justifyContent: "center",
+                    width: 30,
+                  }}
                 >
-                  {cell.day}
-                </AppText>
+                  <AppText
+                    color={selected ? "onPrimary" : "textPrimary"}
+                    variant="caption"
+                  >
+                    {cell.day}
+                  </AppText>
+                </View>
 
                 <View style={styles.marker}>
                   {record?.photo ? (
@@ -105,8 +112,8 @@ export function CalendarGrid({
                       source={{ uri: record.photo.localUri }}
                       style={{
                         borderRadius: theme.radius.sm,
-                        height: 24,
-                        width: 24,
+                        height: 28,
+                        width: 28,
                       }}
                     />
                   ) : moodId ? (
@@ -138,9 +145,8 @@ const styles = StyleSheet.create({
   },
   dayCell: {
     alignItems: "center",
-    borderWidth: 1,
-    height: 58,
-    paddingVertical: 4,
+    height: 66,
+    paddingVertical: 2,
   },
   grid: {
     flexDirection: "row",

@@ -56,7 +56,7 @@ export default function DiaryDetailScreen({ id }: DiaryDetailScreenProps) {
       <AppScreen
         contentStyle={{ gap: theme.spacing.lg, justifyContent: "center" }}
       >
-        <AppCard style={{ gap: theme.spacing.md }}>
+        <AppCard style={{ gap: theme.spacing.md }} variant="soft">
           <AppText variant="heading">기록을 찾을 수 없어요.</AppText>
           <AppText color="textSecondary">
             삭제되었거나 올바르지 않은 기록이에요.
@@ -91,8 +91,8 @@ export default function DiaryDetailScreen({ id }: DiaryDetailScreenProps) {
         <ScrollView
           contentContainerStyle={{
             gap: theme.spacing.lg,
-            paddingBottom: theme.spacing.xl,
-            paddingTop: theme.spacing.md,
+            paddingBottom: theme.layout.tabBarHeight + theme.spacing.lg,
+            paddingTop: theme.spacing.sm,
           }}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
@@ -110,10 +110,10 @@ export default function DiaryDetailScreen({ id }: DiaryDetailScreenProps) {
               onPress={() => router.back()}
             />
             <View style={{ flex: 1 }}>
-              <AppText color="primary" variant="label">
-                {detail.editing ? "EDIT DIARY" : "DIARY"}
+              <AppText color="textSecondary" variant="meta">
+                {detail.editing ? "기록 수정" : "나의 기록"}
               </AppText>
-              <AppText variant="heading">
+              <AppText variant="title">
                 {formatDiaryDate(detail.record.entry.entryDate)}
               </AppText>
             </View>
@@ -155,6 +155,7 @@ export default function DiaryDetailScreen({ id }: DiaryDetailScreenProps) {
                   disabled={detail.saving}
                   label="수정 취소"
                   onPress={detail.cancelEdit}
+                  size="compact"
                   variant="secondary"
                 />
               </View>
@@ -182,17 +183,21 @@ export default function DiaryDetailScreen({ id }: DiaryDetailScreenProps) {
                 </AppText>
               ) : null}
 
-              <View style={{ gap: theme.spacing.sm }}>
+              <View style={{ flexDirection: "row", gap: theme.spacing.sm }}>
                 <AppButton
                   disabled={detail.deleting}
                   label="기록 수정"
                   onPress={detail.beginEdit}
+                  size="compact"
+                  style={{ flex: 1 }}
                   variant="secondary"
                 />
                 <AppButton
                   disabled={detail.deleting}
                   label={detail.deleting ? "삭제 중..." : "기록 삭제"}
                   onPress={detail.confirmDelete}
+                  size="compact"
+                  style={{ flex: 1 }}
                   variant="danger"
                 />
               </View>

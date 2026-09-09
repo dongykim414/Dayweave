@@ -19,7 +19,7 @@ export function MoodSelector({ onChange, value }: MoodSelectorProps) {
   return (
     <View
       accessibilityLabel="감정 선택"
-      style={[styles.grid, { gap: theme.spacing.sm }]}
+      style={[styles.grid, { gap: theme.spacing.xs }]}
     >
       {MOOD_IDS.map((moodId) => {
         const mood = resolveMood(moodId);
@@ -37,21 +37,23 @@ export function MoodSelector({ onChange, value }: MoodSelectorProps) {
               {
                 backgroundColor: selected
                   ? theme.colors.primarySoft
-                  : theme.colors.surface,
+                  : theme.colors.surfaceSoft,
                 borderColor: selected
                   ? theme.colors.primary
                   : theme.colors.border,
                 borderRadius: theme.radius.md,
-                minHeight: theme.spacing.xl + theme.spacing.xl,
+                minHeight: 72,
                 opacity: pressed ? 0.78 : 1,
-                padding: theme.spacing.sm,
+                paddingHorizontal: theme.spacing.xs,
+                paddingVertical: theme.spacing.sm,
               },
             ]}
           >
-            <MoodVisual moodId={moodId} size={28} />
+            <MoodVisual moodId={moodId} size={30} />
             <AppText
               color={selected ? "primary" : "textPrimary"}
-              variant="caption"
+              numberOfLines={1}
+              variant="meta"
             >
               {mood.label}
             </AppText>
@@ -65,14 +67,12 @@ export function MoodSelector({ onChange, value }: MoodSelectorProps) {
 const styles = StyleSheet.create({
   grid: {
     flexDirection: "row",
-    flexWrap: "wrap",
   },
   option: {
     alignItems: "center",
     borderWidth: 1,
-    flexBasis: "30%",
-    flexGrow: 1,
+    flex: 1,
     justifyContent: "center",
-    minWidth: 96,
+    minWidth: 0,
   },
 });

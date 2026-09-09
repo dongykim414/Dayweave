@@ -23,8 +23,8 @@ export function AvatarRenderer({ config, size = 280 }: AvatarRendererProps) {
       accessibilityLabel="현재 선택한 파츠로 조합된 아바타"
       accessibilityRole="image"
       style={{
-        backgroundColor: theme.colors.primarySoft,
-        borderRadius: theme.radius.lg,
+        backgroundColor: theme.colors.background,
+        borderRadius: theme.radius.full,
         height: size,
         overflow: "hidden",
         width: size,

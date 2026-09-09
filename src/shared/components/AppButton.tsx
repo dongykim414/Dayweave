@@ -6,11 +6,13 @@ import type { ThemeColors } from "@/features/theme";
 import { AppText } from "@/shared/components/AppText";
 
 type AppButtonVariant = "primary" | "secondary" | "ghost" | "danger";
+type AppButtonSize = "large" | "compact";
 
 interface AppButtonProps {
   disabled?: boolean;
   label: string;
   onPress: () => void;
+  size?: AppButtonSize;
   style?: StyleProp<ViewStyle>;
   variant?: AppButtonVariant;
 }
@@ -25,6 +27,7 @@ export function AppButton({
   disabled = false,
   label,
   onPress,
+  size = "large",
   style,
   variant = "primary",
 }: AppButtonProps) {
@@ -34,20 +37,20 @@ export function AppButton({
     primary: {
       backgroundColor: theme.colors.primary,
       borderColor: theme.colors.primary,
-      labelColor: "surface",
+      labelColor: "onPrimary",
     },
     secondary: {
-      backgroundColor: theme.colors.surface,
+      backgroundColor: theme.colors.surfaceElevated,
       borderColor: theme.colors.border,
       labelColor: "textPrimary",
     },
     ghost: {
-      backgroundColor: theme.colors.surfaceSoft,
-      borderColor: theme.colors.surfaceSoft,
+      backgroundColor: theme.colors.chip,
+      borderColor: theme.colors.chip,
       labelColor: "primary",
     },
     danger: {
-      backgroundColor: theme.colors.surface,
+      backgroundColor: theme.colors.surfaceElevated,
       borderColor: theme.colors.danger,
       labelColor: "danger",
     },
@@ -65,11 +68,13 @@ export function AppButton({
         {
           backgroundColor: palette.backgroundColor,
           borderColor: palette.borderColor,
-          borderRadius: theme.radius.md,
-          minHeight: theme.spacing.xl + theme.spacing.lg,
+          borderRadius: theme.radius.full,
+          minHeight: size === "compact" ? 44 : 54,
           opacity: disabled ? 0.45 : pressed ? 0.78 : 1,
-          paddingHorizontal: theme.spacing.lg,
-          paddingVertical: theme.spacing.md,
+          paddingHorizontal:
+            size === "compact" ? theme.spacing.md : theme.spacing.lg,
+          paddingVertical:
+            size === "compact" ? theme.spacing.sm : theme.spacing.md,
         },
         style,
       ]}

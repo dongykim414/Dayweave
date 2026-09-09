@@ -21,6 +21,7 @@
 - [M4 Diary Detail 구현 리포트](setup/m4.md)
 - [M5 Avatar Engine 구현 리포트](setup/m5.md)
 - [M6 Personalization 구현 리포트](setup/m6.md)
+- [Master reference 기반 UI 통일](design/ui-unification.md)
 
 ## Harness Run과의 차이
 

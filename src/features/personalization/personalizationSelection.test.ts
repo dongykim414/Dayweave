@@ -29,8 +29,11 @@ describe("personalization selection", () => {
     expect(() => selectOwnedMoodPack("cat", new Set<MoodPackId>(["default"]))).toThrow();
   });
 
-  it("falls back to Default when a pack visual is missing", () => {
-    expect(resolveMood("stressed", "cat")).toEqual(resolveMood("stressed", "default"));
+  it("keeps built-in packs complete and falls back invalid pack IDs", () => {
+    expect(resolveMood("stressed", "cat")).toMatchObject({
+      id: "stressed",
+      label: "지친 고양이",
+    });
     expect(resolveMood("happy", "removed")).toEqual(resolveMood("happy", "default"));
   });
 });

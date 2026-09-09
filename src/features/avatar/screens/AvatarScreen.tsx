@@ -5,7 +5,7 @@ import { AvatarItemSelector } from "@/features/avatar/components/AvatarItemSelec
 import { AvatarRenderer } from "@/features/avatar/components/AvatarRenderer";
 import { useAvatar } from "@/features/avatar/hooks/useAvatar";
 import { useTheme } from "@/features/theme";
-import { AppButton, AppCard, AppScreen, AppText } from "@/shared/components";
+import { AppButton, AppCard, AppScreen, AppText, SectionHeader } from "@/shared/components";
 
 export default function AvatarScreen() {
   const { theme } = useTheme();
@@ -33,32 +33,39 @@ export default function AvatarScreen() {
     <AppScreen contentStyle={{ paddingVertical: 0 }}>
       <ScrollView
         contentContainerStyle={{
-          gap: theme.spacing.lg,
-          paddingBottom: theme.spacing.xl,
-          paddingTop: theme.spacing.xl,
+          gap: theme.layout.sectionGap,
+          paddingBottom: theme.layout.tabBarHeight + theme.spacing.lg,
+          paddingTop: theme.layout.screenTop,
         }}
         showsVerticalScrollIndicator={false}
       >
-        <View style={{ gap: theme.spacing.sm }}>
-          <AppText color="primary" variant="label">
-            MY AVATAR
-          </AppText>
-          <AppText variant="title">오늘의 나를 꾸며요</AppText>
+        <View style={{ gap: theme.spacing.xs }}>
+          <AppText variant="display">나의 아바타</AppText>
           <AppText color="textSecondary">
-            보유한 파츠를 골라 기록을 함께할 캐릭터를 만들어보세요.
+            기록을 함께할 작은 친구를 내 취향으로 꾸며보세요.
           </AppText>
         </View>
 
         <AppCard
-          style={{ alignItems: "center", gap: theme.spacing.md, padding: theme.spacing.md }}
+          style={{ alignItems: "center", gap: theme.spacing.md, overflow: "hidden", paddingVertical: theme.spacing.lg }}
+          variant="soft"
         >
-          <AvatarRenderer config={avatar.config} />
+          <View
+            style={{
+              backgroundColor: theme.colors.surfaceElevated,
+              borderRadius: theme.radius.full,
+              padding: theme.spacing.sm,
+            }}
+          >
+            <AvatarRenderer config={avatar.config} size={236} />
+          </View>
           <AppText color="textSecondary" variant="caption">
             {avatar.saving ? "선택을 저장하고 있어요..." : "선택하면 바로 저장돼요."}
           </AppText>
         </AppCard>
 
         <View style={{ gap: theme.spacing.md }}>
+          <SectionHeader description="파츠를 골라 나만의 하루를 완성해보세요." title="꾸미기" />
           <AvatarCategoryTabs
             onChange={avatar.setSelectedCategory}
             value={avatar.selectedCategory}

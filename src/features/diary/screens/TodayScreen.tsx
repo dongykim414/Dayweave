@@ -1,4 +1,4 @@
-import { ActivityIndicator, ScrollView, View } from "react-native";
+import { ActivityIndicator, Image, ScrollView, StyleSheet, View } from "react-native";
 
 import { DiaryFormFields } from "@/features/diary/components/DiaryFormFields";
 import { useTodayDiary } from "@/features/diary/hooks/useTodayDiary";
@@ -48,24 +48,32 @@ export default function TodayScreen() {
     <AppScreen contentStyle={{ paddingVertical: 0 }}>
       <ScrollView
         contentContainerStyle={{
-          gap: theme.spacing.xl,
-          paddingBottom: theme.spacing.xl,
-          paddingTop: theme.spacing.xl,
+          gap: theme.layout.sectionGap,
+          paddingBottom: theme.layout.tabBarHeight + theme.spacing.lg,
+          paddingTop: theme.layout.screenTop,
         }}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
-        <View style={{ gap: theme.spacing.sm }}>
-          <AppText color="primary" variant="label">
-            TODAY
-          </AppText>
-          <AppText variant="title">오늘은 어땠나요?</AppText>
-          <AppText color="textSecondary">
-            기분과 한 줄만으로도 오늘을 가볍게 남길 수 있어요.
-          </AppText>
+        <View style={[styles.hero, { minHeight: 190 }]}>
+          <View style={[styles.heroCopy, { gap: theme.spacing.xs }]}>
+            <AppText color="textSecondary" variant="label">
+              좋은 하루예요! ☀️
+            </AppText>
+            <AppText variant="display">오늘은 어땠나요?</AppText>
+            <AppText color="textSecondary">
+              오늘의 마음을 기록해보세요.{"\n"}작은 기록이, 특별한 하루를 만들어요.
+            </AppText>
+          </View>
+          <Image
+            accessibilityLabel="오늘의 기록을 반기는 캐릭터"
+            resizeMode="contain"
+            source={require("../../../../docs/reference/today.png")}
+            style={styles.heroImage}
+          />
         </View>
 
-        <AppCard style={{ gap: theme.spacing.lg }}>
+        <AppCard style={[styles.formCard, { gap: theme.layout.sectionGap }]}>
           <DiaryFormFields
             draft={draft}
             expanded={isExpanded}
@@ -102,3 +110,25 @@ export default function TodayScreen() {
     </AppScreen>
   );
 }
+
+const styles = StyleSheet.create({
+  formCard: {
+    marginTop: -18,
+  },
+  hero: {
+    justifyContent: "center",
+    overflow: "hidden",
+    position: "relative",
+  },
+  heroCopy: {
+    maxWidth: "62%",
+    zIndex: 1,
+  },
+  heroImage: {
+    bottom: -8,
+    height: 184,
+    position: "absolute",
+    right: -32,
+    width: 190,
+  },
+});

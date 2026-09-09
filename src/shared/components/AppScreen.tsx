@@ -21,8 +21,8 @@ export function AppScreen({ children, contentStyle }: AppScreenProps) {
         style={[
           {
             flex: 1,
-            paddingHorizontal: theme.spacing.lg,
-            paddingVertical: theme.spacing.xl,
+            paddingHorizontal: theme.layout.screenHorizontal,
+            paddingTop: theme.layout.screenTop,
           },
           contentStyle,
         ]}

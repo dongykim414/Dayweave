@@ -8,5 +8,6 @@ export const catMoodPack: MoodPackDefinition = {
     calm: { id: "calm", label: "느긋한 고양이", visual: { type: "text", value: "😺" } },
     neutral: { id: "neutral", label: "무심한 고양이", visual: { type: "text", value: "😼" } },
     sad: { id: "sad", label: "속상한 고양이", visual: { type: "text", value: "😿" } },
+    stressed: { id: "stressed", label: "지친 고양이", visual: { type: "text", value: "🙀" } },
   },
 };

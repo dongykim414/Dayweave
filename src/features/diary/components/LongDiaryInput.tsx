@@ -1,7 +1,7 @@
-import { Pressable, TextInput, View } from "react-native";
+import { Pressable, View } from "react-native";
 
 import { useTheme } from "@/features/theme";
-import { AppText } from "@/shared/components";
+import { AppText, AppTextInput } from "@/shared/components";
 
 interface LongDiaryInputProps {
   expanded: boolean;
@@ -34,30 +34,19 @@ export function LongDiaryInput({
           opacity: pressed ? 0.7 : 1,
         })}
       >
-        <AppText color="primary" variant="label">
+        <AppText color="textPrimary" variant="label">
           자세히 쓰기
         </AppText>
-        <AppText color="primary">{expanded ? "⌃" : "⌄"}</AppText>
+        <AppText color="textSecondary">{expanded ? "⌃" : "⌄"}</AppText>
       </Pressable>
 
       {expanded ? (
-        <TextInput
+        <AppTextInput
           accessibilityLabel="자세한 기록"
           multiline
           onChangeText={onChange}
           placeholder="오늘의 이야기를 조금 더 남겨보세요..."
-          placeholderTextColor={theme.colors.textSecondary}
-          style={{
-            backgroundColor: theme.colors.surfaceSoft,
-            borderColor: theme.colors.border,
-            borderRadius: theme.radius.md,
-            borderWidth: 1,
-            color: theme.colors.textPrimary,
-            fontSize: theme.typography.body.fontSize,
-            minHeight: 152,
-            padding: theme.spacing.md,
-            textAlignVertical: "top",
-          }}
+          style={{ minHeight: 152 }}
           value={value}
         />
       ) : null}

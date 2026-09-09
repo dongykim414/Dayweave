@@ -49,15 +49,19 @@ export function AvatarItemSelector({
               alignItems: "center",
               backgroundColor: selected
                 ? theme.colors.primarySoft
-                : theme.colors.surface,
+                : theme.colors.surfaceElevated,
               borderColor: selected ? theme.colors.primary : theme.colors.border,
-              borderRadius: theme.radius.md,
-              borderWidth: 1,
+              borderRadius: theme.radius.lg,
+              borderWidth: selected ? 2 : 0,
               gap: theme.spacing.sm,
-              minHeight: 104,
+              minHeight: 112,
               opacity: pressed ? 0.75 : 1,
               padding: theme.spacing.md,
-              width: 112,
+              shadowColor: theme.colors.shadow,
+              shadowOffset: { height: 3, width: 0 },
+              shadowOpacity: selected ? 0 : theme.shadow.opacity,
+              shadowRadius: theme.shadow.radius,
+              width: 104,
             })}
           >
             <View
@@ -67,12 +71,12 @@ export function AvatarItemSelector({
                   ? getAvatarItemPreviewColor(item.id)
                   : theme.colors.surfaceSoft,
                 borderRadius: theme.radius.full,
-                height: 44,
+                height: 52,
                 justifyContent: "center",
-                width: 44,
+                width: 52,
               }}
             >
-              <AppText color={item ? "surface" : "textSecondary"} variant="label">
+              <AppText color={item ? "onPrimary" : "textSecondary"} variant="label">
                 {item ? (selected ? "✓" : "") : "없음"}
               </AppText>
             </View>

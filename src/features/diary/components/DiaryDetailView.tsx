@@ -5,7 +5,7 @@ import type { DiaryRecord } from "@/features/diary/model/diaryPhoto.types";
 import { MoodVisual } from "@/features/mood/components/MoodVisual";
 import { useMoodPack } from "@/features/mood/MoodPackProvider";
 import { useTheme } from "@/features/theme";
-import { AppCard, AppText } from "@/shared/components";
+import { AppCard, AppChip, AppText } from "@/shared/components";
 
 interface DiaryDetailViewProps {
   record: DiaryRecord;
@@ -41,24 +41,18 @@ export function DiaryDetailView({ record }: DiaryDetailViewProps) {
       ) : null}
 
       {mood && record.entry.moodId ? (
-        <View
-          style={{
-            alignItems: "center",
-            flexDirection: "row",
-            gap: theme.spacing.sm,
-          }}
-        >
-          <MoodVisual moodId={record.entry.moodId} size={32} />
-          <AppText variant="heading">{mood.label}</AppText>
-        </View>
+        <AppChip
+          label={mood.label}
+          leading={<MoodVisual moodId={record.entry.moodId} size={20} />}
+        />
       ) : null}
 
       {record.entry.shortText ? (
-        <AppText variant="title">{record.entry.shortText}</AppText>
+        <AppText variant="display">{record.entry.shortText}</AppText>
       ) : null}
 
       {record.entry.content ? (
-        <AppText style={{ lineHeight: 28 }}>{record.entry.content}</AppText>
+        <AppText style={{ lineHeight: 27 }}>{record.entry.content}</AppText>
       ) : null}
     </View>
   );

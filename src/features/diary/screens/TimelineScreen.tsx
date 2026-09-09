@@ -6,7 +6,7 @@ import { DiaryPreviewCard } from "@/features/diary/components/DiaryPreviewCard";
 import { TimelineHeader } from "@/features/diary/components/TimelineHeader";
 import { useTimeline } from "@/features/diary/hooks/useTimeline";
 import { useTheme } from "@/features/theme";
-import { AppButton, AppCard, AppScreen, AppText } from "@/shared/components";
+import { AppButton, AppCard, AppScreen, AppText, SectionHeader } from "@/shared/components";
 
 export default function TimelineScreen() {
   const router = useRouter();
@@ -30,23 +30,13 @@ export default function TimelineScreen() {
     <AppScreen contentStyle={{ paddingVertical: 0 }}>
       <ScrollView
         contentContainerStyle={{
-          gap: theme.spacing.lg,
-          paddingBottom: theme.spacing.xl,
-          paddingTop: theme.spacing.xl,
+          gap: theme.layout.sectionGap,
+          paddingBottom: theme.layout.tabBarHeight + theme.spacing.lg,
+          paddingTop: theme.layout.screenTop,
         }}
         showsVerticalScrollIndicator={false}
       >
-        <View style={{ gap: theme.spacing.sm }}>
-          <AppText color="primary" variant="label">
-            TIMELINE
-          </AppText>
-          <AppText variant="title">기록 돌아보기</AppText>
-          <AppText color="textSecondary">
-            날짜를 골라 그날의 마음과 이야기를 천천히 다시 만나보세요.
-          </AppText>
-        </View>
-
-        <AppCard style={{ gap: theme.spacing.md, padding: theme.spacing.md }}>
+        <AppCard style={{ gap: theme.spacing.md, paddingHorizontal: theme.spacing.sm }}>
           <TimelineHeader
             onNext={() => moveMonth(1)}
             onPrevious={() => moveMonth(-1)}
@@ -94,14 +84,17 @@ export default function TimelineScreen() {
             <AppButton label="다시 시도" onPress={retry} variant="secondary" />
           </AppCard>
         ) : loading ? null : (
-          <DiaryPreviewCard
-            onOpen={(id) =>
-              router.push({ pathname: "/diary/[id]", params: { id } })
-            }
-            record={selectedRecord}
-            selectedDate={selectedDate}
-            todayDate={todayKey}
-          />
+          <View style={{ gap: theme.spacing.md }}>
+            <SectionHeader title="선택한 날의 기록" />
+            <DiaryPreviewCard
+              onOpen={(id) =>
+                router.push({ pathname: "/diary/[id]", params: { id } })
+              }
+              record={selectedRecord}
+              selectedDate={selectedDate}
+              todayDate={todayKey}
+            />
+          </View>
         )}
       </ScrollView>
     </AppScreen>
