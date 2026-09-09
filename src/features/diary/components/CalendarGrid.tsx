@@ -112,8 +112,8 @@ export function CalendarGrid({
                       source={{ uri: record.photo.localUri }}
                       style={{
                         borderRadius: theme.radius.sm,
-                        height: 24,
-                        width: 24,
+                        height: 28,
+                        width: 28,
                       }}
                     />
                   ) : moodId ? (
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
   },
   dayCell: {
     alignItems: "center",
-    height: 62,
+    height: 66,
     paddingVertical: 2,
   },
   grid: {

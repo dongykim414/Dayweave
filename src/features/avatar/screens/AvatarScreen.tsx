@@ -47,17 +47,25 @@ export default function AvatarScreen() {
         </View>
 
         <AppCard
-          style={{ alignItems: "center", gap: theme.spacing.md }}
+          style={{ alignItems: "center", gap: theme.spacing.md, overflow: "hidden", paddingVertical: theme.spacing.lg }}
           variant="soft"
         >
-          <AvatarRenderer config={avatar.config} size={260} />
+          <View
+            style={{
+              backgroundColor: theme.colors.surfaceElevated,
+              borderRadius: theme.radius.full,
+              padding: theme.spacing.sm,
+            }}
+          >
+            <AvatarRenderer config={avatar.config} size={236} />
+          </View>
           <AppText color="textSecondary" variant="caption">
             {avatar.saving ? "선택을 저장하고 있어요..." : "선택하면 바로 저장돼요."}
           </AppText>
         </AppCard>
 
         <View style={{ gap: theme.spacing.md }}>
-          <SectionHeader title="꾸미기" />
+          <SectionHeader description="파츠를 골라 나만의 하루를 완성해보세요." title="꾸미기" />
           <AvatarCategoryTabs
             onChange={avatar.setSelectedCategory}
             value={avatar.selectedCategory}

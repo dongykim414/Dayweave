@@ -12,7 +12,7 @@ const TAB_LABELS = {
 
 const TAB_ICONS = {
   today: "⌂",
-  timeline: "▦",
+  timeline: "▣",
   avatar: "◉",
   me: "●",
 } as const;
@@ -30,7 +30,7 @@ export default function TabsLayout() {
         tabBarInactiveTintColor: theme.colors.navInactive,
         tabBarHideOnKeyboard: true,
         tabBarLabelStyle: {
-          fontSize: theme.typography.meta.fontSize,
+          fontSize: 11,
           fontWeight: theme.typography.label.fontWeight,
           marginTop: 2,
         },
@@ -39,7 +39,7 @@ export default function TabsLayout() {
           borderTopColor: theme.colors.border,
           height: theme.layout.tabBarHeight,
           paddingBottom: theme.spacing.sm,
-          paddingTop: theme.spacing.sm,
+          paddingTop: 8,
           shadowColor: theme.colors.shadow,
           shadowOffset: { height: -3, width: 0 },
           shadowOpacity: theme.shadow.opacity,
@@ -53,7 +53,7 @@ export default function TabsLayout() {
           name={name}
           options={{
             tabBarIcon: ({ color }) => (
-              <Text style={{ color, fontSize: 21, fontWeight: "700", lineHeight: 23 }}>
+              <Text style={{ color, fontSize: 20, fontWeight: "700", lineHeight: 22 }}>
                 {TAB_ICONS[name]}
               </Text>
             ),

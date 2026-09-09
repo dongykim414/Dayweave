@@ -51,10 +51,10 @@ export function AvatarItemSelector({
                 ? theme.colors.primarySoft
                 : theme.colors.surfaceElevated,
               borderColor: selected ? theme.colors.primary : theme.colors.border,
-              borderRadius: theme.radius.md,
+              borderRadius: theme.radius.lg,
               borderWidth: selected ? 2 : 0,
               gap: theme.spacing.sm,
-              minHeight: 104,
+              minHeight: 112,
               opacity: pressed ? 0.75 : 1,
               padding: theme.spacing.md,
               shadowColor: theme.colors.shadow,
@@ -71,9 +71,9 @@ export function AvatarItemSelector({
                   ? getAvatarItemPreviewColor(item.id)
                   : theme.colors.surfaceSoft,
                 borderRadius: theme.radius.full,
-                height: 44,
+                height: 52,
                 justifyContent: "center",
-                width: 44,
+                width: 52,
               }}
             >
               <AppText color={item ? "onPrimary" : "textSecondary"} variant="label">

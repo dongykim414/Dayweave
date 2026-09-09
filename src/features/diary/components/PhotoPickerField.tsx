@@ -89,10 +89,10 @@ export function PhotoPickerField({
             borderRadius: theme.radius.md,
             borderStyle: "dashed",
             borderWidth: 1,
-            height: 84,
+            height: 88,
             justifyContent: "center",
             opacity: busy ? 0.45 : pressed ? 0.72 : 1,
-            width: 84,
+            width: 88,
           })}
         >
           <AppText color="primary" variant="title">＋</AppText>

@@ -42,14 +42,14 @@ export function MoodSelector({ onChange, value }: MoodSelectorProps) {
                   ? theme.colors.primary
                   : theme.colors.border,
                 borderRadius: theme.radius.md,
-                minHeight: 80,
+                minHeight: 72,
                 opacity: pressed ? 0.78 : 1,
                 paddingHorizontal: theme.spacing.xs,
                 paddingVertical: theme.spacing.sm,
               },
             ]}
           >
-            <MoodVisual moodId={moodId} size={28} />
+            <MoodVisual moodId={moodId} size={30} />
             <AppText
               color={selected ? "primary" : "textPrimary"}
               numberOfLines={1}

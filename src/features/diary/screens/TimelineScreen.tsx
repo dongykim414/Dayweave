@@ -36,7 +36,7 @@ export default function TimelineScreen() {
         }}
         showsVerticalScrollIndicator={false}
       >
-        <AppCard style={{ gap: theme.spacing.md }}>
+        <AppCard style={{ gap: theme.spacing.md, paddingHorizontal: theme.spacing.sm }}>
           <TimelineHeader
             onNext={() => moveMonth(1)}
             onPrevious={() => moveMonth(-1)}
@@ -85,10 +85,7 @@ export default function TimelineScreen() {
           </AppCard>
         ) : loading ? null : (
           <View style={{ gap: theme.spacing.md }}>
-            <SectionHeader
-              description="날짜를 골라 그날의 마음과 이야기를 다시 만나보세요."
-              title="나의 기록"
-            />
+            <SectionHeader title="선택한 날의 기록" />
             <DiaryPreviewCard
               onOpen={(id) =>
                 router.push({ pathname: "/diary/[id]", params: { id } })

@@ -1,7 +1,6 @@
 import { router } from "expo-router";
-import { ScrollView, View } from "react-native";
+import { Image, ScrollView, StyleSheet, View } from "react-native";
 
-import { AvatarRenderer } from "@/features/avatar/components/AvatarRenderer";
 import { useAvatar } from "@/features/avatar/hooks/useAvatar";
 import { getOwnedMoodPacks } from "@/features/mood/moodPackCatalog";
 import { MoodPackSelector } from "@/features/personalization/components/MoodPackSelector";
@@ -34,16 +33,18 @@ export default function MeScreen() {
           <AppText color="textSecondary">나만의 캐릭터와 테마로, 더 특별하게</AppText>
         </View>
 
-        <AppCard
-          style={{ alignItems: "center", flexDirection: "row", gap: theme.spacing.md }}
-          variant="soft"
-        >
+        <AppCard style={[styles.profileCard, { minHeight: 242 }]} variant="soft">
           {avatar.loading ? (
             <AppText color="textSecondary">아바타를 불러오고 있어요.</AppText>
           ) : (
-            <AvatarRenderer config={avatar.config} size={112} />
+            <Image
+              accessibilityLabel="나의 작은 친구 하루"
+              resizeMode="contain"
+              source={require("../../../../docs/reference/mypage.png")}
+              style={styles.profileImage}
+            />
           )}
-          <View style={{ flex: 1, gap: theme.spacing.sm }}>
+          <View style={[styles.profileCopy, { gap: theme.spacing.sm }]}>
             <AppText color="textSecondary" variant="caption">나의 작은 친구</AppText>
             <AppText variant="title">하루</AppText>
             <AppText color="textSecondary" variant="caption">
@@ -87,3 +88,22 @@ export default function MeScreen() {
     </AppScreen>
   );
 }
+
+const styles = StyleSheet.create({
+  profileCard: {
+    justifyContent: "center",
+    overflow: "hidden",
+    position: "relative",
+  },
+  profileCopy: {
+    marginLeft: "55%",
+    zIndex: 1,
+  },
+  profileImage: {
+    bottom: -22,
+    height: 250,
+    left: -18,
+    position: "absolute",
+    width: "66%",
+  },
+});

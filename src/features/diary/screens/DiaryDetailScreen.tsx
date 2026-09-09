@@ -183,12 +183,13 @@ export default function DiaryDetailScreen({ id }: DiaryDetailScreenProps) {
                 </AppText>
               ) : null}
 
-              <View style={{ gap: theme.spacing.sm }}>
+              <View style={{ flexDirection: "row", gap: theme.spacing.sm }}>
                 <AppButton
                   disabled={detail.deleting}
                   label="기록 수정"
                   onPress={detail.beginEdit}
                   size="compact"
+                  style={{ flex: 1 }}
                   variant="secondary"
                 />
                 <AppButton
@@ -196,6 +197,7 @@ export default function DiaryDetailScreen({ id }: DiaryDetailScreenProps) {
                   label={detail.deleting ? "삭제 중..." : "기록 삭제"}
                   onPress={detail.confirmDelete}
                   size="compact"
+                  style={{ flex: 1 }}
                   variant="danger"
                 />
               </View>

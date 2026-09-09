@@ -48,7 +48,7 @@ export function DiaryPreviewCard({
     : null;
 
   return (
-    <AppCard style={{ gap: theme.spacing.md }}>
+    <AppCard style={{ gap: theme.spacing.md, overflow: "hidden" }}>
       <View style={{ alignItems: "center", flexDirection: "row", flexWrap: "wrap", gap: theme.spacing.sm }}>
         <AppText variant="label">{formatSelectedDate(selectedDate)}</AppText>
         {mood && record.entry.moodId ? (
@@ -66,7 +66,7 @@ export function DiaryPreviewCard({
           resizeMode="cover"
           source={{ uri: record.photo.localUri }}
           style={{
-            aspectRatio: 4 / 3,
+            aspectRatio: 16 / 9,
             borderRadius: theme.radius.md,
             width: "100%",
           }}
@@ -96,10 +96,10 @@ export function DiaryPreviewCard({
 
       {onOpen ? (
         <AppButton
-          label="상세 보기"
+          label="기록 자세히 보기  ›"
           onPress={() => onOpen(record.entry.id)}
           size="compact"
-          variant="secondary"
+          variant="ghost"
         />
       ) : null}
     </AppCard>
