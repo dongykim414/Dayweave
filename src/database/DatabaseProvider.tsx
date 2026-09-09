@@ -5,24 +5,20 @@ import { ActivityIndicator, Platform, View } from "react-native";
 
 import { DIARY_DATABASE_NAME } from "@/database/database.constants";
 import { migrateDatabase } from "@/database/migrateDatabase";
-import { useTheme } from "@/features/theme";
-import { AppText } from "@/shared/components";
+import { skyTheme } from "@/features/theme/themes/sky";
 
 function DatabaseLoadingFallback() {
-  const { theme } = useTheme();
-
   return (
     <View
       style={{
         alignItems: "center",
-        backgroundColor: theme.colors.background,
+        backgroundColor: skyTheme.colors.background,
         flex: 1,
-        gap: theme.spacing.sm,
+        gap: skyTheme.spacing.sm,
         justifyContent: "center",
       }}
     >
-      <ActivityIndicator color={theme.colors.primary} />
-      <AppText color="textSecondary">기록을 준비하고 있어요.</AppText>
+      <ActivityIndicator color={skyTheme.colors.primary} />
     </View>
   );
 }

@@ -12,14 +12,13 @@ This file defines the standing rules for AI coding agents in Dayweave.
 - Do not implement a future capability unless the current task explicitly includes it.
 - `docs/PRODUCT.md` is the canonical product-scope document.
 
-## Current Scope: M5 Avatar Engine
+## Current Scope: M6 Personalization
 
-M0 Foundation through M4 Diary Detail are complete. M5 adds a part-based Avatar engine,
-Catalog/Ownership/Selection boundaries, layered placeholder rendering, owned-item
-selection, and single-row local persistence.
+M0 Foundation through M5 Avatar are complete. M6 adds a Me screen, Theme and Mood Pack
+Catalog/Ownership/Selection, immediate global application, and single-row persistence.
 
-M5 excludes camera capture, multiple photos, tags, schedules, search, sharing,
-Theme or Mood Pack selection, store/payments, Supabase,
+M6 excludes camera capture, multiple photos, tags, schedules, search, sharing,
+store/payments, Supabase,
 authentication, cloud sync, social/sharing, push notifications, and AI analysis.
 
 ## Stack and Commands
@@ -71,6 +70,8 @@ Import order:
 - Product colors are semantic tokens defined by a theme.
 - M0 registers only Sky. Future `warm-paper`, `night`, and `mint` themes must plug into
   the registry without changing feature-screen colors.
+- Theme and Mood Pack Catalog, Ownership, and Selection remain separate. Screens consume
+  active providers and never read persisted IDs independently.
 - Keep touch targets accessible; icon-only controls require an accessibility label.
 - Do not add a UI library without an explicit task-level decision.
 
@@ -81,6 +82,7 @@ Import order:
 - A future Mood Pack resolves a semantic Mood ID to its visual representation.
 - Timeline markers and previews must reuse the active Mood Pack resolver rather than
   mapping Mood IDs inside Calendar components.
+- Changing a Mood Pack changes presentation only; persisted Diary mood IDs stay semantic.
 
 ## Timeline
 

@@ -4,7 +4,7 @@ import { Image, View } from "react-native";
 import type { DiaryRecord } from "@/features/diary/model/diaryPhoto.types";
 import type { DiaryDateKey } from "@/features/diary/model/diary.types";
 import { MoodVisual } from "@/features/mood/components/MoodVisual";
-import { resolveMood } from "@/features/mood/moodPackRegistry";
+import { useMoodPack } from "@/features/mood/MoodPackProvider";
 import { useTheme } from "@/features/theme";
 import { AppButton, AppCard, AppText } from "@/shared/components";
 
@@ -27,6 +27,7 @@ export function DiaryPreviewCard({
   todayDate,
 }: DiaryPreviewCardProps) {
   const { theme } = useTheme();
+  const { resolveMood } = useMoodPack();
   const [failedPhotoUri, setFailedPhotoUri] = useState<string | null>(null);
 
   if (!record) {

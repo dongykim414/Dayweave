@@ -3,7 +3,7 @@ import { Image, View } from "react-native";
 
 import type { DiaryRecord } from "@/features/diary/model/diaryPhoto.types";
 import { MoodVisual } from "@/features/mood/components/MoodVisual";
-import { resolveMood } from "@/features/mood/moodPackRegistry";
+import { useMoodPack } from "@/features/mood/MoodPackProvider";
 import { useTheme } from "@/features/theme";
 import { AppCard, AppText } from "@/shared/components";
 
@@ -13,6 +13,7 @@ interface DiaryDetailViewProps {
 
 export function DiaryDetailView({ record }: DiaryDetailViewProps) {
   const { theme } = useTheme();
+  const { resolveMood } = useMoodPack();
   const [failedPhotoUri, setFailedPhotoUri] = useState<string | null>(null);
   const mood = record.entry.moodId
     ? resolveMood(record.entry.moodId)

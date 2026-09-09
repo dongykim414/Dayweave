@@ -57,7 +57,7 @@ TodayScreen
 - Domain은 camelCase만 사용하고 SQLite row의 snake_case는 mapper에서 변환합니다.
 - `entry_date`는 device local calendar의 `YYYY-MM-DD`이고 unique constraint를 가집니다.
 - `created_at`, `updated_at`은 UTC ISO timestamp입니다.
-- migration은 `PRAGMA user_version`을 기준으로 순서대로 적용하며 현재 version은 2입니다.
+- migration은 `PRAGMA user_version`을 기준으로 순서대로 적용하며 현재 version은 4입니다.
 - UI component에는 SQL이나 DB column 이름이 노출되지 않습니다.
 
 ### M2 Photo lifecycle
@@ -155,6 +155,25 @@ AvatarScreen
   성공한 persisted config로 rollback해 빠른 연속 선택에도 DB와 UI가 엇갈리지 않습니다.
 - 저장 ID가 Catalog에서 사라지면 resolver가 해당 slot만 default로 복구하고, 초기 load가
   복구된 config를 다시 저장합니다.
+
+## M6 Personalization bootstrap
+
+```text
+DatabaseProvider
+  → PersonalizationRepository → PersonalizationProvider
+    → ThemeProvider(selectedThemeId)
+      → MoodPackProvider(selectedMoodPackId)
+        → Router와 feature screens
+```
+
+- Native는 `personalization_settings`의 `singleton_key = 'current'` 한 행에 Theme과 Mood
+  Pack semantic ID를 저장하고 Web은 하나의 localStorage key를 사용합니다.
+- 초기 설정을 resolve하기 전에는 Router를 렌더하지 않습니다. 잘못된 ID는 Sky와
+  Default Pack으로 독립 fallback됩니다.
+- 선택은 optimistic apply 후 순차 저장하며 최신 저장 실패 시 마지막 persisted
+  settings로 rollback합니다.
+- MoodPackProvider만 active pack을 알고 화면은 semantic Mood ID를 그대로 전달합니다.
+  Diary row는 pack 변경과 무관합니다.
 
 ## 확장 경계
 

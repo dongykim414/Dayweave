@@ -1,7 +1,7 @@
 import { Image } from "react-native";
 
 import type { MoodId } from "@/features/mood/mood.types";
-import { resolveMood } from "@/features/mood/moodPackRegistry";
+import { useMoodPack } from "@/features/mood/MoodPackProvider";
 import { AppText } from "@/shared/components";
 
 interface MoodVisualProps {
@@ -10,6 +10,7 @@ interface MoodVisualProps {
 }
 
 export function MoodVisual({ moodId, size = 24 }: MoodVisualProps) {
+  const { resolveMood } = useMoodPack();
   const mood = resolveMood(moodId);
 
   if (mood.visual.type === "image") {

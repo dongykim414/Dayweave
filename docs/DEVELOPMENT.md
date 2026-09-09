@@ -48,7 +48,7 @@ M1부터 Jest와 `jest-expo`로 순수 domain, 날짜, Mood registry와 DB row m
 ## 저장소와 플랫폼별 개발
 
 - Android/iOS DB 이름: `dayweave.db`
-- Android/iOS schema version: `PRAGMA user_version = 3`
+- Android/iOS schema version: `PRAGMA user_version = 4`
 - Expo CLI에서 `Shift + M` 후 expo-sqlite inspector를 선택하면 연결된 앱 DB를
   확인할 수 있습니다.
 - Web은 `LocalStorageDiaryRepository`를 사용합니다. 이는 브라우저 미리보기용
@@ -81,6 +81,10 @@ M1부터 Jest와 `jest-expo`로 순수 domain, 날짜, Mood registry와 DB row m
   screen이나 renderer에 item ID 조건문을 추가하지 않습니다.
 - Placeholder/최종 asset 제작 규칙과 layer order는 `AVATAR_ASSET_GUIDE.md`를 따릅니다.
 - 실제 Android DB row·재실행·layer 육안 검증은 요청에 따라 MVP 통합 QA 때 수행합니다.
+- Theme과 Mood Pack 선택은 `personalization_settings` 한 행에 저장합니다. 새 Theme은
+  definition+Catalog, 새 Mood Pack은 pack+Catalog 등록으로 전역 화면에 적용합니다.
+- 실제 Android의 v3→v4 migration, 재실행 복원과 빠른 연속 선택은 MVP 통합 QA에서
+  확인합니다.
 
 ## PR과 Release
 

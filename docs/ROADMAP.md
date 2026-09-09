@@ -36,11 +36,13 @@ Catalog·Ownership·Selection, Hair/Top/Bottom/Accessory 선택, 6단계 layered
 single-row persistence를 구현했습니다. 실제 Android 수동 검증은 MVP 직전 통합 QA에서
 M2~M5 항목과 함께 수행합니다. Theme과 Mood Pack 선택은 후속 작업입니다.
 
-## M6 Quality
+## M6 Personalization — 구현 완료, MVP 통합 QA 대기
 
-단위·컴포넌트·핵심 E2E, 오류 처리, 접근성, 사진 성능과 실제 기기 QA를 강화합니다.
+Me 화면, 세 가지 Theme과 두 가지 Mood Pack의 Catalog·Ownership·Selection, 앱 전체
+즉시 적용과 single-row persistence를 구현했습니다. 실제 Android 수동 검증은 MVP
+통합 QA에서 수행합니다.
 
-## M7 이후
+## M7 Quality 및 이후
 
 Supabase 기반 백업·동기화, Catalog/Ownership/Selection, RevenueCat 결제, 일정·SNS·기기
 연동, 선택 일정 공유, AI 보조 기능을 각각 독립적인 검증 단위로 진행합니다.

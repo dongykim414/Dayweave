@@ -3,7 +3,7 @@ import { Pressable, StyleSheet, View } from "react-native";
 import { MoodVisual } from "@/features/mood/components/MoodVisual";
 import { MOOD_IDS } from "@/features/mood/mood.types";
 import type { MoodId } from "@/features/mood/mood.types";
-import { resolveMood } from "@/features/mood/moodPackRegistry";
+import { useMoodPack } from "@/features/mood/MoodPackProvider";
 import { useTheme } from "@/features/theme";
 import { AppText } from "@/shared/components";
 
@@ -13,6 +13,7 @@ interface MoodSelectorProps {
 }
 
 export function MoodSelector({ onChange, value }: MoodSelectorProps) {
+  const { resolveMood } = useMoodPack();
   const { theme } = useTheme();
 
   return (
